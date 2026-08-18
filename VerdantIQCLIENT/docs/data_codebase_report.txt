@@ -1,0 +1,97 @@
+# VerdantIQ Data Codebase & API Endpoints Report
+
+## 1. System Architecture Overview
+
+VerdantIQ is built as a Next.js Client Application that acts as the frontend, interfacing with a microservices ecosystem on the backend. The core data flow and logic revolve around three main components:
+
+1.  **Next.js Client Application (Frontend)**: Handles the UI, state management, and user interactions. It uses a centralized API client (`apiClient`) to make requests to the backend.
+2.  **Spring Boot API Gateway (Backend - Port 8080)**: The primary gateway and authentication broker. It acts as the main database owner for MongoDB (handling Users, Tenants, Institutions, Departments, Audit Logs, etc.). It manages RBAC (Role-Based Access Control) using Firebase Custom Claims.
+3.  **FastAPI ML Service (Backend - Port 8000)**: A high-performance asynchronous Python service dedicated to machine learning operations, such as EUI forecasting, anomaly detection, MILP load optimization, and MLOps model registry. Some requests meant for this service are proxied through the Spring Boot Gateway for security and RBAC validation.
+
+## 2. Database Connectivity & Authentication
+
+### 2.1. MongoDB (`lib/mongodb.ts`)
+The application uses MongoDB as its primary persistence layer.
+*   **Connection Management**: Implements a singleton pattern with connection caching specifically tailored for Next.js development environments to prevent connection leaks across hot reloads.
+*   **Initialization**: Uses `MongoClient` from the `mongodb` package, expecting a `MONGODB_URI` environment variable.
+
+### 2.2. Firebase (`lib/firebase.ts`)
+Firebase is used strictly for authentication and identity management.
+*   **Configuration**: Initialized using environment variables (`NEXT_PUBLIC_FIREBASE_API_KEY`, etc.).
+*   **Providers**: Configured with Google Authentication (`GoogleAuthProvider`) and Microsoft/Outlook OAuth (`OAuthProvider` for `microsoft.com`).
+*   **Role Management**: Authentication relies on Firebase ID tokens, which are verified by the Spring Boot Gateway. The token's custom claims define the user's role (e.g., `platform_admin`, `student`, `institution_admin`) and their scope (e.g., `tenant_id`, `dept_id`).
+
+## 3. Data Code Flow & Services Layer
+
+The frontend avoids direct backend calls inside components. Instead, it uses a structured service layer (`lib/services/`) and a centralized API registry (`lib/api/endpoints.ts`).
+
+### 3.1. Data Services (`lib/services/`)
+This directory contains individual service files (e.g., `userDataService.ts`, `deptService.ts`, `institutionService.ts`). 
+*   **Purpose**: They define the core TypeScript interfaces (e.g., `DigitalTwinHouse`, `ForecastDataPoint`, `OptimizationAction`) that map to the backend's data structures.
+*   **Fallback Mechanism**: The services implement robust fallback logic. They generate realistic mock data (like `generate30DayForecast()`) or return hardcoded data models when the backend microservices are offline. This ensures the frontend remains functional and can be developed independently of the backend.
+
+### 3.2. API Client & Endpoints (`lib/api/endpoints.ts` & `lib/api/client.ts`)
+*   **`client.ts`**: Contains the `apiClient` utility, which acts as a wrapper around the native `fetch` API. It handles injecting the Firebase Auth token into the headers, managing target service URLs (Gateway vs. ML service), and gracefully catching errors to trigger the fallback mechanisms defined in the services.
+*   **`endpoints.ts`**: A massive registry of all available API calls grouped by domain (e.g., `authApi`, `userApi`, `studentApi`, `deptApi`, `institutionApi`, `regionApi`). 
+*   **React Hooks**: Provides custom hooks like `useApiQuery` and `useApiMutation` for React components to easily fetch data or execute mutations while tracking loading and error states.
+
+## 4. Comprehensive List of Endpoints
+
+Below is a detailed breakdown of the available API endpoints as defined in the `API_CONTRACT.md` and `endpoints.ts`.
+
+### 4.1. Authentication API (`/api/v1/auth/*`)
+*   `POST /send-otp`: Dispatches an OTP verification code via email (Public).
+*   `POST /verify-otp`: Verifies the provided OTP code.
+*   `POST /login`: Authenticates a user with email and password.
+*   `POST /sync-user`: Syncs the authenticated Firebase user profile with the MongoDB database.
+*   `GET /me`: Retrieves the current authenticated user's profile and RBAC claims.
+
+### 4.2. Resident & Household API (`/api/v1/user/*`)
+Target Audience: Standard users and households.
+*   `GET /dashboard`: Retrieves aggregated metrics (monthly kWh, carbon, savings, eco points).
+*   `GET /digital-twin`: Fetches the `DigitalTwinHouse` configuration.
+*   `PUT /digital-twin`: Updates the household configuration.
+*   `GET /forecast`: Proxies to the FastAPI ML service for 30-day energy consumption forecasts.
+*   `GET /optimization-actions`: Proxies to ML service for actionable energy-saving recommendations.
+*   `GET /devices`: Retrieves a list of linked IoT devices (Smart Meters, Inverters).
+*   `GET /reports`, `GET /rewards`, `GET /history`, `GET /goals`, `PUT /goals`: Standard CRUD and retrieval endpoints for user engagement data.
+
+### 4.3. Student API (`/api/v1/student/*`)
+Target Audience: University students scoped to specific campuses/dorms.
+*   `GET /dashboard`: Student-specific dashboard metrics.
+*   `GET /digital-twin`, `PUT /digital-twin`: Manages the `DigitalTwinDorm` profile.
+*   `GET /academic-projects`: Fetches student research and energy projects.
+*   `GET /challenges`: Retrieves geofenced campus energy challenges.
+*   `GET /community`: Fetches leaderboard and forum data.
+*   `GET /forecast`, `GET /optimization-actions`: ML-driven forecasting and recommendations for dorms.
+*   `POST /register`: Onboards a new student into the system.
+
+### 4.4. Department Admin API (`/api/v1/dept/*`)
+Target Audience: Department-level administrators.
+*   `GET /dashboard`: Aggregated department metrics.
+*   `GET /verification-queue`, `POST /verification-queue/{id}/process`: Workflow for reviewing and approving energy logs/submissions.
+*   `GET /escalations`, `POST /escalations/{id}/resolve`: Incident management.
+*   `GET /members`, `POST /members`, `DELETE /members/{id}`: Department staff management.
+*   `GET /students`, `GET /onboarding-requests`, `POST /onboarding-requests/{id}/process`: Student registry and approval workflow.
+
+### 4.5. Institution Admin API (`/api/v1/institution/*`)
+Target Audience: University or large facility administrators.
+*   `GET /dashboard`: High-level institution metrics.
+*   `GET /departments`, `POST /departments`: Sub-department management.
+*   `GET /geofence`, `POST /geofence`: Manages geographical boundaries for campus challenges.
+*   `GET /analytics`: Deep dive analytics.
+*   `GET /milp-scenarios`: Proxies to FastAPI ML for Mixed-Integer Linear Programming load optimization scenarios.
+*   `GET /xgboost-kpi-suggestions`, `GET /anomaly-trends`: AI-driven insights from the ML service.
+*   `GET /accepted-domains`: Email domains allowed for automatic student onboarding.
+
+### 4.6. Regional & State Governance API (`/api/v1/region/*`)
+Target Audience: State or Regional oversight bodies.
+*   `GET /institutions`, `GET /states/{stateId}/institutions`: Tracks registered institutions across a state.
+*   `GET /states/{stateId}/households`, `POST /states/{stateId}/households`: Tracks and registers public households.
+*   `GET /states/{stateId}/aggregate`: Retrieves macro-level state aggregates (total savings, aggregate EUI) without exposing raw PII data.
+*   `GET /tenant-requests`, `POST /tenant-requests/{id}/approve`, `POST /tenant-requests/{id}/reject`: Accreditation workflow for new institutions.
+*   `GET /policy-config`, `PUT /policy-config`: State-level policy configurations.
+*   `GET /growth-trend`, `GET /benchmarks`: Macro-level analytical trends.
+
+## 5. Summary
+The VerdantIQ data codebase is highly modular and typed. It relies on a strong contract (`API_CONTRACT.md`) that enforces Role-Based Access Control via Firebase and routes data efficiently between a Spring Boot Gateway (for standard relational/NoSQL CRUD) and a FastAPI service (for intensive ML workloads). The frontend is protected against backend outages through a comprehensive fallback layer implemented within `lib/services/`.

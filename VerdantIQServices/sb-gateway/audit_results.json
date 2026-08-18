@@ -1,0 +1,1109 @@
+[
+  {
+    "endpoint": "POST /api/v1/auth/send-otp",
+    "method": "POST",
+    "path": "/api/v1/auth/send-otp",
+    "controller": "AuthController.java",
+    "line": 18,
+    "body": "    @PostMapping(\"/send-otp\")\n    public ResponseEntity<?> sendOtp(@RequestBody SendOtpRequest request) {\n        return ResponseEntity.ok(authService.sendOtp(request));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/auth/verify-otp",
+    "method": "POST",
+    "path": "/api/v1/auth/verify-otp",
+    "controller": "AuthController.java",
+    "line": 23,
+    "body": "    @PostMapping(\"/verify-otp\")\n    public ResponseEntity<?> verifyOtp(@RequestBody VerifyOtpRequest request) {\n        return ResponseEntity.ok(authService.verifyOtp(request));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/auth/login",
+    "method": "POST",
+    "path": "/api/v1/auth/login",
+    "controller": "AuthController.java",
+    "line": 28,
+    "body": "    @PostMapping(\"/login\")\n    public ResponseEntity<?> login(@RequestBody LoginRequest request) {\n        return ResponseEntity.ok(authService.login(request));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/auth/sync-user",
+    "method": "POST",
+    "path": "/api/v1/auth/sync-user",
+    "controller": "AuthController.java",
+    "line": 33,
+    "body": "    @PostMapping(\"/sync-user\")\n    public ResponseEntity<?> syncUser(@RequestBody SyncUserRequest request) {\n        return ResponseEntity.ok(authService.syncUser(request));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/auth/me",
+    "method": "GET",
+    "path": "/api/v1/auth/me",
+    "controller": "AuthController.java",
+    "line": 38,
+    "body": "    @GetMapping(\"/me\")\n    public ResponseEntity<?> getMe() {\n        return ResponseEntity.ok(authService.getMe());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/dashboard",
+    "method": "GET",
+    "path": "/api/v1/user/dashboard",
+    "controller": "UserController.java",
+    "line": 24,
+    "body": "    @GetMapping(\"/dashboard\")\n    public ResponseEntity<?> getDashboard() {\n        return ResponseEntity.ok(userService.getDashboard());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/digital-twin",
+    "method": "GET",
+    "path": "/api/v1/user/digital-twin",
+    "controller": "UserController.java",
+    "line": 29,
+    "body": "    @GetMapping(\"/digital-twin\")\n    public ResponseEntity<?> getDigitalTwin() {\n        DigitalTwinHouse house = userService.getDigitalTwin();\n        if (house == null) {\n            return ResponseEntity.notFound().build();\n        }\n        return ResponseEntity.ok(house);\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/user/digital-twin",
+    "method": "PUT",
+    "path": "/api/v1/user/digital-twin",
+    "controller": "UserController.java",
+    "line": 38,
+    "body": "    @PutMapping(\"/digital-twin\")\n    public ResponseEntity<?> updateDigitalTwin(@RequestBody DigitalTwinHouse house) {\n        return ResponseEntity.ok(userService.updateDigitalTwin(house));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/forecast",
+    "method": "GET",
+    "path": "/api/v1/user/forecast",
+    "controller": "UserController.java",
+    "line": 74,
+    "body": "    @GetMapping(\"/forecast\")\n    public ResponseEntity<String> getForecast(HttpServletRequest request) {\n        java.util.List<ActivityLog> history = userService.getHistory();\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"history\", history);\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/user/forecast\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/optimization-actions",
+    "method": "GET",
+    "path": "/api/v1/user/optimization-actions",
+    "controller": "UserController.java",
+    "line": 82,
+    "body": "    @GetMapping(\"/optimization-actions\")\n    public ResponseEntity<String> getOptimizationActions(HttpServletRequest request) {\n        DigitalTwinHouse twin = userService.getDigitalTwin();\n        java.util.List<java.util.Map<String, Object>> candidates = new java.util.ArrayList<>();\n        \n        if (twin != null) {\n            if (Boolean.TRUE.equals(twin.getEvCharger())) {\n                candidates.add(java.util.Map.of(\n                    \"id\", \"opt-ev-1\", \"title\", \"Shift EV Charging to Super Off-Peak\", \"category\", \"EV Charging\",\n                    \"description\", \"Charge vehicle between 01:00 - 05:00\", \"base_carbon_delta\", -4.2,\n                    \"base_cost_delta\", -3.50, \"base_ease_score\", 95, \"base_eco_points\", 150\n                ));\n            }\n            if (Boolean.TRUE.equals(twin.getHeatPump())) {\n                candidates.add(java.util.Map.of(\n                    \"id\", \"opt-hp-1\", \"title\", \"Pre-cool House Before Peak\", \"category\", \"HVAC\",\n                    \"description\", \"Lower thermostat by 2 degrees before 4 PM\", \"base_carbon_delta\", -1.8,\n                    \"base_cost_delta\", -1.20, \"base_ease_score\", 80, \"base_eco_points\", 50\n                ));\n            }\n        }\n        candidates.add(java.util.Map.of(\n            \"id\", \"opt-lights-1\", \"title\", \"Dim smart lights during peak\", \"category\", \"Lighting\",\n            \"description\", \"Reduce lighting brightness to 50%\", \"base_carbon_delta\", -0.5,\n            \"base_cost_delta\", -0.30, \"base_ease_score\", 100, \"base_eco_points\", 20\n        ));\n\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"weights\", java.util.Map.of(\"cost\", 1.0, \"carbon\", 1.0, \"comfort\", 1.0));\n        payload.put(\"max_actions\", 5);\n        payload.put(\"candidates\", candidates);\n\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/user/optimization-actions\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/devices",
+    "method": "GET",
+    "path": "/api/v1/user/devices",
+    "controller": "UserController.java",
+    "line": 43,
+    "body": "    @GetMapping(\"/devices\")\n    public ResponseEntity<?> getDevices() {\n        return ResponseEntity.ok(userService.getDevices());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/reports",
+    "method": "GET",
+    "path": "/api/v1/user/reports",
+    "controller": "UserController.java",
+    "line": 48,
+    "body": "    @GetMapping(\"/reports\")\n    public ResponseEntity<List<UserReport>> getReports() {\n        return ResponseEntity.ok(userService.getReports());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/rewards",
+    "method": "GET",
+    "path": "/api/v1/user/rewards",
+    "controller": "UserController.java",
+    "line": 53,
+    "body": "    @GetMapping(\"/rewards\")\n    public ResponseEntity<List<RewardItem>> getRewards() {\n        return ResponseEntity.ok(userService.getRewards());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/history",
+    "method": "GET",
+    "path": "/api/v1/user/history",
+    "controller": "UserController.java",
+    "line": 58,
+    "body": "    @GetMapping(\"/history\")\n    public ResponseEntity<List<ActivityLog>> getHistory() {\n        return ResponseEntity.ok(userService.getHistory());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/user/goals",
+    "method": "GET",
+    "path": "/api/v1/user/goals",
+    "controller": "UserController.java",
+    "line": 63,
+    "body": "    @GetMapping(\"/goals\")\n    public ResponseEntity<List<UserGoal>> getGoals() {\n        return ResponseEntity.ok(userService.getGoals());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/user/goals",
+    "method": "PUT",
+    "path": "/api/v1/user/goals",
+    "controller": "UserController.java",
+    "line": 68,
+    "body": "    @PutMapping(\"/goals\")\n    public ResponseEntity<List<UserGoal>> updateGoals(@RequestBody List<UserGoal> goals) {\n        return ResponseEntity.ok(userService.updateGoals(goals));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/dashboard",
+    "method": "GET",
+    "path": "/api/v1/student/dashboard",
+    "controller": "StudentController.java",
+    "line": 31,
+    "body": "    @GetMapping(\"/dashboard\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<StudentDashboardData> getDashboard() {\n        return ResponseEntity.ok(studentService.getDashboard());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/digital-twin",
+    "method": "GET",
+    "path": "/api/v1/student/digital-twin",
+    "controller": "StudentController.java",
+    "line": 37,
+    "body": "    @GetMapping(\"/digital-twin\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<DigitalTwinDorm> getDigitalTwin() {\n        return ResponseEntity.ok(studentService.getDigitalTwin());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/student/digital-twin",
+    "method": "PUT",
+    "path": "/api/v1/student/digital-twin",
+    "controller": "StudentController.java",
+    "line": 43,
+    "body": "    @PutMapping(\"/digital-twin\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<DigitalTwinDorm> updateDigitalTwin(@RequestBody DigitalTwinDorm dorm) {\n        return ResponseEntity.ok(studentService.updateDigitalTwin(dorm));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/academic-projects",
+    "method": "GET",
+    "path": "/api/v1/student/academic-projects",
+    "controller": "StudentController.java",
+    "line": 49,
+    "body": "    @GetMapping(\"/academic-projects\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<List<AcademicProject>> getAcademicProjects() {\n        return ResponseEntity.ok(studentService.getAcademicProjects());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/challenges",
+    "method": "GET",
+    "path": "/api/v1/student/challenges",
+    "controller": "StudentController.java",
+    "line": 55,
+    "body": "    @GetMapping(\"/challenges\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<List<GeofencedChallenge>> getChallenges() {\n        return ResponseEntity.ok(studentService.getChallenges());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/community",
+    "method": "GET",
+    "path": "/api/v1/student/community",
+    "controller": "StudentController.java",
+    "line": 61,
+    "body": "    @GetMapping(\"/community\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<CommunityData> getCommunityData() {\n        return ResponseEntity.ok(studentService.getCommunityData());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/forecast",
+    "method": "GET",
+    "path": "/api/v1/student/forecast",
+    "controller": "StudentController.java",
+    "line": 80,
+    "body": "    @GetMapping(\"/forecast\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<String> getForecast(HttpServletRequest request) {\n        java.util.List<ActivityLog> history = studentService.getHistory();\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"history\", history);\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/student/forecast\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/optimization-actions",
+    "method": "GET",
+    "path": "/api/v1/student/optimization-actions",
+    "controller": "StudentController.java",
+    "line": 89,
+    "body": "    @GetMapping(\"/optimization-actions\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<String> getOptimizationActions(HttpServletRequest request) {\n        java.util.List<java.util.Map<String, Object>> candidates = new java.util.ArrayList<>();\n        \n        candidates.add(java.util.Map.of(\n            \"id\", \"opt-dorm-1\", \"title\", \"Power Down Unused Dorm Electronics\", \"category\", \"Power Management\",\n            \"description\", \"Turn off electronics not in use during daytime.\", \"base_carbon_delta\", -0.8,\n            \"base_cost_delta\", -0.50, \"base_ease_score\", 90, \"base_eco_points\", 30\n        ));\n        \n        candidates.add(java.util.Map.of(\n            \"id\", \"opt-dorm-2\", \"title\", \"Join Energy Saving Challenge\", \"category\", \"Community\",\n            \"description\", \"Participate in the dorm-wide energy reduction challenge.\", \"base_carbon_delta\", -2.0,\n            \"base_cost_delta\", -1.50, \"base_ease_score\", 85, \"base_eco_points\", 100\n        ));\n\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"weights\", java.util.Map.of(\"cost\", 1.0, \"carbon\", 1.0, \"comfort\", 1.0));\n        payload.put(\"max_actions\", 3);\n        payload.put(\"candidates\", candidates);\n\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/student/optimization-actions\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/rewards",
+    "method": "GET",
+    "path": "/api/v1/student/rewards",
+    "controller": "StudentController.java",
+    "line": 67,
+    "body": "    @GetMapping(\"/rewards\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<List<RewardItem>> getRewards() {\n        return ResponseEntity.ok(studentService.getRewards());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/student/history",
+    "method": "GET",
+    "path": "/api/v1/student/history",
+    "controller": "StudentController.java",
+    "line": 73,
+    "body": "    @GetMapping(\"/history\")\n    @PreAuthorize(\"hasRole('STUDENT')\")\n    public ResponseEntity<List<ActivityLog>> getHistory() {\n        return ResponseEntity.ok(studentService.getHistory());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/student/register",
+    "method": "POST",
+    "path": "/api/v1/student/register",
+    "controller": "StudentController.java",
+    "line": 25,
+    "body": "    @PostMapping(\"/register\")\n    @PreAuthorize(\"isAuthenticated()\")\n    public ResponseEntity<RegistrationResponse> register(@RequestBody StudentRegistrationRequest request) {\n        return ResponseEntity.ok(studentService.register(request));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/dashboard",
+    "method": "GET",
+    "path": "/api/v1/dept/dashboard",
+    "controller": "DeptController.java",
+    "line": 19,
+    "body": "    @GetMapping(\"/dashboard\")\n    public ResponseEntity<DeptDashboardData> getDashboard() {\n        return ResponseEntity.ok(deptService.getDashboard());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/verification-queue",
+    "method": "GET",
+    "path": "/api/v1/dept/verification-queue",
+    "controller": "DeptController.java",
+    "line": 24,
+    "body": "    @GetMapping(\"/verification-queue\")\n    public ResponseEntity<List<VerificationItem>> getVerificationQueue() {\n        return ResponseEntity.ok(deptService.getVerificationQueue());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/dept/verification-queue/{id}/process",
+    "method": "POST",
+    "path": "/api/v1/dept/verification-queue/{id}/process",
+    "controller": "DeptController.java",
+    "line": 29,
+    "body": "    @PostMapping(\"/verification-queue/{id}/process\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/escalations",
+    "method": "GET",
+    "path": "/api/v1/dept/escalations",
+    "controller": "DeptController.java",
+    "line": 34,
+    "body": "    @GetMapping(\"/escalations\")\n    public ResponseEntity<List<EscalationCase>> getEscalations() {\n        return ResponseEntity.ok(deptService.getEscalations());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/dept/escalations/{id}/resolve",
+    "method": "POST",
+    "path": "/api/v1/dept/escalations/{id}/resolve",
+    "controller": "DeptController.java",
+    "line": 39,
+    "body": "    @PostMapping(\"/escalations/{id}/resolve\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/members",
+    "method": "GET",
+    "path": "/api/v1/dept/members",
+    "controller": "DeptController.java",
+    "line": 44,
+    "body": "    @GetMapping(\"/members\")\n    public ResponseEntity<List<DeptMember>> getMembers() {\n        return ResponseEntity.ok(deptService.getMembers());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/dept/members",
+    "method": "POST",
+    "path": "/api/v1/dept/members",
+    "controller": "DeptController.java",
+    "line": 49,
+    "body": "    @PostMapping(\"/members\")\n    public ResponseEntity<DeptMember> addMember(@RequestBody DeptMember member) {\n        return ResponseEntity.ok(deptService.addMember(member));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "DELETE /api/v1/dept/members/{id}",
+    "method": "DELETE",
+    "path": "/api/v1/dept/members/{id}",
+    "controller": "DeptController.java",
+    "line": 54,
+    "body": "    @DeleteMapping(\"/members/{id}\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/students",
+    "method": "GET",
+    "path": "/api/v1/dept/students",
+    "controller": "DeptController.java",
+    "line": 60,
+    "body": "    @GetMapping(\"/students\")\n    public ResponseEntity<List<StudentRegistryRecord>> getStudents() {\n        return ResponseEntity.ok(deptService.getStudents());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/onboarding-requests",
+    "method": "GET",
+    "path": "/api/v1/dept/onboarding-requests",
+    "controller": "DeptController.java",
+    "line": 65,
+    "body": "    @GetMapping(\"/onboarding-requests\")\n    public ResponseEntity<List<OnboardingRequest>> getOnboardingRequests() {\n        return ResponseEntity.ok(deptService.getOnboardingRequests());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/dept/onboarding-requests/{id}/process",
+    "method": "POST",
+    "path": "/api/v1/dept/onboarding-requests/{id}/process",
+    "controller": "DeptController.java",
+    "line": 70,
+    "body": "    @PostMapping(\"/onboarding-requests/{id}/process\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/challenge-templates",
+    "method": "GET",
+    "path": "/api/v1/dept/challenge-templates",
+    "controller": "DeptController.java",
+    "line": 75,
+    "body": "    @GetMapping(\"/challenge-templates\")\n    public ResponseEntity<List<DeptChallengeTemplate>> getChallengeTemplates() {\n        return ResponseEntity.ok(deptService.getChallengeTemplates());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/audit-logs",
+    "method": "GET",
+    "path": "/api/v1/dept/audit-logs",
+    "controller": "DeptController.java",
+    "line": 80,
+    "body": "    @GetMapping(\"/audit-logs\")\n    public ResponseEntity<List<DeptAuditLog>> getAuditLogs() {\n        return ResponseEntity.ok(deptService.getAuditLogs());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/sub-cohorts",
+    "method": "GET",
+    "path": "/api/v1/dept/sub-cohorts",
+    "controller": "DeptController.java",
+    "line": 85,
+    "body": "    @GetMapping(\"/sub-cohorts\")\n    public ResponseEntity<List<SubCohort>> getSubCohorts() {\n        return ResponseEntity.ok(deptService.getSubCohorts());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/dept/trigger-settings",
+    "method": "GET",
+    "path": "/api/v1/dept/trigger-settings",
+    "controller": "DeptController.java",
+    "line": 90,
+    "body": "    @GetMapping(\"/trigger-settings\")\n    public ResponseEntity<DeptTriggerSettings> getTriggerSettings() {\n        return ResponseEntity.ok(deptService.getTriggerSettings());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/dept/trigger-settings",
+    "method": "PUT",
+    "path": "/api/v1/dept/trigger-settings",
+    "controller": "DeptController.java",
+    "line": 95,
+    "body": "    @PutMapping(\"/trigger-settings\")\n    public ResponseEntity<DeptTriggerSettings> updateTriggerSettings(@RequestBody DeptTriggerSettings settings) {\n        return ResponseEntity.ok(deptService.updateTriggerSettings(settings));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/dashboard",
+    "method": "GET",
+    "path": "/api/v1/institution/dashboard",
+    "controller": "InstitutionController.java",
+    "line": 27,
+    "body": "    @GetMapping(\"/dashboard\")\n    public ResponseEntity<InstitutionDashboardMetrics> getDashboard() {\n        return ResponseEntity.ok(institutionService.getDashboard());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/departments",
+    "method": "GET",
+    "path": "/api/v1/institution/departments",
+    "controller": "InstitutionController.java",
+    "line": 32,
+    "body": "    @GetMapping(\"/departments\")\n    public ResponseEntity<List<InstitutionDepartmentRecord>> getDepartments() {\n        return ResponseEntity.ok(institutionService.getDepartments());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/institution/departments",
+    "method": "POST",
+    "path": "/api/v1/institution/departments",
+    "controller": "InstitutionController.java",
+    "line": 37,
+    "body": "    @PostMapping(\"/departments\")\n    public ResponseEntity<InstitutionDepartmentRecord> addDepartment(@RequestBody InstitutionDepartmentRecord dept) {\n        return ResponseEntity.ok(institutionService.addDepartment(dept));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/challenges",
+    "method": "GET",
+    "path": "/api/v1/institution/challenges",
+    "controller": "InstitutionController.java",
+    "line": 42,
+    "body": "    @GetMapping(\"/challenges\")\n    public ResponseEntity<List<InstitutionChallenge>> getChallenges() {\n        return ResponseEntity.ok(institutionService.getChallenges());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/geofence",
+    "method": "GET",
+    "path": "/api/v1/institution/geofence",
+    "controller": "InstitutionController.java",
+    "line": 47,
+    "body": "    @GetMapping(\"/geofence\")\n    public ResponseEntity<List<GeofencePolygon>> getGeofences() {\n        return ResponseEntity.ok(institutionService.getGeofences());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/institution/geofence",
+    "method": "POST",
+    "path": "/api/v1/institution/geofence",
+    "controller": "InstitutionController.java",
+    "line": 52,
+    "body": "    @PostMapping(\"/geofence\")\n    public ResponseEntity<GeofencePolygon> updateGeofence(@RequestBody GeofencePolygon polygon) {\n        return ResponseEntity.ok(institutionService.updateGeofence(polygon));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/reports",
+    "method": "GET",
+    "path": "/api/v1/institution/reports",
+    "controller": "InstitutionController.java",
+    "line": 57,
+    "body": "    @GetMapping(\"/reports\")\n    public ResponseEntity<List<InstitutionReport>> getReports() {\n        return ResponseEntity.ok(institutionService.getReports());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/analytics",
+    "method": "GET",
+    "path": "/api/v1/institution/analytics",
+    "controller": "InstitutionController.java",
+    "line": 76,
+    "body": "    @GetMapping(\"/analytics\")\n    public ResponseEntity<InstitutionAnalyticsData> getAnalytics() {\n        return ResponseEntity.ok(institutionService.getAnalytics());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/settings",
+    "method": "GET",
+    "path": "/api/v1/institution/settings",
+    "controller": "InstitutionController.java",
+    "line": 81,
+    "body": "    @GetMapping(\"/settings\")\n    public ResponseEntity<InstitutionSettings> getSettings() {\n        return ResponseEntity.ok(institutionService.getSettings());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/milp-scenarios",
+    "method": "GET",
+    "path": "/api/v1/institution/milp-scenarios",
+    "controller": "InstitutionController.java",
+    "line": 115,
+    "body": "    @GetMapping(\"/milp-scenarios\")\n    public ResponseEntity<String> getMilpScenarios(HttpServletRequest request) {\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"weights\", java.util.Map.of(\"cost\", 1.0, \"carbon\", 1.0, \"comfort\", 1.0));\n        payload.put(\"max_actions_per_household\", 3);\n        \n        java.util.Map<String, java.util.List<java.util.Map<String, Object>>> households = new java.util.HashMap<>();\n        java.util.List<java.util.Map<String, Object>> candidates = new java.util.ArrayList<>();\n        candidates.add(java.util.Map.of(\n            \"id\", \"opt-inst-1\", \"title\", \"HVAC Load Balancing\", \"category\", \"HVAC\",\n            \"description\", \"Balance HVAC load across campus.\", \"base_carbon_delta\", -10.0,\n            \"base_cost_delta\", -15.00, \"base_ease_score\", 60, \"base_eco_points\", 500\n        ));\n        households.put(\"default-tenant-hh\", candidates);\n        payload.put(\"households\", households);\n\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/institution/milp-scenarios\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/escalation-resolutions",
+    "method": "GET",
+    "path": "/api/v1/institution/escalation-resolutions",
+    "controller": "InstitutionController.java",
+    "line": 86,
+    "body": "    @GetMapping(\"/escalation-resolutions\")\n    public ResponseEntity<List<EscalationResolution>> getEscalationResolutions() {\n        return ResponseEntity.ok(institutionService.getEscalationResolutions());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/challenge-approvals",
+    "method": "GET",
+    "path": "/api/v1/institution/challenge-approvals",
+    "controller": "InstitutionController.java",
+    "line": 91,
+    "body": "    @GetMapping(\"/challenge-approvals\")\n    public ResponseEntity<List<ChallengeApprovalItem>> getChallengeApprovals() {\n        return ResponseEntity.ok(institutionService.getChallengeApprovals());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/xgboost-kpi-suggestions",
+    "method": "GET",
+    "path": "/api/v1/institution/xgboost-kpi-suggestions",
+    "controller": "InstitutionController.java",
+    "line": 134,
+    "body": "    @GetMapping(\"/xgboost-kpi-suggestions\")\n    public ResponseEntity<String> getXgboostKpiSuggestions(HttpServletRequest request) {\n        // MLPayloadRequest shape\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"history\", new java.util.ArrayList<>());\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/institution/xgboost-kpi-suggestions\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/executive-report-schedules",
+    "method": "GET",
+    "path": "/api/v1/institution/executive-report-schedules",
+    "controller": "InstitutionController.java",
+    "line": 96,
+    "body": "    @GetMapping(\"/executive-report-schedules\")\n    public ResponseEntity<List<ExecutiveReportSchedule>> getExecutiveReportSchedules() {\n        return ResponseEntity.ok(institutionService.getExecutiveReportSchedules());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/anomaly-trends",
+    "method": "GET",
+    "path": "/api/v1/institution/anomaly-trends",
+    "controller": "InstitutionController.java",
+    "line": 142,
+    "body": "    @GetMapping(\"/anomaly-trends\")\n    public ResponseEntity<String> getAnomalyTrends(HttpServletRequest request) {\n        // MLPayloadRequest shape\n        java.util.Map<String, Object> payload = new java.util.HashMap<>();\n        payload.put(\"history\", new java.util.ArrayList<>());\n        return proxyService.proxyRequest(request, HttpMethod.POST, payload, \"/api/v1/institution/anomaly-trends\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/onboarding-funnel",
+    "method": "GET",
+    "path": "/api/v1/institution/onboarding-funnel",
+    "controller": "InstitutionController.java",
+    "line": 101,
+    "body": "    @GetMapping(\"/onboarding-funnel\")\n    public ResponseEntity<List<OnboardingFunnelStep>> getOnboardingFunnel() {\n        return ResponseEntity.ok(institutionService.getOnboardingFunnel());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/institution/accepted-domains",
+    "method": "GET",
+    "path": "/api/v1/institution/accepted-domains",
+    "controller": "InstitutionController.java",
+    "line": 106,
+    "body": "    @GetMapping(\"/accepted-domains\")\n    public ResponseEntity<List<String>> getAcceptedDomains() {\n        // Return just the string names to match the contract \"Array of string\"\n        return ResponseEntity.ok(institutionService.getAcceptedDomains().stream()\n                .map(AcceptedDomain::getName)\n                .collect(Collectors.toList()));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/institutions",
+    "method": "GET",
+    "path": "/api/v1/region/institutions",
+    "controller": "RegionController.java",
+    "line": 17,
+    "body": "    @GetMapping(\"/institutions\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<InstitutionRecord>> getInstitutions() {\n        return ResponseEntity.ok(regionService.getInstitutions(\"CURRENT_REGION_STUB\"));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/states/{stateId}/institutions",
+    "method": "GET",
+    "path": "/api/v1/region/states/{stateId}/institutions",
+    "controller": "RegionController.java",
+    "line": 23,
+    "body": "    @GetMapping(\"/states/{stateId}/institutions\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/states/{stateId}/households",
+    "method": "GET",
+    "path": "/api/v1/region/states/{stateId}/households",
+    "controller": "RegionController.java",
+    "line": 47,
+    "body": "    @GetMapping(\"/states/{stateId}/households\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/states/{stateId}/households",
+    "method": "POST",
+    "path": "/api/v1/region/states/{stateId}/households",
+    "controller": "RegionController.java",
+    "line": 53,
+    "body": "    @PostMapping(\"/states/{stateId}/households\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/states/{stateId}/aggregate",
+    "method": "GET",
+    "path": "/api/v1/region/states/{stateId}/aggregate",
+    "controller": "RegionController.java",
+    "line": 69,
+    "body": "    @GetMapping(\"/states/{stateId}/aggregate\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/tenant-requests",
+    "method": "GET",
+    "path": "/api/v1/region/tenant-requests",
+    "controller": "RegionController.java",
+    "line": 75,
+    "body": "    @GetMapping(\"/tenant-requests\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<TenantRequest>> getTenantRequests() {\n        return ResponseEntity.ok(regionService.getTenantRequests());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/tenant-requests/{requestId}/approve",
+    "method": "POST",
+    "path": "/api/v1/region/tenant-requests/{requestId}/approve",
+    "controller": "RegionController.java",
+    "line": 81,
+    "body": "    @PostMapping(\"/tenant-requests/{requestId}/approve\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/tenant-requests/{requestId}/reject",
+    "method": "POST",
+    "path": "/api/v1/region/tenant-requests/{requestId}/reject",
+    "controller": "RegionController.java",
+    "line": 87,
+    "body": "    @PostMapping(\"/tenant-requests/{requestId}/reject\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/challenge-templates",
+    "method": "GET",
+    "path": "/api/v1/region/challenge-templates",
+    "controller": "RegionController.java",
+    "line": 93,
+    "body": "    @GetMapping(\"/challenge-templates\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<SharedChallengeTemplate>> getChallengeTemplates() {\n        return ResponseEntity.ok(regionService.getChallengeTemplates());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/challenge-templates",
+    "method": "POST",
+    "path": "/api/v1/region/challenge-templates",
+    "controller": "RegionController.java",
+    "line": 99,
+    "body": "    @PostMapping(\"/challenge-templates\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<SharedChallengeTemplate> createChallengeTemplate(@RequestBody SharedChallengeTemplate template) {\n        return ResponseEntity.ok(regionService.createChallengeTemplate(template));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/domains",
+    "method": "GET",
+    "path": "/api/v1/region/domains",
+    "controller": "RegionController.java",
+    "line": 105,
+    "body": "    @GetMapping(\"/domains\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<DomainOversightRecord>> getDomains() {\n        return ResponseEntity.ok(regionService.getDomains());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/support-tickets",
+    "method": "GET",
+    "path": "/api/v1/region/support-tickets",
+    "controller": "RegionController.java",
+    "line": 111,
+    "body": "    @GetMapping(\"/support-tickets\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<SupportTicket>> getSupportTickets() {\n        return ResponseEntity.ok(regionService.getSupportTickets());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/support-tickets/{ticketId}/recommendations",
+    "method": "POST",
+    "path": "/api/v1/region/support-tickets/{ticketId}/recommendations",
+    "controller": "RegionController.java",
+    "line": 117,
+    "body": "    @PostMapping(\"/support-tickets/{ticketId}/recommendations\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/policy-config",
+    "method": "GET",
+    "path": "/api/v1/region/policy-config",
+    "controller": "RegionController.java",
+    "line": 123,
+    "body": "    @GetMapping(\"/policy-config\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<RegionalPolicyConfig> getPolicyConfig() {\n        return ResponseEntity.ok(regionService.getPolicyConfig());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/region/policy-config",
+    "method": "PUT",
+    "path": "/api/v1/region/policy-config",
+    "controller": "RegionController.java",
+    "line": 129,
+    "body": "    @PutMapping(\"/policy-config\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<RegionalPolicyConfig> updatePolicyConfig(@RequestBody RegionalPolicyConfig config) {\n        return ResponseEntity.ok(regionService.updatePolicyConfig(config));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/growth-trend",
+    "method": "GET",
+    "path": "/api/v1/region/growth-trend",
+    "controller": "RegionController.java",
+    "line": 135,
+    "body": "    @GetMapping(\"/growth-trend\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<GrowthTrendDataPoint>> getGrowthTrend() {\n        return ResponseEntity.ok(regionService.getGrowthTrend());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/region/benchmarks",
+    "method": "GET",
+    "path": "/api/v1/region/benchmarks",
+    "controller": "RegionController.java",
+    "line": 141,
+    "body": "    @GetMapping(\"/benchmarks\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<List<RegionalBenchmark>> getBenchmarks() {\n        return ResponseEntity.ok(regionService.getBenchmarks());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/region/institutions",
+    "method": "POST",
+    "path": "/api/v1/region/institutions",
+    "controller": "RegionController.java",
+    "line": 29,
+    "body": "    @PostMapping(\"/institutions\")\n    @PreAuthorize(\"hasRole('REGION_ADMIN')\")\n    public ResponseEntity<InstitutionRecord> addInstitution(@RequestBody InstitutionRecord record) {\n        return ResponseEntity.ok(regionService.addInstitution(record));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/region/institutions/{id}/status",
+    "method": "PUT",
+    "path": "/api/v1/region/institutions/{id}/status",
+    "controller": "RegionController.java",
+    "line": 35,
+    "body": "    @PutMapping(\"/institutions/{id}/status\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PATCH /api/v1/region/institutions/{id}/support-flag",
+    "method": "PATCH",
+    "path": "/api/v1/region/institutions/{id}/support-flag",
+    "controller": "RegionController.java",
+    "line": 41,
+    "body": "    @PatchMapping(\"/institutions/{id}/support-flag\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/tenant-requests",
+    "method": "GET",
+    "path": "/api/v1/admin/tenant-requests",
+    "controller": "AdminController.java",
+    "line": 20,
+    "body": "    @GetMapping(\"/tenant-requests\")\n    public ResponseEntity<List<TenantRequest>> getTenantRequests() {\n        return ResponseEntity.ok(adminService.getTenantRequests());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/rbac-schema",
+    "method": "GET",
+    "path": "/api/v1/admin/rbac-schema",
+    "controller": "AdminController.java",
+    "line": 25,
+    "body": "    @GetMapping(\"/rbac-schema\")\n    public ResponseEntity<List<RBACSchemaRole>> getRbacSchema() {\n        return ResponseEntity.ok(adminService.getRbacSchema());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/database-status",
+    "method": "GET",
+    "path": "/api/v1/admin/database-status",
+    "controller": "AdminController.java",
+    "line": 30,
+    "body": "    @GetMapping(\"/database-status\")\n    public ResponseEntity<DatabaseStatus> getDatabaseStatus() {\n        return ResponseEntity.ok(adminService.getDatabaseStatus());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/audit-logs",
+    "method": "GET",
+    "path": "/api/v1/admin/audit-logs",
+    "controller": "AdminController.java",
+    "line": 35,
+    "body": "    @GetMapping(\"/audit-logs\")\n    public ResponseEntity<List<AdminAuditLog>> getAuditLogs() {\n        return ResponseEntity.ok(adminService.getAuditLogs());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/access-grants",
+    "method": "GET",
+    "path": "/api/v1/admin/access-grants",
+    "controller": "AdminController.java",
+    "line": 40,
+    "body": "    @GetMapping(\"/access-grants\")\n    public ResponseEntity<List<AccessGrant>> getAccessGrants() {\n        return ResponseEntity.ok(adminService.getAccessGrants());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/feature-flags",
+    "method": "GET",
+    "path": "/api/v1/admin/feature-flags",
+    "controller": "AdminController.java",
+    "line": 45,
+    "body": "    @GetMapping(\"/feature-flags\")\n    public ResponseEntity<List<FeatureFlag>> getFeatureFlags() {\n        return ResponseEntity.ok(adminService.getFeatureFlags());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/rate-limits",
+    "method": "GET",
+    "path": "/api/v1/admin/rate-limits",
+    "controller": "AdminController.java",
+    "line": 50,
+    "body": "    @GetMapping(\"/rate-limits\")\n    public ResponseEntity<List<RateLimitRule>> getRateLimits() {\n        return ResponseEntity.ok(adminService.getRateLimits());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/broadcasts",
+    "method": "GET",
+    "path": "/api/v1/admin/broadcasts",
+    "controller": "AdminController.java",
+    "line": 55,
+    "body": "    @GetMapping(\"/broadcasts\")\n    public ResponseEntity<List<SystemBroadcast>> getBroadcasts() {\n        return ResponseEntity.ok(adminService.getBroadcasts());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/telemetry",
+    "method": "GET",
+    "path": "/api/v1/admin/telemetry",
+    "controller": "AdminController.java",
+    "line": 60,
+    "body": "    @GetMapping(\"/telemetry\")\n    public ResponseEntity<TelemetryData> getTelemetry() {\n        return ResponseEntity.ok(adminService.getTelemetry());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/admin/domains",
+    "method": "GET",
+    "path": "/api/v1/admin/domains",
+    "controller": "AdminController.java",
+    "line": 65,
+    "body": "    @GetMapping(\"/domains\")\n    public ResponseEntity<List<DomainOversightRecord>> getDomains() {\n        return ResponseEntity.ok(adminService.getDomains());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/models",
+    "method": "GET",
+    "path": "/api/v1/mlops/models",
+    "controller": "MlopsController.java",
+    "line": 19,
+    "body": "    @GetMapping(\"/models\")\n    public ResponseEntity<String> getModels(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/models\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/llm-gateway/routing-rules",
+    "method": "GET",
+    "path": "/api/v1/mlops/llm-gateway/routing-rules",
+    "controller": "MlopsController.java",
+    "line": 24,
+    "body": "    @GetMapping(\"/llm-gateway/routing-rules\")\n    public ResponseEntity<String> getRoutingRules(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/llm-gateway/routing-rules\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/milp-weights",
+    "method": "GET",
+    "path": "/api/v1/mlops/milp-weights",
+    "controller": "MlopsController.java",
+    "line": 29,
+    "body": "    @GetMapping(\"/milp-weights\")\n    public ResponseEntity<String> getMilpWeights(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/milp-weights\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/mlops/milp-weights",
+    "method": "PUT",
+    "path": "/api/v1/mlops/milp-weights",
+    "controller": "MlopsController.java",
+    "line": 34,
+    "body": "    @PutMapping(\"/milp-weights\")\n    public ResponseEntity<String> putMilpWeights(@RequestBody String body, HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.PUT, body, \"/api/v1/mlops/milp-weights\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/alert-rules",
+    "method": "GET",
+    "path": "/api/v1/mlops/alert-rules",
+    "controller": "MlopsController.java",
+    "line": 39,
+    "body": "    @GetMapping(\"/alert-rules\")\n    public ResponseEntity<String> getAlertRules(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/alert-rules\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/fastapi-config",
+    "method": "GET",
+    "path": "/api/v1/mlops/fastapi-config",
+    "controller": "MlopsController.java",
+    "line": 44,
+    "body": "    @GetMapping(\"/fastapi-config\")\n    public ResponseEntity<String> getFastApiConfig(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/fastapi-config\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/mlops/fastapi-config",
+    "method": "PUT",
+    "path": "/api/v1/mlops/fastapi-config",
+    "controller": "MlopsController.java",
+    "line": 49,
+    "body": "    @PutMapping(\"/fastapi-config\")\n    public ResponseEntity<String> putFastApiConfig(@RequestBody String body, HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.PUT, body, \"/api/v1/mlops/fastapi-config\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/retrain-schedule",
+    "method": "GET",
+    "path": "/api/v1/mlops/retrain-schedule",
+    "controller": "MlopsController.java",
+    "line": 54,
+    "body": "    @GetMapping(\"/retrain-schedule\")\n    public ResponseEntity<String> getRetrainSchedule(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/retrain-schedule\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PUT /api/v1/mlops/retrain-schedule",
+    "method": "PUT",
+    "path": "/api/v1/mlops/retrain-schedule",
+    "controller": "MlopsController.java",
+    "line": 59,
+    "body": "    @PutMapping(\"/retrain-schedule\")\n    public ResponseEntity<String> putRetrainSchedule(@RequestBody String body, HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.PUT, body, \"/api/v1/mlops/retrain-schedule\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/labeled-batches",
+    "method": "GET",
+    "path": "/api/v1/mlops/labeled-batches",
+    "controller": "MlopsController.java",
+    "line": 64,
+    "body": "    @GetMapping(\"/labeled-batches\")\n    public ResponseEntity<String> getLabeledBatches(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/labeled-batches\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/canary-deployments",
+    "method": "GET",
+    "path": "/api/v1/mlops/canary-deployments",
+    "controller": "MlopsController.java",
+    "line": 69,
+    "body": "    @GetMapping(\"/canary-deployments\")\n    public ResponseEntity<String> getCanaryDeployments(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/canary-deployments\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/pipeline-nodes",
+    "method": "GET",
+    "path": "/api/v1/mlops/pipeline-nodes",
+    "controller": "MlopsController.java",
+    "line": 74,
+    "body": "    @GetMapping(\"/pipeline-nodes\")\n    public ResponseEntity<String> getPipelineNodes(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/pipeline-nodes\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/experiments",
+    "method": "GET",
+    "path": "/api/v1/mlops/experiments",
+    "controller": "MlopsController.java",
+    "line": 79,
+    "body": "    @GetMapping(\"/experiments\")\n    public ResponseEntity<String> getExperiments(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/experiments\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/registry-diff",
+    "method": "GET",
+    "path": "/api/v1/mlops/registry-diff",
+    "controller": "MlopsController.java",
+    "line": 84,
+    "body": "    @GetMapping(\"/registry-diff\")\n    public ResponseEntity<String> getRegistryDiff(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/registry-diff\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/mlops/llm-gateway/config",
+    "method": "GET",
+    "path": "/api/v1/mlops/llm-gateway/config",
+    "controller": "MlopsController.java",
+    "line": 89,
+    "body": "    @GetMapping(\"/llm-gateway/config\")\n    public ResponseEntity<String> getLlmGatewayConfig(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/mlops/llm-gateway/config\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/overview",
+    "method": "GET",
+    "path": "/api/v1/audit/overview",
+    "controller": "AuditorController.java",
+    "line": 27,
+    "body": "    @GetMapping(\"/overview\")\n    public ResponseEntity<OverviewStats> getOverview() {\n        return ResponseEntity.ok(auditorService.getOverview());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/logs",
+    "method": "GET",
+    "path": "/api/v1/audit/logs",
+    "controller": "AuditorController.java",
+    "line": 32,
+    "body": "    @GetMapping(\"/logs\")\n    public ResponseEntity<List<RedactedAuditLog>> getLogs() {\n        return ResponseEntity.ok(auditorService.getRedactedLogs());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/requests",
+    "method": "GET",
+    "path": "/api/v1/audit/requests",
+    "controller": "AuditorController.java",
+    "line": 37,
+    "body": "    @GetMapping(\"/requests\")\n    public ResponseEntity<List<AuditRequest>> getRequests() {\n        return ResponseEntity.ok(auditorService.getRequests());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/domains",
+    "method": "GET",
+    "path": "/api/v1/audit/domains",
+    "controller": "AuditorController.java",
+    "line": 42,
+    "body": "    @GetMapping(\"/domains\")\n    public ResponseEntity<List<DomainOversightRecord>> getDomains() {\n        return ResponseEntity.ok(auditorService.getDomains());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/data-flow",
+    "method": "GET",
+    "path": "/api/v1/audit/data-flow",
+    "controller": "AuditorController.java",
+    "line": 47,
+    "body": "    @GetMapping(\"/data-flow\")\n    public ResponseEntity<List<DataFlowNode>> getDataFlow() {\n        return ResponseEntity.ok(auditorService.getDataFlow());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/model-cards",
+    "method": "GET",
+    "path": "/api/v1/audit/model-cards",
+    "controller": "AuditorController.java",
+    "line": 68,
+    "body": "    @GetMapping(\"/model-cards\")\n    public ResponseEntity<String> getModelCards(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/audit/model-cards\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/fairness-reports",
+    "method": "GET",
+    "path": "/api/v1/audit/fairness-reports",
+    "controller": "AuditorController.java",
+    "line": 73,
+    "body": "    @GetMapping(\"/fairness-reports\")\n    public ResponseEntity<String> getFairnessReports(HttpServletRequest request) {\n        return proxyService.proxyRequest(request, HttpMethod.GET, null, \"/api/v1/audit/fairness-reports\");\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/tenant-history",
+    "method": "GET",
+    "path": "/api/v1/audit/tenant-history",
+    "controller": "AuditorController.java",
+    "line": 52,
+    "body": "    @GetMapping(\"/tenant-history\")\n    public ResponseEntity<List<TenantHistoryEntry>> getTenantHistory() {\n        return ResponseEntity.ok(auditorService.getTenantHistory());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/export-config",
+    "method": "GET",
+    "path": "/api/v1/audit/export-config",
+    "controller": "AuditorController.java",
+    "line": 57,
+    "body": "    @GetMapping(\"/export-config\")\n    public ResponseEntity<ExportConfig> getExportConfig() {\n        return ResponseEntity.ok(auditorService.getExportConfig());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/audit/settings",
+    "method": "GET",
+    "path": "/api/v1/audit/settings",
+    "controller": "AuditorController.java",
+    "line": 62,
+    "body": "    @GetMapping(\"/settings\")\n    public ResponseEntity<AuditSettings> getSettings() {\n        return ResponseEntity.ok(auditorService.getSettings());\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/activity",
+    "method": "GET",
+    "path": "/api/v1/activity",
+    "controller": "CommonController.java",
+    "line": 26,
+    "body": "    @GetMapping(\"/activity\")\n    public ResponseEntity<List<ActivityHistoryItem>> getActivity(@AuthenticationPrincipal CustomUserDetails userDetails) {\n        return ResponseEntity.ok(commonService.getActivity(userDetails.getTenantId()));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/activity",
+    "method": "POST",
+    "path": "/api/v1/activity",
+    "controller": "CommonController.java",
+    "line": 31,
+    "body": "    @PostMapping(\"/activity\")\n    public ResponseEntity<ActivityHistoryItem> logActivity(@RequestBody ActivityHistoryItem item, @AuthenticationPrincipal CustomUserDetails userDetails) {\n        return ResponseEntity.ok(commonService.logActivity(item, userDetails.getTenantId()));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/notifications",
+    "method": "GET",
+    "path": "/api/v1/notifications",
+    "controller": "CommonController.java",
+    "line": 36,
+    "body": "    @GetMapping(\"/notifications\")\n    public ResponseEntity<List<Notification>> getNotifications(@AuthenticationPrincipal CustomUserDetails userDetails) {\n        return ResponseEntity.ok(commonService.getNotifications(userDetails.getTenantId()));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "PATCH /api/v1/notifications/{id}/read",
+    "method": "PATCH",
+    "path": "/api/v1/notifications/{id}/read",
+    "controller": "CommonController.java",
+    "line": 41,
+    "body": "    @PatchMapping(\"/notifications/{id}/read\")",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/notifications/mark-all-read",
+    "method": "POST",
+    "path": "/api/v1/notifications/mark-all-read",
+    "controller": "CommonController.java",
+    "line": 49,
+    "body": "    @PostMapping(\"/notifications/mark-all-read\")\n    public ResponseEntity<Map<String, Boolean>> markAllAsRead(@AuthenticationPrincipal CustomUserDetails userDetails) {\n        commonService.markAllNotificationsAsRead(userDetails.getTenantId());\n        Map<String, Boolean> response = new HashMap<>();\n        response.put(\"success\", true);\n        return ResponseEntity.ok(response);\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/notifications",
+    "method": "POST",
+    "path": "/api/v1/notifications",
+    "controller": "CommonController.java",
+    "line": 57,
+    "body": "    @PostMapping(\"/notifications\")\n    public ResponseEntity<Notification> addNotification(@RequestBody Notification notification, @AuthenticationPrincipal CustomUserDetails userDetails) {\n        // System or users can add notifications. For this stub, we map it to the caller's tenant.\n        // A real system might allow specifying targetTenantId.\n        return ResponseEntity.ok(commonService.addNotification(notification, userDetails.getTenantId()));\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "GET /api/v1/tenant-privacy/check?tenantId={tenantId}",
+    "method": "GET",
+    "path": "/api/v1/tenant-privacy/check?tenantId={tenantId}",
+    "controller": "CommonController.java",
+    "line": 64,
+    "body": "    @GetMapping(\"/tenant-privacy/check\")\n    public ResponseEntity<Boolean> checkTenantPrivacy(@RequestParam String tenantId, @AuthenticationPrincipal CustomUserDetails userDetails) {\n        boolean access = userDetails.getTenantId() != null && userDetails.getTenantId().equals(tenantId);\n        return ResponseEntity.ok(access);\n    }",
+    "status": "FOUND"
+  },
+  {
+    "endpoint": "POST /api/v1/tenant-privacy/verify-access",
+    "method": "POST",
+    "path": "/api/v1/tenant-privacy/verify-access",
+    "controller": "CommonController.java",
+    "line": 70,
+    "body": "    @PostMapping(\"/tenant-privacy/verify-access\")\n    public ResponseEntity<Map<String, Object>> verifyAccess(@RequestBody Map<String, String> payload, @AuthenticationPrincipal CustomUserDetails userDetails) {\n        String targetTenant = payload.get(\"targetTenant\");\n        boolean allowed = userDetails.getTenantId() != null && userDetails.getTenantId().equals(targetTenant);\n        Map<String, Object> response = new HashMap<>();\n        response.put(\"allowed\", allowed);\n        response.put(\"reason\", allowed ? \"Claim matches target tenant\" : \"Tenant mismatch\");\n        return ResponseEntity.ok(response);\n    }",
+    "status": "FOUND"
+  }
+]

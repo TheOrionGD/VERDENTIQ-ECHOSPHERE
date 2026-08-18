@@ -1,0 +1,11 @@
+{
+    "id": "forecast-v1.0.0",
+    "name": "XGBoost Core Forecast",
+    "version": "v1.0.0",
+    "status": "archived",
+    "metrics": {
+        "rmse": 1.42,
+        "mae": 1.05
+    },
+    "deployed_at": "2026-08-01T10:00:00Z"
+}

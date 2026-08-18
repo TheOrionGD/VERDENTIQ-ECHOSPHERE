@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: verdantiq-gateway
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://oriongd:personal@ac-3atohep-shard-00-00.cadm698.mongodb.net:27017,ac-3atohep-shard-00-01.cadm698.mongodb.net:27017,ac-3atohep-shard-00-02.cadm698.mongodb.net:27017/?ssl=true&replicaSet=atlas-4wi0a6-shard-0&authSource=admin&appName=Projects}
+      database: ${MONGODB_DB_NAME:VerdantIQ}
+      auto-index-creation: true
+
+verdantiq:
+  ml-service-url: ${ML_SERVICE_URL:http://localhost:8000}
+  internal-service-key: ${INTERNAL_SERVICE_KEY:dev_internal_key_123}
+  firebase:
+    credentials-path: ${FIREBASE_CREDENTIALS_PATH:firebase-admin-key.json}

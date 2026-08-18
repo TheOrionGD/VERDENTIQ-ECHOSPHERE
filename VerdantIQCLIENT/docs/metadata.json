@@ -1,0 +1,6 @@
+{
+  "name": "VerdantIQ",
+  "description": "Environmental sustainability decision-support platform with VerdantIQ glass interface, system menu bar, floating dock, spotlight search, control center, and multi-role routing.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
