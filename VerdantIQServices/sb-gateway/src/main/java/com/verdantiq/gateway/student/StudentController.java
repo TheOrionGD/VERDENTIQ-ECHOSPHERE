@@ -1,5 +1,6 @@
 package com.verdantiq.gateway.student;
 
+import com.verdantiq.gateway.common.MlPayloadFactory;
 import com.verdantiq.gateway.common.ProxyService;
 import com.verdantiq.gateway.user.ActivityLog;
 import com.verdantiq.gateway.user.RewardItem;
@@ -93,13 +94,7 @@ public class StudentController {
         com.verdantiq.gateway.common.security.CustomUserDetails user = (com.verdantiq.gateway.common.security.CustomUserDetails) org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         payload.put("user_id", user.getUid());
         payload.put("tenant_id", user.getTenantId());
-        payload.put("weights", java.util.Map.of("cost", 1.0, "carbon", 1.0, "comfort", 1.0));
-        payload.put("max_actions", 3);
-        
-        // Hydrate from real data
-        DigitalTwinDorm twin = studentService.getDigitalTwin();
-        payload.put("twin_data", twin);
-        payload.put("history", studentService.getHistory());
+        payload.putAll(MlPayloadFactory.candidatePayload(3));
 
         return proxyService.proxyRequest(request, HttpMethod.POST, payload, "/api/v1/student/optimization-actions");
     }

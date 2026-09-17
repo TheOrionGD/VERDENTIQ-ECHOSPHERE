@@ -8,7 +8,9 @@ def test_middleware():
     response = client.post("/api/v1/user/forecast", json={"history": []})
     print(f"Response without key: {response.status_code}")
     
-    key = "dev_internal_key_123"
+    key = os.environ.get("INTERNAL_SERVICE_KEY")
+    if not key:
+        raise RuntimeError("INTERNAL_SERVICE_KEY must be set to run this middleware test")
     response2 = client.post("/api/v1/user/forecast", json={"history": []}, headers={"X-Internal-Service-Key": key})
     print(f"Response with key: {response2.status_code}")
     

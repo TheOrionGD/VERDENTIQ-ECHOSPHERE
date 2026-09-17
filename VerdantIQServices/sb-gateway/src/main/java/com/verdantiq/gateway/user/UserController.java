@@ -1,5 +1,6 @@
 package com.verdantiq.gateway.user;
 
+import com.verdantiq.gateway.common.MlPayloadFactory;
 import com.verdantiq.gateway.common.ProxyService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,10 +87,7 @@ public class UserController {
         java.util.List<ActivityLog> history = userService.getHistory();
 
         java.util.Map<String, Object> payload = new java.util.HashMap<>();
-        payload.put("weights", java.util.Map.of("cost", 1.0, "carbon", 1.0, "comfort", 1.0));
-        payload.put("max_actions", 5);
-        payload.put("twin_data", twin);
-        payload.put("history", history);
+        payload.putAll(MlPayloadFactory.candidatePayload(5));
 
         return proxyService.proxyRequest(request, HttpMethod.POST, payload, "/api/v1/user/optimization-actions");
     }

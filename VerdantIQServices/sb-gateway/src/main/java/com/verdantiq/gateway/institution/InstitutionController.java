@@ -1,5 +1,6 @@
 package com.verdantiq.gateway.institution;
 
+import com.verdantiq.gateway.common.MlPayloadFactory;
 import com.verdantiq.gateway.common.ProxyService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,16 +116,9 @@ public class InstitutionController {
     // Proxy endpoints
     @GetMapping("/milp-scenarios")
     public ResponseEntity<String> getMilpScenarios(HttpServletRequest request) {
-        java.util.Map<String, Object> payload = new java.util.HashMap<>();
-        payload.put("weights", java.util.Map.of("cost", 1.0, "carbon", 1.0, "comfort", 1.0));
-        payload.put("max_actions_per_household", 3);
-        
-        // Hydrate from real data instead of stubs
-        java.util.List<InstitutionDepartmentRecord> departments = institutionService.getDepartments();
-        payload.put("departments", departments);
-        payload.put("analytics", institutionService.getAnalytics());
-        
-        payload.put("tenant_id", ((com.verdantiq.gateway.common.security.CustomUserDetails) org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getTenantId());
+        java.util.Map<String, Object> payload = new java.util.HashMap<>(
+            MlPayloadFactory.institutionCandidatePayload(3)
+        );
 
         return proxyService.proxyRequest(request, HttpMethod.POST, payload, "/api/v1/institution/milp-scenarios");
     }
