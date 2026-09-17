@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DeptChallengeTemplate.ToLower())s")
+@Document(collection = "deptchallengetemplates")
 public class DeptChallengeTemplate {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class DeptChallengeTemplate {
     private String action;
     private String status;
 }
+

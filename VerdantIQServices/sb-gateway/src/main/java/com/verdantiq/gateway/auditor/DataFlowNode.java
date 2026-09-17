@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DataFlowNode.ToLower())s")
+@Document(collection = "dataflownodes")
 public class DataFlowNode {
     @Id
     private String id;
@@ -17,3 +17,4 @@ public class DataFlowNode {
     // Stub field
     private String name;
 }
+

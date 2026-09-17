@@ -35,7 +35,7 @@ export default function AuditDataFlowPage() {
               Cross-Role Data Lineage & Tenant Privacy Architecture
             </h1>
             <p className="text-xs text-stone-500 mt-0.5">
-              Trace telemetry data from role inputs through models to presentation surfaces, with strict MongoDB query & Firebase custom-claims tenant isolation.
+              Trace telemetry data from role inputs through models to presentation surfaces, with strict MongoDB query & Database custom-claims tenant isolation.
             </p>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function AuditDataFlowPage() {
         {/* Interactive Cross-Role Input-Output Lineage Registry Table */}
         <CrossRoleLineageTable />
 
-        {/* MongoDB Query & Firebase Custom Claims Enforcement Sandbox */}
+        {/* MongoDB Query & Database Custom Claims Enforcement Sandbox */}
         <TenantPrivacyEnforcementPanel />
       </div>
     </AppShell>

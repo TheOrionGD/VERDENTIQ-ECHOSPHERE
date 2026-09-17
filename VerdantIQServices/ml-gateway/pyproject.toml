@@ -15,9 +15,20 @@ dependencies = [
     "httpx>=0.25.0",
     "python-dotenv>=1.0.0",
     "pytesseract>=0.3.10",
-    "pillow>=10.0.0"
+    "pillow>=10.0.0",
+    "pytest>=7.0.0"
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.pyright]
+extraPaths = [
+    "C:/Users/godfr/AppData/Roaming/Python/Python314/site-packages",
+    "C:/Python314/Lib/site-packages",
+    "."
+]

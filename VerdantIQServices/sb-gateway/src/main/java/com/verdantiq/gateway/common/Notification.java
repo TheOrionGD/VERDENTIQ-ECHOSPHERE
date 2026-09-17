@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(Notification.ToLower())s")
+@Document(collection = "notifications")
 public class Notification {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class Notification {
     private String targetDeptId;
     private String targetHouseholdId;
 }
+

@@ -443,9 +443,9 @@ export const VoiceCommandProvider: React.FC<{ children: React.ReactNode }> = ({ 
       recognition.start();
       recognitionRef.current = recognition;
     } catch (e) {
-      console.error('Speech recognition init error:', e);
-      setIsListening(true);
-      setFeedbackMessage('Voice dictation active');
+      console.warn('Speech recognition init unavailable:', e);
+      setIsListening(false);
+      setFeedbackMessage('Voice dictation unavailable');
     }
   }, [executeVoiceCommand, isListening, speak]);
 

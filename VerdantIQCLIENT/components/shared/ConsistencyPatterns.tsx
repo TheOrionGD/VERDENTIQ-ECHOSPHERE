@@ -584,7 +584,7 @@ export const CrossRoleLineageTable: React.FC = () => {
   );
 };
 
-/* 5. Tenant Privacy & Firebase Custom Claims Enforcement Sandbox */
+/* 5. Tenant Privacy & Database Custom Claims Enforcement Sandbox */
 export const TenantPrivacyEnforcementPanel: React.FC = () => {
   const [testRole, setTestRole] = useState<RoleType>('dept');
   const [targetTenantScope, setTargetTenantScope] = useState<'same' | 'foreign'>('foreign');
@@ -607,7 +607,7 @@ export const TenantPrivacyEnforcementPanel: React.FC = () => {
           </div>
           <div>
             <h3 className="font-editorial text-base font-bold text-stone-900">
-              MongoDB Query & Firebase Custom-Claims Tenant Privacy Guard
+              MongoDB Query & Database Custom-Claims Tenant Privacy Guard
             </h3>
             <p className="text-xs text-stone-500">
               Roles with platform authority greater than Standard User/Student are explicitly denied default access to raw personal data outside their tenant.
@@ -704,12 +704,12 @@ export const TenantPrivacyEnforcementPanel: React.FC = () => {
 
       {/* Real-time Verification Outcome Card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-        {/* Layer 1: Firebase Custom-Claims Guard */}
+        {/* Layer 1: Database Custom-Claims Guard */}
         <div className={`p-4 rounded-xl border space-y-2 ${claimResult.allowed ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/80 border-rose-200'}`}>
           <div className="flex items-center justify-between">
             <span className="font-bold text-stone-900 flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-emerald-800" />
-              Firebase Custom-Claims Check Layer
+              Database Custom-Claims Check Layer
             </span>
             <Badge variant={claimResult.allowed ? 'emerald' : 'coral'}>{claimResult.allowed ? 'PASS' : 'BLOCKED 403'}</Badge>
           </div>

@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(GrowthTrendDataPoint.ToLower())s")
+@Document(collection = "growthtrenddatapoints")
 public class GrowthTrendDataPoint {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class GrowthTrendDataPoint {
     // Stub field
     private String status;
 }
+

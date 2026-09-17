@@ -16,10 +16,10 @@ export default function FirebaseClaimsPage() {
             <Badge variant="emerald">Security Spec</Badge>
           </div>
           <h1 className="font-editorial text-2xl sm:text-3xl font-bold text-stone-900">
-            Firebase ID Token Custom Claims
+            Database JWT Token Custom Claims
           </h1>
           <p className="text-xs sm:text-sm text-stone-600 mt-1">
-            Cryptographic identity token claims mapping users across VerdantIQ's 8 governance tiers.
+            Database-issued cryptographic JWT claims mapping users across VerdantIQ's 8 governance tiers.
           </p>
         </div>
 

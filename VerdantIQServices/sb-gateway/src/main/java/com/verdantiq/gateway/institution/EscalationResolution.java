@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(EscalationResolution.ToLower())s")
+@Document(collection = "escalationresolutions")
 public class EscalationResolution {
     @Id
     private String id;
@@ -21,3 +21,4 @@ public class EscalationResolution {
     // Stub fields
     private String name;
 }
+

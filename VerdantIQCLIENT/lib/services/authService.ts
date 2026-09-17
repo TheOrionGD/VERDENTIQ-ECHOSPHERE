@@ -12,8 +12,7 @@ export interface UserProfile {
   avatarUrl?: string;
   createdAt: string;
   provider?: 'email' | 'google' | 'outlook' | 'dev_mock';
-  firebaseUid?: string;
-  firebaseClaims?: {
+  dbClaims?: {
     isPlatformAuthority: boolean;
     crossTenantRawDataGranted: boolean;
   };
@@ -141,5 +140,4 @@ export interface StoredSession {
   email: string;
   userId: string;
   provider?: string;
-  firebaseUid?: string;
 }

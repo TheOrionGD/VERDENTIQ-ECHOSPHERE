@@ -14,10 +14,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private String id; // uid from Firebase
+    private String id; // Database User ID (usr_<uuid>)
 
+    @Indexed(unique = true)
     private String email;
+
     private String name;
+
+    private String passwordHash;
     
     private String role;
     
@@ -26,4 +30,7 @@ public class User {
     
     @Indexed
     private String departmentId;
+
+    private String createdAt;
+    private String updatedAt;
 }

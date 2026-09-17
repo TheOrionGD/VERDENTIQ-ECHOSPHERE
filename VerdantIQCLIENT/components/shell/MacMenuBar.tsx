@@ -51,7 +51,7 @@ import {
 } from 'lucide-react';
 
 export const MacMenuBar: React.FC = () => {
-  const { user, roleConfig, switchRole, notifications, mongoConnected, firebaseReady } = useAuth();
+  const { user, roleConfig, switchRole, notifications, mongoConnected, dbAuthReady } = useAuth();
   const {
     effectiveTheme,
     accentColor,

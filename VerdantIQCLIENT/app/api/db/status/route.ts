@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getMongoDb, isMongoDbConfigured } from '@/lib/mongodb';
-import { isFirebaseConfigured } from '@/lib/firebase';
 
 export async function GET(req: NextRequest) {
   const mongoConfigured = isMongoDbConfigured();
@@ -19,8 +18,6 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const firebaseConfigured = isFirebaseConfigured();
-
   return NextResponse.json({
     timestamp: new Date().toISOString(),
     mongodb: {
@@ -29,8 +26,9 @@ export async function GET(req: NextRequest) {
       dbName: process.env.MONGODB_DB_NAME || 'verdantiq',
       error: mongoError,
     },
-    firebase: {
-      configured: firebaseConfigured,
+    databaseAuth: {
+      configured: true,
+      type: 'MongoDB Database Auth + JWT',
       providers: ['email_password', 'google', 'outlook_microsoft'],
     },
   });

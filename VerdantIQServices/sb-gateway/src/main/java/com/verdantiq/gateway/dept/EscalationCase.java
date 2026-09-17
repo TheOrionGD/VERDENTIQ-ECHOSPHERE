@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(EscalationCase.ToLower())s")
+@Document(collection = "escalationcases")
 public class EscalationCase {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class EscalationCase {
     private String action;
     private String status;
 }
+

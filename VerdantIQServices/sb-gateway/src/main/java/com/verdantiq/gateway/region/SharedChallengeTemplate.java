@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(SharedChallengeTemplate.ToLower())s")
+@Document(collection = "sharedchallengetemplates")
 public class SharedChallengeTemplate {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class SharedChallengeTemplate {
     // Stub field
     private String status;
 }
+

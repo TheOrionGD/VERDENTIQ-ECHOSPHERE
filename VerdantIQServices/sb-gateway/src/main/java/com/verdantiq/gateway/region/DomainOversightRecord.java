@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DomainOversightRecord.ToLower())s")
+@Document(collection = "domainoversightrecords")
 public class DomainOversightRecord {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class DomainOversightRecord {
     // Stub field
     private String status;
 }
+

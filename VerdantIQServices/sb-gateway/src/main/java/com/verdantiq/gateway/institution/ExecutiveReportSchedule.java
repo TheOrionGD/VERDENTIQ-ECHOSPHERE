@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(ExecutiveReportSchedule.ToLower())s")
+@Document(collection = "executivereportschedules")
 public class ExecutiveReportSchedule {
     @Id
     private String id;
@@ -21,3 +21,4 @@ public class ExecutiveReportSchedule {
     // Stub fields
     private String name;
 }
+

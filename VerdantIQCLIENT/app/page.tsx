@@ -62,7 +62,7 @@ export default function RootLoaderPage() {
           <div className="space-y-3 py-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-xs text-emerald-300">
               <Sparkles className="h-3.5 w-3.5 animate-spin text-emerald-400" />
-              <span>Verifying Firebase ID Token & Custom Claims...</span>
+              <span>Verifying Database JWT Token & Custom Claims...</span>
             </div>
             <p className="text-[11px] text-stone-400">
               Cross-checking MongoDB claims mirror for tenant and department scope...

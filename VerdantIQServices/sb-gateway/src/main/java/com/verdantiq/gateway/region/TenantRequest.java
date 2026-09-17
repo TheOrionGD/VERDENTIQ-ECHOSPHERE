@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(TenantRequest.ToLower())s")
+@Document(collection = "tenantrequests")
 public class TenantRequest {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class TenantRequest {
     // Stub field
     private String status;
 }
+

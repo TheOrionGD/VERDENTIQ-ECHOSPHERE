@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(RegionalPolicyConfig.ToLower())s")
+@Document(collection = "regionalpolicyconfigs")
 public class RegionalPolicyConfig {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class RegionalPolicyConfig {
     // Stub field
     private String status;
 }
+

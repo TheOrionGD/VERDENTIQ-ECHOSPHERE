@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(FeatureFlag.ToLower())s")
+@Document(collection = "featureflags")
 public class FeatureFlag {
     @Id
     private String id;
@@ -17,3 +17,4 @@ public class FeatureFlag {
     // Stub field
     private String name;
 }
+

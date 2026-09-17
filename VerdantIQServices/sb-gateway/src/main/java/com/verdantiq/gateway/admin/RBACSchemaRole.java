@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(RBACSchemaRole.ToLower())s")
+@Document(collection = "rbacschemaroles")
 public class RBACSchemaRole {
     @Id
     private String id;
@@ -17,3 +17,4 @@ public class RBACSchemaRole {
     // Stub field
     private String name;
 }
+

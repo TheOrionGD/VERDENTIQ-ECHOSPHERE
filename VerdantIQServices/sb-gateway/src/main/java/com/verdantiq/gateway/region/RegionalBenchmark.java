@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(RegionalBenchmark.ToLower())s")
+@Document(collection = "regionalbenchmarks")
 public class RegionalBenchmark {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class RegionalBenchmark {
     // Stub field
     private String status;
 }
+

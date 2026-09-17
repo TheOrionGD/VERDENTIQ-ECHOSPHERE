@@ -20,8 +20,6 @@ public abstract class AbstractIntegrationTest {
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-        // Firebase emulator config can be set here if needed
-        registry.add("firebase.auth.emulator.host", () -> "localhost:9099");
     }
 
     @BeforeAll

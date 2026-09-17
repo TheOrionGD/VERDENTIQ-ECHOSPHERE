@@ -64,23 +64,7 @@ public class CommonController {
         return ResponseEntity.ok(commonService.addNotification(notification, userDetails.getTenantId()));
     }
 
-    @GetMapping("/tenant-privacy/check")
-    public ResponseEntity<Boolean> checkTenantPrivacy(@RequestParam String tenantId, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        auditLogRepository.findAll();
-        boolean access = userDetails.getTenantId() != null && userDetails.getTenantId().equals(tenantId);
-        return ResponseEntity.ok(access);
-    }
 
-    @PostMapping("/tenant-privacy/verify-access")
-    public ResponseEntity<Map<String, Object>> verifyAccess(@RequestBody Map<String, String> payload, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        auditLogRepository.findAll();
-        String targetTenant = payload.get("targetTenant");
-        boolean allowed = userDetails.getTenantId() != null && userDetails.getTenantId().equals(targetTenant);
-        Map<String, Object> response = new HashMap<>();
-        response.put("allowed", allowed);
-        response.put("reason", allowed ? "Claim matches target tenant" : "Tenant mismatch");
-        return ResponseEntity.ok(response);
-    }
 
     @GetMapping("/notifications/stream")
     public SseEmitter streamNotifications(@AuthenticationPrincipal CustomUserDetails userDetails) {

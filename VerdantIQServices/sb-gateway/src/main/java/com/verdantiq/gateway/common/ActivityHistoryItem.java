@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(ActivityHistoryItem.ToLower())s")
+@Document(collection = "activityhistoryitems")
 public class ActivityHistoryItem {
     @Id
     private String id;
@@ -19,3 +19,4 @@ public class ActivityHistoryItem {
     private String title;
     private boolean read;
 }
+

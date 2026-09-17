@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(SubCohort.ToLower())s")
+@Document(collection = "subcohorts")
 public class SubCohort {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class SubCohort {
     private String action;
     private String status;
 }
+

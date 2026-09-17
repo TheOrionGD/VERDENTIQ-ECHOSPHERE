@@ -1,8 +1,6 @@
 package com.verdantiq.gateway.common.security;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseToken;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,45 +16,49 @@ import java.io.IOException;
 import java.util.Collections;
 
 @Component
-public class FirebaseTokenFilter extends OncePerRequestFilter {
+public class JwtTokenFilter extends OncePerRequestFilter {
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        
+
         String header = request.getHeader("Authorization");
         String token = null;
-        
+
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
         } else if (request.getParameter("token") != null) {
             token = request.getParameter("token");
         }
-        
-        if (token != null) {
+
+        if (token != null && jwtTokenProvider.validateToken(token)) {
             try {
-                FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-                
-                String uid = decodedToken.getUid();
-                String email = decodedToken.getEmail();
-                
-                // Extract custom claims
-                String role = (String) decodedToken.getClaims().get("role");
-                String tenantId = (String) decodedToken.getClaims().get("tenant_id");
-                String deptId = (String) decodedToken.getClaims().get("dept_id");
-                String regionId = (String) decodedToken.getClaims().get("region_id");
-                
+                Claims claims = jwtTokenProvider.getClaims(token);
+
+                String uid = claims.getSubject();
+                String email = claims.get("email", String.class);
+                String role = claims.get("role", String.class);
+                String tenantId = claims.get("tenant_id", String.class);
+                String deptId = claims.get("dept_id", String.class);
+                String regionId = claims.get("region_id", String.class);
+
                 if (role == null) {
-                    role = "user"; // default role if not set
+                    role = "user";
                 }
 
                 CustomUserDetails userDetails = new CustomUserDetails(
-                        uid, 
-                        email, 
-                        role, 
-                        tenantId, 
-                        deptId, 
-                        regionId, 
+                        uid,
+                        email,
+                        role,
+                        tenantId,
+                        deptId,
+                        regionId,
                         Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
                 );
 
@@ -66,12 +68,11 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            } catch (FirebaseAuthException e) {
-                logger.error("Firebase token verification failed", e);
-                // We don't return 401 here, let Spring Security handle it based on the endpoint configuration
+            } catch (Exception e) {
+                logger.error("Database JWT token verification failed", e);
             }
         }
-        
+
         filterChain.doFilter(request, response);
     }
 }

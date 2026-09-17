@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(GeofencedChallenge.ToLower())s")
+@Document(collection = "geofencedchallenges")
 public class GeofencedChallenge {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class GeofencedChallenge {
     @Indexed
     private String uid;
 }
+

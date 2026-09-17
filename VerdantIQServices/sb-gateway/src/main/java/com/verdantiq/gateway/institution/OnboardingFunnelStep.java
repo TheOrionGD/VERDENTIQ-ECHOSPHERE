@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(OnboardingFunnelStep.ToLower())s")
+@Document(collection = "onboardingfunnelsteps")
 public class OnboardingFunnelStep {
     @Id
     private String id;
@@ -21,3 +21,4 @@ public class OnboardingFunnelStep {
     // Stub fields
     private String name;
 }
+

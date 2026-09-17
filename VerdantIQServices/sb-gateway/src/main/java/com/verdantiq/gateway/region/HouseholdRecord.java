@@ -19,6 +19,9 @@ public class HouseholdRecord {
     private String email;
     
     @Indexed
+    private String regionId;
+
+    @Indexed
     private String stateId;
     
     private String districtId;

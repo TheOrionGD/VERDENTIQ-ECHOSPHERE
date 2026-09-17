@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(OnboardingRequest.ToLower())s")
+@Document(collection = "onboardingrequests")
 public class OnboardingRequest {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class OnboardingRequest {
     private String action;
     private String status;
 }
+

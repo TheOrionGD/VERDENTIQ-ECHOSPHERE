@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(AuditRequest.ToLower())s")
+@Document(collection = "auditrequests")
 public class AuditRequest {
     @Id
     private String id;
@@ -17,3 +17,4 @@ public class AuditRequest {
     // Stub field
     private String name;
 }
+

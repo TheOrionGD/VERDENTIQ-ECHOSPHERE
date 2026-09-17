@@ -276,7 +276,7 @@ export const ScrollytellingLanding: React.FC = () => {
         {/* HERO SECTION - ARCHITECTURAL DISPLAY */}
         <section className="relative pt-4 sm:pt-8 text-center sm:text-left">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            
+
             {/* LEFT COLUMN: VISUAL CONTAINER */}
             <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
               <div className="absolute -inset-3 rounded-[36px] border border-emerald-400/50 pointer-events-none rotate-1 hidden sm:block" />
@@ -302,7 +302,7 @@ export const ScrollytellingLanding: React.FC = () => {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/40 to-transparent" />
-                  
+
                   <div className="absolute bottom-4 left-4 right-4 z-10 space-y-1.5 text-left">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/90 border border-emerald-500/50 text-emerald-300 text-[11px] font-mono font-bold backdrop-blur-md">
                       <Cpu className="h-3.5 w-3.5 text-emerald-400" />
@@ -333,7 +333,7 @@ export const ScrollytellingLanding: React.FC = () => {
                 VERDANTIQ ENTERPRISE ESG & REGIONAL GOVERNANCE
               </Badge>
 
-              <h1 className="font-editorial text-4xl sm:text-6xl font-black text-stone-950 tracking-tight leading-[1.08]">
+              <h1 className="font-editorial text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.08]">
                 Enterprise campus & regional tenant <br />
                 <span className="text-emerald-700 underline decoration-emerald-300 decoration-4 underline-offset-8">
                   provisioning system.
@@ -372,7 +372,7 @@ export const ScrollytellingLanding: React.FC = () => {
         {/* ========================================================================= */}
         <section id="tenant-request-section" className="relative pt-8">
           <div className="bg-white border border-stone-300 rounded-3xl p-6 sm:p-10 shadow-xl space-y-10">
-            
+
             {/* SECTION HEADER */}
             <div className="space-y-3 border-b border-stone-200 pb-6">
               <div className="flex items-center gap-2">
@@ -381,7 +381,7 @@ export const ScrollytellingLanding: React.FC = () => {
                 </Badge>
                 <span className="text-xs font-mono text-stone-500">Form ID: TR-LANDING-2026</span>
               </div>
-              
+
               <h2 className="font-editorial text-3xl sm:text-4xl font-extrabold text-stone-950 tracking-tight">
                 Register Your Tenant Organization
               </h2>
@@ -424,7 +424,7 @@ export const ScrollytellingLanding: React.FC = () => {
 
             {/* MAIN FORM */}
             <form onSubmit={handleSubmitTenantRequest} className="space-y-10">
-              
+
               {/* QUESTIONNAIRE BLOCK 1: ORGANIZATION CATEGORY & IDENTITY */}
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b border-stone-200 pb-2">
@@ -446,11 +446,10 @@ export const ScrollytellingLanding: React.FC = () => {
                       key={tier.key}
                       type="button"
                       onClick={() => setOrgType(tier.key as any)}
-                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                        orgType === tier.key
-                          ? 'bg-emerald-950 text-white border-emerald-600 shadow-md ring-2 ring-emerald-500/30'
-                          : 'bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-400'
-                      }`}
+                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${orgType === tier.key
+                        ? 'bg-emerald-950 text-white border-emerald-600 shadow-md ring-2 ring-emerald-500/30'
+                        : 'bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-400'
+                        }`}
                     >
                       <div>
                         <div className="font-bold text-xs mb-1">{tier.label}</div>
@@ -576,9 +575,8 @@ export const ScrollytellingLanding: React.FC = () => {
                         placeholder="e.g. admin@annauniv.edu"
                         value={adminEmail}
                         onChange={(e) => setAdminEmail(e.target.value)}
-                        className={`w-full h-11 pl-3.5 pr-10 text-xs bg-stone-50 border rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600 ${
-                          shakeEmail ? 'animate-shake border-red-500 ring-2 ring-red-500/20' : 'border-stone-300'
-                        }`}
+                        className={`w-full h-11 pl-3.5 pr-10 text-xs bg-stone-50 border rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600 ${shakeEmail ? 'animate-shake border-red-500 ring-2 ring-red-500/20' : 'border-stone-300'
+                          }`}
                       />
                       {adminEmail && isInstitutionalEmail(adminEmail) && (
                         <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-600" />
@@ -719,7 +717,7 @@ export const ScrollytellingLanding: React.FC = () => {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-stone-900 text-stone-100 border border-stone-800 space-y-6">
-                  
+
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-stone-950 p-4 rounded-xl border border-stone-800">
                     <div>
                       <div className="text-xs font-bold text-emerald-400 flex items-center gap-2">
@@ -1079,7 +1077,7 @@ export const ScrollytellingLanding: React.FC = () => {
       {/* FOOTER SECTION */}
       <footer className="relative z-10 border-t border-stone-300 bg-[#F5F2EA] py-14 text-xs text-stone-700">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
-          
+
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-[12px]">
             <div className="space-y-3">
               <div className="font-mono text-xs font-bold uppercase tracking-wider text-stone-950">
@@ -1146,7 +1144,7 @@ export const ScrollytellingLanding: React.FC = () => {
                 SECURITY
               </div>
               <ul className="space-y-2.5 font-sans">
-                <li><Link href="/security/firebase-claims" className="hover:text-stone-950">Firebase Claims</Link></li>
+                <li><Link href="/security/db-claims" className="hover:text-stone-950">Database Claims</Link></li>
                 <li><Link href="/security/tenant-encryption" className="hover:text-stone-950">AES-256 Encryption</Link></li>
                 <li><Link href="/security/postgres-isolation" className="hover:text-stone-950">Postgres Isolation</Link></li>
                 <li><Link href="/security/audit-hashes" className="hover:text-stone-950">SHA-256 Audit Hashes</Link></li>

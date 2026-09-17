@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: verdantiq-gateway
   data:
@@ -10,8 +12,14 @@ spring:
       database: ${MONGODB_DB_NAME:VerdantIQ}
       auto-index-creation: true
 
+management:
+  endpoint:
+    health:
+      show-details: always
+
 verdantiq:
-  ml-service-url: ${ML_SERVICE_URL:http://localhost:8000}
-  internal-service-key: ${INTERNAL_SERVICE_KEY}
-  firebase:
-    credentials-path: ${FIREBASE_CREDENTIALS_PATH:firebase-admin-key.json}
+  ml-service-url: "${ML_SERVICE_URL:http://localhost:8000}"
+  internal-service-key: "${INTERNAL_SERVICE_KEY}"
+  jwt:
+    secret: "${JWT_SECRET:VerdantIQSecretKeyForJwtAuthentication32BytesLongMin!}"
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}

@@ -28,7 +28,7 @@ export default function ApiReferencePage() {
             VerdantIQ REST & Microservices API Reference
           </h1>
           <p className="text-xs sm:text-sm text-stone-600 mt-1">
-            Production system endpoints for BACnet telemetry ingestion, Spring Boot tenant provisioning, and Firebase ID Token verification.
+            Production system endpoints for BACnet telemetry ingestion, Spring Boot tenant provisioning, and Database JWT Token verification.
           </p>
         </div>
 

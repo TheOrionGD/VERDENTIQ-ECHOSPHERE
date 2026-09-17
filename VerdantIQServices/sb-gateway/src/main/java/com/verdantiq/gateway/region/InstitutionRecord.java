@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(InstitutionRecord.ToLower())s")
+@Document(collection = "institutionrecords")
 public class InstitutionRecord {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class InstitutionRecord {
     // Stub field
     private String status;
 }
+

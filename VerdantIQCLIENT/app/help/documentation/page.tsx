@@ -81,10 +81,10 @@ export default function DocumentationPage() {
           </div>
           <h2 className="font-editorial text-xl font-bold">Role Hierarchy & RBAC Governance</h2>
           <p className="text-xs text-stone-300 leading-relaxed">
-            VerdantIQ strictly enforces role-based access control from Tier 1 (Platform Admin) through Tier 4 (Regional District Admin) down to Tier 8 (Citizen Household). Custom Firebase token claims guarantee that data access is restricted to authorized scopes.
+            VerdantIQ strictly enforces role-based access control from Tier 1 (Platform Admin) through Tier 4 (Regional District Admin) down to Tier 8 (Citizen Household). Database JWT token claims guarantee that data access is restricted to authorized scopes.
           </p>
           <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-            <span className="px-2.5 py-1 rounded bg-stone-800 text-emerald-300 border border-stone-700">Firebase Claims</span>
+            <span className="px-2.5 py-1 rounded bg-stone-800 text-emerald-300 border border-stone-700">Database Claims</span>
             <span className="px-2.5 py-1 rounded bg-stone-800 text-emerald-300 border border-stone-700">AES-256 Encryption</span>
             <span className="px-2.5 py-1 rounded bg-stone-800 text-emerald-300 border border-stone-700">Postgres Schemas</span>
             <span className="px-2.5 py-1 rounded bg-stone-800 text-emerald-300 border border-stone-700">SHA-256 Audit Trails</span>

@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(StudentRegistryRecord.ToLower())s")
+@Document(collection = "studentregistryrecords")
 public class StudentRegistryRecord {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class StudentRegistryRecord {
     private String action;
     private String status;
 }
+

@@ -33,7 +33,7 @@ export default function LoginPage() {
     signInWithGoogle,
     signInWithMicrosoft,
     login,
-    firebaseReady,
+    dbAuthReady,
     mongoConnected,
   } = useAuth();
   const router = useRouter();
@@ -73,41 +73,16 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      // 1. Perform backend DB domain & credential verification
-      const dbCheckRes = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          role: inferredRole,
-          name: displayName || email.split('@')[0],
-          password,
-        }),
-      });
-
-      const dbData = await dbCheckRes.json();
-      if (!dbCheckRes.ok) {
-        throw new Error(dbData.error || 'Institutional Domain or Credential error');
-      }
-
-      // 2. Perform Firebase Auth / Session login
+      // Perform Database JWT Authentication / Session login
       if (authMode === 'signup') {
-        try {
-          await signUpWithEmail(email, password, inferredRole, displayName);
-        } catch {
-          await login(email, inferredRole);
-        }
+        await signUpWithEmail(email, password, inferredRole, displayName);
         toast.success('Account Ready', `Differentiated as ${currentRoleConfig.label}`);
       } else {
-        try {
-          await signInWithEmail(email, password, inferredRole);
-        } catch {
-          await login(email, inferredRole);
-        }
+        await signInWithEmail(email, password, inferredRole);
         toast.success('Signed In', `Welcome back! Differentiated role: ${currentRoleConfig.label}`);
       }
 
-      // 3. Direct routing to role-based task board
+      // Direct routing to role-based task board
       const targetPath = currentRoleConfig.dashboardPath;
       if (typeof window !== 'undefined') {
         window.location.href = targetPath;
@@ -263,7 +238,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Database & Firebase Readiness Status */}
+        {/* Database & System Readiness Status */}
         <div className="flex items-center justify-center gap-2 mb-6 text-[11px] font-mono flex-wrap">
           <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${
             mongoConnected
@@ -275,12 +250,12 @@ export default function LoginPage() {
           </div>
 
           <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${
-            firebaseReady
+            dbAuthReady
               ? 'bg-emerald-950/80 border-emerald-600/50 text-emerald-300'
               : 'bg-stone-800/80 border-stone-700 text-stone-400'
           }`}>
-            <Key className={`h-3 w-3 ${firebaseReady ? 'text-emerald-400' : 'text-stone-400'}`} />
-            <span>Firebase Auth: <strong>{firebaseReady ? 'Ready' : 'Local Verification'}</strong></span>
+            <Key className={`h-3 w-3 ${dbAuthReady ? 'text-emerald-400' : 'text-stone-400'}`} />
+            <span>Database Auth: <strong>{dbAuthReady ? 'JWT Verified' : 'Local Verification'}</strong></span>
           </div>
         </div>
 
@@ -296,7 +271,7 @@ export default function LoginPage() {
             }`}
           >
             <LogIn className="h-4 w-4 text-emerald-400" />
-            <span>Sign In with Firebase</span>
+            <span>Sign In with Database</span>
           </button>
           <button
             type="button"

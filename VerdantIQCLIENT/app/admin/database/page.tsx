@@ -68,10 +68,10 @@ export default function AdminDatabasePage() {
               <Badge variant="emerald">Storage & Database Governance</Badge>
             </div>
             <h1 className="font-editorial text-2xl font-bold text-stone-900">
-              MongoDB, MinIO/S3 & Firebase Oversight
+              MongoDB & Database Auth Oversight
             </h1>
             <p className="text-xs text-stone-500 mt-0.5">
-              Storage capacity monitor, MinIO/S3 auto-scaling thresholds, backup cron schedules & Firebase security rules.
+              Storage capacity monitor, MinIO/S3 auto-scaling thresholds, backup cron schedules & JWT database auth security rules.
             </p>
           </div>
 
@@ -234,23 +234,23 @@ export default function AdminDatabasePage() {
           </div>
         </Card>
 
-        {/* Firebase Security Rules & Config Oversight */}
-        <Card className="p-5 bg-orange-50/40 border-orange-200 shadow-xs space-y-3">
-          <div className="flex items-center justify-between border-b border-orange-200 pb-2">
+        {/* Database Auth & JWT Security Rules Oversight */}
+        <Card className="p-5 bg-emerald-50/40 border-emerald-200 shadow-xs space-y-3">
+          <div className="flex items-center justify-between border-b border-emerald-200 pb-2">
             <div className="flex items-center gap-2">
-              <Flame className="h-5 w-5 text-orange-600" />
+              <Flame className="h-5 w-5 text-emerald-600" />
               <h3 className="font-editorial text-base font-bold text-stone-900">
-                Firebase Firestore & Auth Configuration Oversight
+                Database MongoDB Auth & JWT Configuration Oversight
               </h3>
             </div>
-            <Badge variant="amber">Firestore Rules Validated</Badge>
+            <Badge variant="emerald">Database Auth Active</Badge>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div className="p-3 bg-white rounded-xl border border-orange-200 space-y-2">
-              <span className="font-mono font-bold text-stone-900 block">Project ID: verdantiq-cloud-prod</span>
+            <div className="p-3 bg-white rounded-xl border border-emerald-200 space-y-2">
+              <span className="font-mono font-bold text-stone-900 block">Database Cluster: verdantiq-mongo-prod</span>
               <p className="text-stone-600">
-                Auth Domain: <code className="font-mono text-emerald-800">verdantiq-cloud-prod.firebaseapp.com</code>
+                Auth Realm: <code className="font-mono text-emerald-800">verdantiq-database-auth</code>
               </p>
               <div className="flex items-center gap-2 text-[11px] text-stone-500 font-mono">
                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />

@@ -1,6 +1,6 @@
 import { RoleType } from './authService';
 
-export interface FirebaseCustomClaims {
+export interface DbCustomClaims {
   userId: string;
   role: RoleType;
   tenantId: string;
@@ -15,14 +15,14 @@ export interface AccessCheckRequest {
   requestingTenantId: string;
   targetTenantId: string;
   isRawPersonalDataRequested: boolean;
-  claims: FirebaseCustomClaims;
+  claims: DbCustomClaims;
 }
 
 export interface AccessCheckResult {
   allowed: boolean;
   statusCode: 200 | 403;
   reason: string;
-  enforcementLayer: 'Firebase Custom-Claims Check' | 'MongoDB Query Layer' | 'Tenant Scope Guard';
+  enforcementLayer: 'Database JWT Claims Guard' | 'MongoDB Query Layer' | 'Tenant Scope Guard';
   sanitizationApplied?: string[];
   mongoQueryProjection?: Record<string, number>;
   mongoAggregationFilter?: Record<string, unknown>;

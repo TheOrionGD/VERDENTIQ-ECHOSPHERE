@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(VerificationItem.ToLower())s")
+@Document(collection = "verificationitems")
 public class VerificationItem {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class VerificationItem {
     private String action;
     private String status;
 }
+

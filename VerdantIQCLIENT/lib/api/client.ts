@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { auth } from '@/lib/firebase';
 
 export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8080';
 
@@ -78,7 +77,7 @@ export function useApiLoading(): ApiProgressState {
 
 /**
  * Shared API client for making typed HTTP calls to Spring Boot Gateway or FastAPI ML Service.
- * Attaches Firebase ID token automatically when available.
+ * Attaches Database JWT token automatically when available.
  * Handles network failures and missing backends gracefully by returning provided fallbacks.
  */
 export async function apiClient<T = any>(options: ApiRequestOptions<T>): Promise<T> {
@@ -122,13 +121,11 @@ export async function apiClient<T = any>(options: ApiRequestOptions<T>): Promise
     headers['Content-Type'] = 'application/json';
   }
 
-  // Attach Firebase ID Token if user is logged in
-  if (typeof window !== 'undefined' && auth && auth.currentUser) {
-    try {
-      const idToken = await auth.currentUser.getIdToken();
-      headers['Authorization'] = `Bearer ${idToken}`;
-    } catch (e) {
-      console.warn('[apiClient] Failed to retrieve Firebase ID token:', e);
+  // Attach Database JWT Bearer Token if user is logged in
+  if (typeof window !== 'undefined') {
+    const jwtToken = localStorage.getItem('verdantiq_token') || localStorage.getItem('token');
+    if (jwtToken) {
+      headers['Authorization'] = `Bearer ${jwtToken}`;
     }
   }
 

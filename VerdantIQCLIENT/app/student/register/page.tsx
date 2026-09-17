@@ -30,7 +30,7 @@ export default function StudentRegisterPage() {
   const [emailInput, setEmailInput] = useState<string>('mchen24@cs.pacific.edu');
   const [batchYear, setBatchYear] = useState<string>('Class of 2026 (Senior Year)');
   const [digitalTwinChoice, setDigitalTwinChoice] = useState<'dorm' | 'off_campus'>('dorm');
-  const [isFirebaseVerified, setIsFirebaseVerified] = useState<boolean>(true);
+  const [isDbVerified, setIsDbVerified] = useState<boolean>(true);
 
   const [isVerifying, setIsVerifying] = useState<boolean>(false);
   const [verificationResult, setVerificationResult] = useState<{
@@ -125,7 +125,7 @@ export default function StudentRegisterPage() {
           </p>
         </div>
 
-        {/* Firebase Auth Email Banner */}
+        {/* Database Auth Email Banner */}
         <div className="p-4 rounded-2xl bg-emerald-950 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-emerald-800 text-emerald-300 flex items-center justify-center font-bold">
@@ -133,21 +133,21 @@ export default function StudentRegisterPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-white">Firebase Auth Email Verification</span>
+                <span className="text-xs font-bold text-white">Database Auth Email Verification</span>
                 <Badge variant="emerald" size="xs">Confirmed Address</Badge>
               </div>
               <p className="text-xs text-emerald-200/80 mt-0.5">
-                The domain registry check runs on a Firebase-verified email address before department auto-mapping.
+                The domain registry check runs on a database-verified email address before department auto-mapping.
               </p>
             </div>
           </div>
 
           <button
             type="button"
-            onClick={() => setIsFirebaseVerified(!isFirebaseVerified)}
+            onClick={() => setIsDbVerified(!isDbVerified)}
             className="text-[11px] font-mono text-emerald-300 underline cursor-pointer hover:text-white self-start sm:self-auto"
           >
-            {isFirebaseVerified ? 'Simulate Unverified' : 'Simulate Verified'}
+            {isDbVerified ? 'Simulate Unverified' : 'Simulate Verified'}
           </button>
         </div>
 
@@ -182,7 +182,7 @@ export default function StudentRegisterPage() {
                         shakeEmail ? 'animate-shake border-red-500 ring-2 ring-red-500/20' : 'border-stone-300'
                       }`}
                     />
-                    {isFirebaseVerified && (
+                    {isDbVerified && (
                       <CheckCircle2 className="h-4 w-4 text-emerald-600 absolute right-3 top-3" />
                     )}
                   </div>

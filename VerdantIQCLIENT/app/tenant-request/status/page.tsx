@@ -240,7 +240,7 @@ function TenantStatusContent() {
               {currentStatus === 'pending' &&
                 'Your application is currently queued for Spring Boot tenant provisioning and custom claim setup upon admin verification.'}
               {currentStatus === 'approved' &&
-                'Your tenant workspace, MongoDB 2dsphere geofence, and Firebase custom claims mirror have been successfully provisioned.'}
+                'Your tenant workspace, MongoDB 2dsphere geofence, and Database custom claims mirror have been successfully provisioned.'}
               {currentStatus === 'rejected' &&
                 'This application was not approved. Domain ownership or institutional registration requirements could not be verified.'}
             </p>
@@ -287,7 +287,7 @@ function TenantStatusContent() {
                 <span>Tenant Active — Next Steps for Admin</span>
               </div>
               <p className="text-xs text-stone-300">
-                An invitation email was issued to <code className="text-emerald-300 font-mono">{appData.adminContact?.email}</code>. You can log in using Firebase Authentication to access your Institution Dashboard.
+                An invitation email was issued to <code className="text-emerald-300 font-mono">{appData.adminContact?.email}</code>. You can log in using Database Authentication to access your Institution Dashboard.
               </p>
               <Link href="/login">
                 <Button variant="primary" size="sm" className="bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold mt-1">

@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(SystemBroadcast.ToLower())s")
+@Document(collection = "systembroadcasts")
 public class SystemBroadcast {
     @Id
     private String id;
@@ -17,3 +17,4 @@ public class SystemBroadcast {
     // Stub field
     private String name;
 }
+

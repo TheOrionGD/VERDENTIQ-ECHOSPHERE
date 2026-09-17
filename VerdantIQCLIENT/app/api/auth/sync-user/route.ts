@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
 
     const userData = {
       id: userId,
-      firebaseUid: uid || null,
       email: email.toLowerCase(),
       name: name || email.split('@')[0],
       role: role || 'user',

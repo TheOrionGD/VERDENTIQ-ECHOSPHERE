@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DigitalTwinDorm.ToLower())s")
+@Document(collection = "digitaltwindorms")
 public class DigitalTwinDorm {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class DigitalTwinDorm {
     @Indexed
     private String uid;
 }
+

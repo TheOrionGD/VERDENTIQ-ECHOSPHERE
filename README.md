@@ -389,9 +389,8 @@ Ecosphere/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-├── start-system.bat
-├── TestScript/
-│   └── ...
+├── start up
+├── VerdantIQ_System_Tracker_and_Roadmap.xlsx
 ├── VerdantIQCLIENT/
 │   ├── .env
 │   ├── .eslintrc.json
@@ -401,6 +400,8 @@ Ecosphere/
 │   ├── package.json
 │   ├── tsconfig.json
 │   ├── app/
+│   │   ├── error.tsx
+│   │   ├── global-error.tsx
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
@@ -657,23 +658,26 @@ spring:
 
 ## Running the Full System
 
-A Windows startup helper already exists in the root of the repository:
+A startup helper document exists in the root of the repository:
 
-- [start-system.bat](start-system.bat)
+- [start up](start%20up)
 
-### Windows Startup Script
+### Service Launch Commands
 
-```bat
-@echo off
-setlocal
-set ROOT_DIR=%~dp0
-set ML_GATEWAY_DIR=%ROOT_DIR%VerdantIQServices\ml-gateway
-set SB_GATEWAY_DIR=%ROOT_DIR%VerdantIQServices\sb-gateway
-set CLIENT_DIR=%ROOT_DIR%VerdantIQCLIENT
+Refer to the [`start up`](start%20up) document for complete instructions. Here are the core service commands:
 
-start "ML Gateway" cmd /k "cd /d "%ML_GATEWAY_DIR%" && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000"
-start "Spring Boot Gateway" cmd /k "cd /d "%SB_GATEWAY_DIR%" && .\mvnw spring-boot:run"
-start "VerdantIQ Client" cmd /k "cd /d "%CLIENT_DIR%" && npm run dev"
+```powershell
+# 1. ML Gateway (FastAPI — Port 8000)
+cd VerdantIQServices/ml-gateway
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# 2. Spring Boot Gateway (Java — Port 8080)
+cd VerdantIQServices/sb-gateway
+.\mvnw.cmd spring-boot:run
+
+# 3. Next.js Client (Port 3000)
+cd VerdantIQCLIENT
+npm run dev
 ```
 
 ### Manual Startup Sequence

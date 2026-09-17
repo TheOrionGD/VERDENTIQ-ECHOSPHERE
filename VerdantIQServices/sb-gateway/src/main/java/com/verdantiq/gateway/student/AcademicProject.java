@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(AcademicProject.ToLower())s")
+@Document(collection = "academicprojects")
 public class AcademicProject {
     @Id
     private String id;
@@ -24,3 +24,4 @@ public class AcademicProject {
     @Indexed
     private String uid;
 }
+

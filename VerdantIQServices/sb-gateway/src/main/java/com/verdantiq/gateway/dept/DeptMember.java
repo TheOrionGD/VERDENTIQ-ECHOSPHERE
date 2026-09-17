@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DeptMember.ToLower())s")
+@Document(collection = "deptmembers")
 public class DeptMember {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class DeptMember {
     private String action;
     private String status;
 }
+

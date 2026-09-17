@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(DeptTriggerSettings.ToLower())s")
+@Document(collection = "depttriggersettingss")
 public class DeptTriggerSettings {
     @Id
     private String id;
@@ -26,3 +26,4 @@ public class DeptTriggerSettings {
     private String action;
     private String status;
 }
+

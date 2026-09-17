@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "$(AcceptedDomain.ToLower())s")
+@Document(collection = "accepteddomains")
 public class AcceptedDomain {
     @Id
     private String id;
@@ -21,3 +21,4 @@ public class AcceptedDomain {
     // Stub fields
     private String name;
 }
+

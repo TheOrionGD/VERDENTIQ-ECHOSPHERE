@@ -1,6 +1,6 @@
 package com.verdantiq.gateway.config;
 
-import com.verdantiq.gateway.common.security.FirebaseTokenFilter;
+import com.verdantiq.gateway.common.security.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import java.util.List;
 public class SecurityConfig {
 
     @Autowired
-    private FirebaseTokenFilter firebaseTokenFilter;
+    private JwtTokenFilter jwtTokenFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,14 +33,14 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 // Public endpoints
-                .requestMatchers("/api/v1/auth/send-otp", "/api/v1/auth/verify-otp", "/api/v1/auth/login").permitAll()
+                .requestMatchers("/api/v1/auth/send-otp", "/api/v1/auth/verify-otp", "/api/v1/auth/login", "/api/v1/auth/sync-user").permitAll()
                 .requestMatchers("/api/v1/region/states/*/households").permitAll()
                 // Swagger/Actuator endpoints if needed
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/**").permitAll()
                 // All other endpoints require authentication
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(firebaseTokenFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -57,5 +57,10 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+        return new org.springframework.security.provisioning.InMemoryUserDetailsManager();
     }
 }
