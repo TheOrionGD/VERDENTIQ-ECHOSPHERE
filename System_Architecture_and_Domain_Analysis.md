@@ -400,7 +400,42 @@ graph TD
 | **`HOUSEHOLD`** | Utility bill logs, appliance inventory, habit check-ins, bill image scans, thermostat settings. | Home energy dashboard, MILP action priority list, 30-day forecast chart, home scorecard. |
 
 ---
+Quick Copy-Paste Blocks
+1. System Administrator (ADMIN)
+text
+Email:    admin@verdantiq.io
+Password: AdminPassword2026!
+2. Regional Authority (REGION)
+text
+Email:    region@tn.gov.in
+Password: RegionPassword2026!
+3. Institutional Executive (INSTITUTION)
+text
+Email:    admin@institution.org
+Password: InstitutionPassword2026!
+4. Department Lead (DEPT)
+text
+Email:    dept@institution.org
+Password: DeptPassword2026!
+5. ESG Compliance Auditor (AUDIT)
+text
+Email:    auditor@esg-verify.org
+Password: AuditorPassword2026!
+6. MLOps Engineer (MLOPS)
+text
+Email:    mlops@verdantiq.io
+Password: MlopsPassword2026!
+7. Student Eco-Participant (STUDENT)
+text
+Email:    student@institution.org
+Password: StudentPassword2026!
+8. Household Resident (HOUSEHOLD)
+text
+Email:    user@verdantiq.org
+Password: UserPassword2026!
 
+
+---
 # VerdantIQ Ecosphere - Core Purpose, Benefits & Policy Compliance
 
 ---

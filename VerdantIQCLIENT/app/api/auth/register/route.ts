@@ -27,27 +27,31 @@ export async function POST(req: NextRequest) {
     };
 
     if (db) {
-      const usersCollection = db.collection('users');
-      const existingUser = await usersCollection.findOne({ email: cleanEmail });
-      
-      if (existingUser) {
-        await usersCollection.updateOne(
-          { email: cleanEmail },
-          { $set: { role: role || existingUser.role, updatedAt: new Date().toISOString() } }
-        );
-        const updatedUser = await usersCollection.findOne({ email: cleanEmail });
-        const targetUser = updatedUser || existingUser;
-        const existingToken = `db_jwt_${Buffer.from(JSON.stringify({ uid: targetUser.id || existingUser.id, email: cleanEmail, role: targetUser.role || 'user' })).toString('base64')}`;
+      try {
+        const usersCollection = db.collection('users');
+        const existingUser = await usersCollection.findOne({ email: cleanEmail });
         
-        return NextResponse.json({
-          success: true,
-          message: 'Account already exists in database. Authenticated successfully.',
-          user: targetUser,
-          token: existingToken,
-        });
-      }
+        if (existingUser) {
+          await usersCollection.updateOne(
+            { email: cleanEmail },
+            { $set: { role: role || existingUser.role, updatedAt: new Date().toISOString() } }
+          );
+          const updatedUser = await usersCollection.findOne({ email: cleanEmail });
+          const targetUser = updatedUser || existingUser;
+          const existingToken = `db_jwt_${Buffer.from(JSON.stringify({ uid: targetUser.id || existingUser.id, email: cleanEmail, role: targetUser.role || 'user' })).toString('base64')}`;
+          
+          return NextResponse.json({
+            success: true,
+            message: 'Account already exists in database. Authenticated successfully.',
+            user: targetUser,
+            token: existingToken,
+          });
+        }
 
-      await usersCollection.insertOne(newUser);
+        await usersCollection.insertOne(newUser);
+      } catch (dbErr) {
+        console.warn('MongoDB query warning in register route, falling back:', dbErr);
+      }
     }
 
     const token = `db_jwt_${Buffer.from(JSON.stringify({ uid: userId, email: cleanEmail, role: newUser.role })).toString('base64')}`;

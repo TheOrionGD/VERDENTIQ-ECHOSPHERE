@@ -16,31 +16,37 @@ export async function POST(req: NextRequest) {
     let userRecord: any = null;
 
     if (db) {
-      const usersCollection = db.collection('users');
-      userRecord = await usersCollection.findOne({ email: cleanEmail });
+      try {
+        const usersCollection = db.collection('users');
+        userRecord = await usersCollection.findOne({ email: cleanEmail });
 
-      if (!userRecord) {
-        // Create user in database on first login
-        const newId = `usr_${Math.random().toString(36).substring(2, 9)}`;
-        const newUser = {
-          id: newId,
-          email: cleanEmail,
-          name: name || cleanEmail.split('@')[0],
-          role: role || 'user',
-          tenantId: 'tenant_default',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        await usersCollection.insertOne(newUser);
-        userRecord = newUser;
-      } else if (role && userRecord.role !== role) {
-        await usersCollection.updateOne(
-          { email: cleanEmail },
-          { $set: { role, updatedAt: new Date().toISOString() } }
-        );
-        userRecord.role = role;
+        if (!userRecord) {
+          // Create user in database on first login
+          const newId = `usr_${Math.random().toString(36).substring(2, 9)}`;
+          const newUser = {
+            id: newId,
+            email: cleanEmail,
+            name: name || cleanEmail.split('@')[0],
+            role: role || 'user',
+            tenantId: 'tenant_default',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+          await usersCollection.insertOne(newUser);
+          userRecord = newUser;
+        } else if (role && userRecord.role !== role) {
+          await usersCollection.updateOne(
+            { email: cleanEmail },
+            { $set: { role, updatedAt: new Date().toISOString() } }
+          );
+          userRecord.role = role;
+        }
+      } catch (dbErr) {
+        console.warn('MongoDB query warning in login route, falling back to local user record:', dbErr);
       }
-    } else {
+    }
+
+    if (!userRecord) {
       // Local database fallback representation
       userRecord = {
         id: `usr_${Math.random().toString(36).substring(2, 9)}`,
