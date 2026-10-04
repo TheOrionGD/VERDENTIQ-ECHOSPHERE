@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8080';
+export const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'https://verdantiq-sb-gateway.onrender.com';
 
 export interface ApiRequestOptions<T = any> {
   path: string;
