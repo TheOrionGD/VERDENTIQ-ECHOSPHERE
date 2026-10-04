@@ -1,39 +1,46 @@
-previews:
-  generation: automatic
+# Render Blueprint Spec for VerdantIQ Ecosphere
+# Auto-deploy enabled for Frontend, Spring Boot & ML Microservices
+version: "1"
+projects:
+- name: VerdantIQ-Ecosphere
+  environments:
+  - name: Production
+    services:
 
-services:
-  # ---------------------------------------------------------------------------
-  # 1. ML Gateway (FastAPI Python Microservice)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: verdantiq-ml-gateway
-    plan: free
-    runtime: python
-    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
-    branch: theoriongd
-    rootDir: VerdantIQServices/ml-gateway
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
-    envVars:
+    # ----------------------------------------------------
+    # 1. ML Gateway (FastAPI Python Microservice)
+    # ----------------------------------------------------
+    - type: web
+      name: verdantiq-ml-gateway
+      runtime: python
+      repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE
+      plan: free
+      region: singapore
+      rootDir: VerdantIQServices/ml-gateway
+      buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+      startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+      healthCheckPath: /health
+      autoDeployTrigger: commit
+      envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: INTERNAL_SERVICE_KEY
         generateValue: true
 
-  # ---------------------------------------------------------------------------
-  # 2. Spring Boot API Gateway (Java 17 Microservice)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: verdantiq-sb-gateway
-    plan: free
-    runtime: docker
-    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
-    branch: theoriongd
-    rootDir: VerdantIQServices/sb-gateway
-    dockerfilePath: Dockerfile
-    healthCheckPath: /actuator/health
-    envVars:
+    # ----------------------------------------------------
+    # 2. Spring Boot API Gateway (Java 17 Microservice)
+    # ----------------------------------------------------
+    - type: web
+      name: verdantiq-sb-gateway
+      runtime: docker
+      repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE
+      plan: free
+      region: singapore
+      rootDir: VerdantIQServices/sb-gateway
+      dockerfilePath: Dockerfile
+      healthCheckPath: /actuator/health
+      autoDeployTrigger: commit
+      envVars:
       - key: ML_SERVICE_URL
         fromService:
           type: web
@@ -48,22 +55,26 @@ services:
         generateValue: true
       - key: JWT_EXPIRATION_MS
         value: "86400000"
-      - fromGroup: verdantiq-shared-env
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        value: VerdantIQ
 
-  # ---------------------------------------------------------------------------
-  # 3. Frontend Client (Next.js 15 Web Application)
-  # ---------------------------------------------------------------------------
-  - type: web
-    name: verdantiq-client
-    plan: free
-    runtime: node
-    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
-    branch: theoriongd
-    rootDir: VerdantIQCLIENT
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    healthCheckPath: /
-    envVars:
+    # ----------------------------------------------------
+    # 3. Frontend Client (Next.js 15 Web Application)
+    # ----------------------------------------------------
+    - type: web
+      name: verdantiq-client
+      runtime: node
+      repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE
+      plan: free
+      region: singapore
+      rootDir: VerdantIQCLIENT
+      buildCommand: npm install && npm run build
+      startCommand: npm start
+      healthCheckPath: /
+      autoDeployTrigger: commit
+      envVars:
       - key: NODE_VERSION
         value: 20.10.0
       - key: NEXT_PUBLIC_GATEWAY_URL
@@ -73,16 +84,6 @@ services:
           property: host
       - key: NEXT_PUBLIC_ENABLE_DEV_ROLE_SWITCHER
         value: "true"
-      - key: INTERNAL_SERVICE_KEY
-        fromService:
-          type: web
-          name: verdantiq-ml-gateway
-          envVarKey: INTERNAL_SERVICE_KEY
-      - fromGroup: verdantiq-shared-env
-
-envVarGroups:
-  - name: verdantiq-shared-env
-    envVars:
       - key: MONGODB_URI
         sync: false
       - key: MONGODB_DB_NAME
@@ -91,6 +92,11 @@ envVarGroups:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: INTERNAL_SERVICE_KEY
+        fromService:
+          type: web
+          name: verdantiq-ml-gateway
+          envVarKey: INTERNAL_SERVICE_KEY
       - key: BREVO_API_KEY
         sync: false
       - key: BREVO_SENDER_EMAIL
