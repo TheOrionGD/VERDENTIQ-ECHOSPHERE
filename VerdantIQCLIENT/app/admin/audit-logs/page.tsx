@@ -1,24 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AppShell } from '@/components/shell/AppShell';
 import { RoleSubNav } from '@/components/shell/RoleSubNav';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { FileCode, Search, Filter, Download, ShieldCheck, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { FileCode, Search, Filter, Download, ShieldCheck, RefreshCw, CheckCircle2, Loader2 } from 'lucide-react';
 import { useAuditLogFilters } from '@/lib/hooks/useAuditLogFilters';
+import { apiClient } from '@/lib/api/client';
 
 interface AuditLogEntry {
   id: string;
   timestamp: string;
   actor: string;
   role: string;
-  actionType: 'Auth' | 'Config Change' | 'Permission Escalation' | 'Data Export' | 'Model Retrain' | 'System Alert';
+  actionType: 'Auth' | 'Config Change' | 'Permission Escalation' | 'Data Export' | 'Model Retrain' | 'System Alert' | string;
   targetResource: string;
   ipAddress: string;
-  severity: 'info' | 'warning' | 'critical';
+  severity: 'info' | 'warning' | 'critical' | string;
 }
 
 export default function AdminAuditLogsPage() {
@@ -37,69 +38,37 @@ export default function AdminAuditLogsPage() {
 
   const { searchQuery, selectedAction, selectedRole, selectedSeverity } = filters;
   const [selectedLogs, setSelectedLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<AuditLogEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const logs: AuditLogEntry[] = [
-    {
-      id: 'log_9012',
-      timestamp: '2026-08-01 08:14:22',
-      actor: 'Amara Okafor',
-      role: 'Platform Admin',
-      actionType: 'Permission Escalation',
-      targetResource: 'rbac_policy_v2',
-      ipAddress: '192.168.1.104',
-      severity: 'warning',
-    },
-    {
-      id: 'log_9011',
-      timestamp: '2026-08-01 07:52:10',
-      actor: 'Kenji Takahashi',
-      role: 'ML Ops Admin',
-      actionType: 'Model Retrain',
-      targetResource: 'hvac_opt_model_v2.4',
-      ipAddress: '10.0.4.12',
-      severity: 'info',
-    },
-    {
-      id: 'log_9010',
-      timestamp: '2026-08-01 06:30:15',
-      actor: 'Claire Beauchamp',
-      role: 'Auditor',
-      actionType: 'Data Export',
-      targetResource: 'regional_carbon_report_q2.csv',
-      ipAddress: '172.16.0.45',
-      severity: 'info',
-    },
-    {
-      id: 'log_9009',
-      timestamp: '2026-08-01 05:12:00',
-      actor: 'Dr. Aris Thorne',
-      role: 'Dept Moderator',
-      actionType: 'Config Change',
-      targetResource: 'building_b_schedule',
-      ipAddress: '192.168.1.55',
-      severity: 'info',
-    },
-    {
-      id: 'log_9008',
-      timestamp: '2026-08-01 04:02:44',
-      actor: 'Sophia Sterling',
-      role: 'Institution Admin',
-      actionType: 'Auth',
-      targetResource: 'sso_saml_login',
-      ipAddress: '192.168.1.88',
-      severity: 'info',
-    },
-    {
-      id: 'log_9007',
-      timestamp: '2026-08-01 02:15:30',
-      actor: 'System Watchdog',
-      role: 'Automated Service',
-      actionType: 'System Alert',
-      targetResource: 'groq_llm_latency_spike',
-      ipAddress: '127.0.0.1',
-      severity: 'critical',
-    },
-  ];
+  const fetchAuditLogsFromDatabase = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const dbLogs = await apiClient<any[]>({ path: '/api/v1/admin/audit-logs' });
+      if (Array.isArray(dbLogs)) {
+        const mappedLogs: AuditLogEntry[] = dbLogs.map((item, idx) => ({
+          id: item.id || `log_${idx + 1000}`,
+          timestamp: item.timestamp || item.executedAt || new Date().toISOString().replace('T', ' ').substring(0, 19),
+          actor: item.executedBy || item.actor || 'System Admin',
+          role: item.role || 'Platform Admin',
+          actionType: item.action || item.actionType || 'Config Change',
+          targetResource: item.targetResource || item.resourceType || item.resourceId || 'System Core',
+          ipAddress: item.ipAddress || '192.168.1.1',
+          severity: item.severity ? item.severity.toLowerCase() : 'info',
+        }));
+        setLogs(mappedLogs);
+      }
+    } catch (err) {
+      console.error('[AdminAuditLogs] Failed to fetch audit logs from database:', err);
+      setLogs([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAuditLogsFromDatabase();
+  }, [fetchAuditLogsFromDatabase]);
 
   const filteredLogs = logs.filter((log) => {
     const matchesSearch =
@@ -165,13 +134,24 @@ export default function AdminAuditLogsPage() {
               Global Platform Audit Trail
             </h1>
             <p className="text-xs text-stone-500 mt-0.5">
-              Searchable, immutable ledger of all administrative events, privilege escalations, and system actions.
+              Searchable, immutable ledger of all administrative events, privilege escalations, and system actions loaded live from MongoDB Atlas.
             </p>
           </div>
 
-          <Button variant="outline" size="sm">
-            <Download className="h-3.5 w-3.5 mr-1.5" /> Export Audit CSV
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={fetchAuditLogsFromDatabase}
+              disabled={isLoading}
+            >
+              <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${isLoading ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleBulkExport} disabled={selectedLogs.length === 0}>
+              <Download className="h-3.5 w-3.5 mr-1.5" /> Export Audit CSV
+            </Button>
+          </div>
         </div>
 
         {/* Filter Toolbar */}
@@ -292,8 +272,13 @@ export default function AdminAuditLogsPage() {
           )}
         </div>
 
-        {/* Logs Table or Empty State */}
-        {filteredLogs.length === 0 ? (
+        {/* Loading Indicator, Table, or Empty State */}
+        {isLoading ? (
+          <Card className="p-12 text-center bg-white/95 border-stone-200">
+            <Loader2 className="h-8 w-8 text-emerald-800 animate-spin mx-auto mb-3" />
+            <p className="text-xs text-stone-600 font-medium">Fetching live audit logs from MongoDB Atlas...</p>
+          </Card>
+        ) : filteredLogs.length === 0 ? (
           <EmptyState
             title="No Matching Audit Logs"
             description="No system security logs match your active search filters or role criteria."
