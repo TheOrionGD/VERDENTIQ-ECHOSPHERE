@@ -7,6 +7,7 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-ml-gateway
+    plan: free
     runtime: python
     repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
     branch: theoriongd
@@ -25,6 +26,7 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-sb-gateway
+    plan: free
     runtime: docker
     repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
     branch: theoriongd
@@ -53,6 +55,7 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-client
+    plan: free
     runtime: node
     repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
     branch: theoriongd
