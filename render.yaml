@@ -1,7 +1,5 @@
-# ==============================================================================
-# VerdantIQ Ecosphere - Render Blueprint Specification (render.yaml)
-# Multi-service Deployment: ML Gateway (Python), Spring Boot Gateway (Java), Next.js Client (Node.js)
-# ==============================================================================
+previews:
+  generation: automatic
 
 services:
   # ---------------------------------------------------------------------------
@@ -9,12 +7,13 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-ml-gateway
-    env: python
+    runtime: python
+    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
+    branch: theoriongd
     rootDir: VerdantIQServices/ml-gateway
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
-    autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -26,19 +25,16 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-sb-gateway
-    env: java
+    runtime: java
+    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
+    branch: theoriongd
     rootDir: VerdantIQServices/sb-gateway
     buildCommand: chmod +x ./mvnw && ./mvnw clean package -DskipTests
     startCommand: java -Dserver.port=$PORT -jar target/gateway-0.0.1-SNAPSHOT.jar
     healthCheckPath: /actuator/health
-    autoDeploy: true
     envVars:
       - key: JAVA_VERSION
         value: "17"
-      - key: MONGODB_URI
-        sync: false
-      - key: MONGODB_DB_NAME
-        value: VerdantIQ
       - key: ML_SERVICE_URL
         fromService:
           type: web
@@ -53,18 +49,20 @@ services:
         generateValue: true
       - key: JWT_EXPIRATION_MS
         value: "86400000"
+      - fromGroup: verdantiq-shared-env
 
   # ---------------------------------------------------------------------------
   # 3. Frontend Client (Next.js 15 Web Application)
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-client
-    env: node
+    runtime: node
+    repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
+    branch: theoriongd
     rootDir: VerdantIQCLIENT
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /
-    autoDeploy: true
     envVars:
       - key: NODE_VERSION
         value: 20.10.0
@@ -75,6 +73,16 @@ services:
           property: host
       - key: NEXT_PUBLIC_ENABLE_DEV_ROLE_SWITCHER
         value: "true"
+      - key: INTERNAL_SERVICE_KEY
+        fromService:
+          type: web
+          name: verdantiq-ml-gateway
+          envVarKey: INTERNAL_SERVICE_KEY
+      - fromGroup: verdantiq-shared-env
+
+envVarGroups:
+  - name: verdantiq-shared-env
+    envVars:
       - key: MONGODB_URI
         sync: false
       - key: MONGODB_DB_NAME
@@ -83,11 +91,6 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
-      - key: INTERNAL_SERVICE_KEY
-        fromService:
-          type: web
-          name: verdantiq-ml-gateway
-          envVarKey: INTERNAL_SERVICE_KEY
       - key: BREVO_API_KEY
         sync: false
       - key: BREVO_SENDER_EMAIL
