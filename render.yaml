@@ -25,16 +25,13 @@ services:
   # ---------------------------------------------------------------------------
   - type: web
     name: verdantiq-sb-gateway
-    runtime: java
+    runtime: docker
     repo: https://github.com/TheOrionGD/VERDENTIQ-ECHOSPHERE.git
     branch: theoriongd
     rootDir: VerdantIQServices/sb-gateway
-    buildCommand: chmod +x ./mvnw && ./mvnw clean package -DskipTests
-    startCommand: java -Dserver.port=$PORT -jar target/gateway-0.0.1-SNAPSHOT.jar
+    dockerfilePath: Dockerfile
     healthCheckPath: /actuator/health
     envVars:
-      - key: JAVA_VERSION
-        value: "17"
       - key: ML_SERVICE_URL
         fromService:
           type: web
