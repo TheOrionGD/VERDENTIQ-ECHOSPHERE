@@ -7,4 +7,9 @@ app = FastAPI(
     version=settings.VERSION,
 )
 
+@app.get("/health")
+async def root_health():
+    return {"status": "ok", "service": "ml-gateway"}
+
 app.include_router(api_router, prefix="/api/v1")
+

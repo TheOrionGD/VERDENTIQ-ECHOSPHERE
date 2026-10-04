@@ -1,0 +1,108 @@
+# ==============================================================================
+# VerdantIQ Ecosphere - Render Blueprint Specification (render.yaml)
+# Multi-service Deployment: ML Gateway (Python), Spring Boot Gateway (Java), Next.js Client (Node.js)
+# ==============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. ML Gateway (FastAPI Python Microservice)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: verdantiq-ml-gateway
+    env: python
+    rootDir: VerdantIQServices/ml-gateway
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: INTERNAL_SERVICE_KEY
+        generateValue: true
+
+  # ---------------------------------------------------------------------------
+  # 2. Spring Boot API Gateway (Java 17 Microservice)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: verdantiq-sb-gateway
+    env: java
+    rootDir: VerdantIQServices/sb-gateway
+    buildCommand: chmod +x ./mvnw && ./mvnw clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -jar target/gateway-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /actuator/health
+    autoDeploy: true
+    envVars:
+      - key: JAVA_VERSION
+        value: "17"
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        value: VerdantIQ
+      - key: ML_SERVICE_URL
+        fromService:
+          type: web
+          name: verdantiq-ml-gateway
+          property: host
+      - key: INTERNAL_SERVICE_KEY
+        fromService:
+          type: web
+          name: verdantiq-ml-gateway
+          envVarKey: INTERNAL_SERVICE_KEY
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION_MS
+        value: "86400000"
+
+  # ---------------------------------------------------------------------------
+  # 3. Frontend Client (Next.js 15 Web Application)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: verdantiq-client
+    env: node
+    rootDir: VerdantIQCLIENT
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.10.0
+      - key: NEXT_PUBLIC_GATEWAY_URL
+        fromService:
+          type: web
+          name: verdantiq-sb-gateway
+          property: host
+      - key: NEXT_PUBLIC_ENABLE_DEV_ROLE_SWITCHER
+        value: "true"
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        value: VerdantIQ
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: INTERNAL_SERVICE_KEY
+        fromService:
+          type: web
+          name: verdantiq-ml-gateway
+          envVarKey: INTERNAL_SERVICE_KEY
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        value: noreply@verdantiq.org
+      - key: BREVO_SENDER_NAME
+        value: VerdantIQ Verification System
+      - key: NEXT_PUBLIC_FIREBASE_API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_APP_ID
+        sync: false
