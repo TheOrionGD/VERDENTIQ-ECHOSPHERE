@@ -15,6 +15,9 @@ public class TelemetryAggregatorService {
     @Value("${server.port:8080}")
     private String serverPort;
 
+    @Value("${verdantiq.ml-service-url:http://localhost:8000}")
+    private String mlServiceUrl;
+
     public TelemetryData getTelemetry() {
         List<Map<String, Object>> services = new ArrayList<>();
         List<Map<String, Object>> metrics = new ArrayList<>();
@@ -24,7 +27,7 @@ public class TelemetryAggregatorService {
         Map<String, Object> gatewayService = new HashMap<>();
         gatewayService.put("name", "Spring Boot Gateway");
         try {
-            String healthUrl = "http://localhost:" + serverPort + "/actuator/health";
+            String healthUrl = "http://127.0.0.1:" + serverPort + "/actuator/health";
             Map healthResponse = restTemplate.getForObject(healthUrl, Map.class);
             gatewayService.put("status", healthResponse != null ? healthResponse.get("status") : "UNKNOWN");
         } catch (Exception e) {
@@ -36,8 +39,8 @@ public class TelemetryAggregatorService {
         Map<String, Object> mlService = new HashMap<>();
         mlService.put("name", "FastAPI ML Service");
         try {
-            // Assume the proxy base is on localhost:8000 for this check
-            restTemplate.getForEntity("http://localhost:8000/docs", String.class);
+            String mlHealthUrl = mlServiceUrl.replaceAll("/+$", "") + "/health";
+            restTemplate.getForEntity(mlHealthUrl, String.class);
             mlService.put("status", "UP");
         } catch (Exception e) {
             mlService.put("status", "DOWN");
@@ -47,7 +50,7 @@ public class TelemetryAggregatorService {
 
         // Actuator Metrics via HTTP
         try {
-            String memUrl = "http://localhost:" + serverPort + "/actuator/metrics/jvm.memory.used";
+            String memUrl = "http://127.0.0.1:" + serverPort + "/actuator/metrics/jvm.memory.used";
             Map memResponse = restTemplate.getForObject(memUrl, Map.class);
             Map<String, Object> memoryMetric = new HashMap<>();
             memoryMetric.put("name", "jvm.memory.used");
