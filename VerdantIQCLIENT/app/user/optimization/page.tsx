@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -31,7 +30,7 @@ export default function UserOptimizationPage() {
   const calculateOptimizedActions = () => {
     setIsSimulating(true);
     setTimeout(() => {
-      const recalculated = [].map((act) => {
+      const recalculated = (actions || []).map((act: OptimizationAction) => {
         const carbonMultiplier = carbonPriority / 50;
         const budgetRatio = Math.min(2, budgetCap / 1000);
         const comfortFactor = comfortPreference / 100;

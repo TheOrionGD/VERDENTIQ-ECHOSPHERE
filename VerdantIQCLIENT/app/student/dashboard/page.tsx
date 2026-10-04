@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -26,16 +25,14 @@ import {
   Plus,
 } from 'lucide-react';
 
+import { ActivityHistoryItem } from '@/lib/services/userDataService';
+
 export default function StudentDashboardPage() {
   const { user, notifications } = useAuth();
+  const [recentActivities] = useState<ActivityHistoryItem[]>([]);
 
   // Personal Goals State
-  const [goals, setGoals] = useState([
-    { id: 'g1', title: 'Cap Founders Hall monthly dorm power to 130 kWh', target: 130, current: 128, unit: 'kWh', completed: true },
-    { id: 'g2', title: 'Enroll in 2 campus green computing sprints', target: 2, current: 2, unit: 'sprints', completed: true },
-    { id: 'g3', title: 'Submit 1 faculty-mentored research paper', target: 1, current: 1, unit: 'papers', completed: true },
-    { id: 'g4', title: 'Pledge 4 Cafeteria Meatless Mondays', target: 4, current: 3, unit: 'days', completed: false },
-  ]);
+  const [goals, setGoals] = useState<any[]>([]);
 
   const [newGoalTitle, setNewGoalTitle] = useState('');
   const [isAddGoalOpen, setIsAddGoalOpen] = useState(false);
@@ -246,7 +243,7 @@ export default function StudentDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4 space-y-3">
-              {[].slice(0, 4).map((item) => (
+              {(recentActivities || []).slice(0, 4).map((item) => (
                 <div key={item.id} className="p-3 rounded-xl bg-stone-50 border border-stone-200/80 flex justify-between gap-3 text-xs">
                   <div>
                     <div className="font-bold text-stone-900">{item.title}</div>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -28,9 +27,12 @@ import {
   Cpu,
 } from 'lucide-react';
 
+import { ActivityHistoryItem } from '@/lib/services/userDataService';
+
 export default function UserDashboardPage() {
   const { user, notifications } = useAuth();
   const [alertFilter, setAlertFilter] = useState<'all' | 'peak' | 'solar' | 'carbon'>('all');
+  const [recentActivities] = useState<ActivityHistoryItem[]>([]);
 
   const filteredAlerts = notifications.filter((n) => {
     if (alertFilter === 'peak') return n.title.toLowerCase().includes('peak') || n.title.toLowerCase().includes('grid');
@@ -40,35 +42,7 @@ export default function UserDashboardPage() {
   });
 
   // AI Personalized Recommendations Feed
-  const aiRecommendations = [
-    {
-      id: 'rec_1',
-      title: 'XGBoost Shift: Shift Heat Pump Reheat to 13:00 Solar Peak',
-      category: 'HVAC Thermal Load',
-      impact: '-18.4 kg CO2e / mo',
-      savings: '$24.50 / mo',
-      confidence: 96,
-      reason: 'Predicted 3.8 kW solar PV surplus between 12:30 and 15:00 tomorrow based on 90-day irradiance model.',
-    },
-    {
-      id: 'rec_2',
-      title: 'Powerwall Dispatch: Enable Off-Peak Arbitrage Mode',
-      category: 'Battery Storage',
-      impact: '-12.1 kg CO2e / mo',
-      savings: '$38.20 / mo',
-      confidence: 98,
-      reason: 'Peak grid tariff rises to $0.42/kWh at 16:00. Discharging 6.2 kWh battery reserve offsets full peak window.',
-    },
-    {
-      id: 'rec_3',
-      title: 'Peer Cohort Insight: Standby Power Reduction',
-      category: 'Smart Plugs',
-      impact: '-6.2 kg CO2e / mo',
-      savings: '$8.10 / mo',
-      confidence: 91,
-      reason: 'Your household overnight idle power draw (180W) is +28% higher than top-quantile peer cohort in Green Valley.',
-    },
-  ];
+  const aiRecommendations: any[] = [];
 
   return (
     <AppShell>
@@ -316,7 +290,7 @@ export default function UserDashboardPage() {
               </div>
             </CardHeader>
             <CardContent className="pt-4 space-y-3">
-              {[].slice(0, 4).map((item) => (
+              {(recentActivities || []).slice(0, 4).map((item) => (
                 <div
                   key={item.id}
                   className="p-3 rounded-xl bg-stone-50/80 border border-stone-200/80 flex items-start justify-between gap-3 hover:bg-stone-100/80 transition-colors"

@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React from 'react';
@@ -8,9 +7,11 @@ import { Badge } from '@/components/ui/Badge';
 import { StatGauge } from '@/components/ui/StatGauge';
 import { GraduationCap, Users, Trophy, Sparkles, Award, ShieldCheck } from 'lucide-react';
 
+import { InstitutionRecord } from '@/lib/services/regionService';
+
 export default function RegionalStudentsAnalyticsPage() {
   const benchmarks = { institutionCount: 0, totalStudents: 0, avgEUI: 0, avgTargetEUI: 0, avgCarbon: 0, avgTargetCarbon: 0, avgAccuracy: 0, privacyPolicyNotice: "" };
-  const institutions = [].filter((i) => i.status !== 'deactivated');
+  const institutions = ([] as InstitutionRecord[]).filter((i) => i.status !== 'deactivated');
 
   return (
     <AppShell>

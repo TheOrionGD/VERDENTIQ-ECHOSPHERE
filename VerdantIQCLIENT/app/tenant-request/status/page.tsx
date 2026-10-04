@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
@@ -118,7 +117,7 @@ function TenantStatusContent() {
       setAppData(fallback);
       setCurrentStatus('pending');
     }
-  });
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

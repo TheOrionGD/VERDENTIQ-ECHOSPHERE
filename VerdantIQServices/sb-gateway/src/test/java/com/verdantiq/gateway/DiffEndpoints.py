@@ -6,7 +6,8 @@ with open(r"O:\PROJECTS\Ecosphere\VerdantIQCLIENT\docs\API_CONTRACT.md", "r", en
     for line in f:
         match = re.search(r"### `(GET|POST|PUT|DELETE|PATCH) (/[^`]+)`", line)
         if match:
-            contract_endpoints.add(f"{match.group(1)} {match.group(2)}")
+            clean_path = match.group(2).split('?')[0]
+            contract_endpoints.add(f"{match.group(1)} {clean_path}")
 
 code_endpoints = set()
 base_dir = r"O:\PROJECTS\Ecosphere\VerdantIQServices\sb-gateway\src\main\java\com\verdantiq\gateway"

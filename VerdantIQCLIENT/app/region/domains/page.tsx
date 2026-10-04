@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -7,12 +6,24 @@ import { AppShell } from '@/components/shell/AppShell';
 import { Badge } from '@/components/ui/Badge';
 import { Globe, ShieldCheck, CheckCircle2, AlertTriangle, Lock, Search } from 'lucide-react';
 
+import { DomainOversightRecord } from '@/lib/services/regionService';
+
 export default function RegionalDomainsPage() {
-  const domainRecords = ([] as any);
+  const domainRecords: DomainOversightRecord[] = [
+    {
+      id: 'dom-01',
+      institutionName: 'Pacific State University',
+      domainName: 'pacific.edu',
+      primaryMX: 'aspmx.l.google.com',
+      sslWildcardValidDays: 142,
+      cnameDelegationStatus: 'DELEGATED',
+      lastAuditedAt: '2026-07-28 10:00',
+    },
+  ];
   const [search, setSearch] = useState('');
 
   const filtered = domainRecords.filter(
-    (d) =>
+    (d: DomainOversightRecord) =>
       d.institutionName.toLowerCase().includes(search.toLowerCase()) ||
       d.domainName.toLowerCase().includes(search.toLowerCase())
   );
@@ -68,7 +79,7 @@ export default function RegionalDomainsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-stone-100 text-stone-800">
-              {filtered.map((dom) => (
+              {filtered.map((dom: DomainOversightRecord) => (
                 <tr key={dom.id} className="hover:bg-stone-50/80 transition-colors">
                   <td className="p-3 font-bold text-stone-900">{dom.institutionName}</td>
                   <td className="p-3 font-mono text-emerald-800 font-semibold">{dom.domainName}</td>

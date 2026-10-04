@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -7,7 +6,7 @@ import { RoleSubNav } from '@/components/shell/RoleSubNav';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { OmnibarQueryResponse } from '@/lib/services/assistantService';
+import { OmnibarQueryResponse, queryOmnibar } from '@/lib/services/assistantService';
 import { Bot, Sparkles, Send, CheckCircle2, Trophy, GraduationCap, Zap, ShieldCheck, Database, Cpu } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 
@@ -39,7 +38,7 @@ export default function StudentAssistantPage() {
 
     setIsLoading(true);
     try {
-      const res = await ([] as any);
+      const res = await queryOmnibar(query, 'student');
       setHistory((prev) => [res, ...prev]);
       setQuery('');
       toast.success('Omnibar Synthesis Complete', res.intent);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -7,7 +6,7 @@ import { RoleSubNav } from '@/components/shell/RoleSubNav';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { OmnibarQueryResponse } from '@/lib/services/({ getInitialChat: () => [], queryOmnibar: async () => [] })';
+import { OmnibarQueryResponse, queryOmnibar } from '@/lib/services/assistantService';
 import { Bot, Sparkles, Send, CheckCircle2, ArrowRight, Zap, ShieldCheck, Database, Cpu } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 
@@ -39,7 +38,7 @@ export default function UserAssistantPage() {
 
     setIsLoading(true);
     try {
-      const res = await ({ getInitialChat: () => [], queryOmnibar: async () => [] }).queryOmnibar(query, 'user');
+      const res = await queryOmnibar(query, 'user');
       setHistory((prev) => [res, ...prev]);
       setQuery('');
       toast.success('Omnibar Synthesis Complete', res.intent);

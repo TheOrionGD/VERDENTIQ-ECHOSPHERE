@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -46,47 +45,18 @@ export default function UserHistoryPage() {
   } | null>(null);
 
   // Evidence Status Tracker State
-  const [evidenceList, setEvidenceList] = useState([
-    {
-      id: 'ev_101',
-      type: 'July Utility Bill Photo',
-      fileName: 'utility_bill_jul_2026.pdf',
-      ocrExtractedValue: '328.5 kWh ($142.20)',
-      geofenceCheck: 'PASSED ($geoWithin Sector 4)',
-      status: 'APPROVED',
-      timestamp: '2026-07-31 14:20',
-      confidence: 98.4,
-    },
-    {
-      id: 'ev_102',
-      type: 'Solar PV Meter Geotag Photo',
-      fileName: 'solar_inverter_geotag.jpg',
-      ocrExtractedValue: '422.0 kWh Generation',
-      geofenceCheck: 'PASSED ($geoWithin Sector 4)',
-      status: 'APPROVED',
-      timestamp: '2026-07-28 09:15',
-      confidence: 96.2,
-    },
-  ]);
+  const [evidenceList, setEvidenceList] = useState<any[]>([]);
 
   // Dispute / Appeal State
-  const [disputes, setDisputes] = useState([
-    {
-      id: 'dsp_301',
-      logId: 'act_102',
-      reason: 'Incorrect battery discharge anomaly flag during storm outage event',
-      targetDept: 'Department Moderator - Sector 4',
-      status: 'In Review',
-      submittedAt: '2026-08-01 08:30',
-      moderatorNote: 'Assigned to Sector 4 Moderator. Reviewing weather telemetry logs.',
-    },
-  ]);
+  const [disputes, setDisputes] = useState<any[]>([]);
+
+  const [historyItems] = useState<ActivityHistoryItem[]>([]);
 
   const [disputeReason, setDisputeReason] = useState('');
-  const [disputeLogId, setDisputeLogId] = useState('act_101');
+  const [disputeLogId, setDisputeLogId] = useState('');
   const [disputeSuccess, setDisputeSuccess] = useState(false);
 
-  const filteredItems = [].filter((item) => {
+  const filteredItems = (historyItems || []).filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.details.toLowerCase().includes(searchQuery.toLowerCase());
@@ -519,7 +489,7 @@ export default function UserHistoryPage() {
                       onChange={(e) => setDisputeLogId(e.target.value)}
                       className="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-700 bg-white font-mono"
                     >
-                      {[].map((item) => (
+                      {(historyItems || []).map((item) => (
                         <option key={item.id} value={item.id}>
                           [{item.id}] {item.title} ({item.timestamp})
                         </option>

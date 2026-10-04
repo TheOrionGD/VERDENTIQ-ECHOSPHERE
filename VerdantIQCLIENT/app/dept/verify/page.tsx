@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -33,8 +32,8 @@ export default function DeptVerifyPage() {
   const [items, setItems] = useState<VerificationItem[]>(() => ([] as any));
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected' | 'escalated' | 'all'>('pending');
   const [selectedItemId, setSelectedItemId] = useState<string | null>(() => {
-    const data = ([] as any);
-    const pending = data.filter((i) => i.status === 'pending');
+    const data: VerificationItem[] = ([] as any);
+    const pending = data.filter((i: VerificationItem) => i.status === 'pending');
     return pending.length > 0 ? pending[0].id : null;
   });
   const [selectedForBulk, setSelectedForBulk] = useState<string[]>([]);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -23,7 +22,7 @@ export const RegionalPDFReportModal: React.FC<Props> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   const benchmarks = { institutionCount: 0, totalStudents: 0, avgEUI: 0, avgTargetEUI: 0, avgCarbon: 0, avgTargetCarbon: 0, avgAccuracy: 0, privacyPolicyNotice: "" };
-  const institutions = [].filter((i) => i.status !== 'deactivated');
+  const institutions = ([] as Array<{ status?: string }>).filter((i) => i.status !== 'deactivated');
 
   const handleDownloadPDF = () => {
     setDownloading(true);

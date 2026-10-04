@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -20,7 +19,7 @@ export default function RegionalTenantRequestsPage() {
   const handleApprove = async (reqId: string) => {
     setProcessingId(reqId);
     try {
-      const createdInst = await ([] as any);
+      const createdInst = { code: reqId, name: 'New Institution' };
       refreshList();
       setActiveSpringLog({
         id: reqId,

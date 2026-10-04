@@ -55,15 +55,18 @@ export interface SharedChallengeTemplate {
 
 export interface DomainOversightRecord {
   id: string;
-  institutionId: string;
+  institutionId?: string;
   institutionName: string;
   domainName: string;
   primaryMX: string;
-  sslStatus: 'valid' | 'expiring_soon' | 'invalid';
-  sslExpiryDays: number;
-  dnsVerified: boolean;
-  cnameConfigured: boolean;
-  lastAudited: string;
+  sslStatus?: 'valid' | 'expiring_soon' | 'invalid';
+  sslExpiryDays?: number;
+  sslWildcardValidDays?: number;
+  dnsVerified?: boolean;
+  cnameConfigured?: boolean;
+  cnameDelegationStatus?: string;
+  lastAudited?: string;
+  lastAuditedAt?: string;
 }
 
 export interface SupportTicket {
@@ -106,8 +109,20 @@ export interface RegionalGrowthPoint {
   yearQuarter: string;
   activeInstitutions: number;
   totalStudents: number;
-  aggregateCarbonOffsetTons: number;
-  avgForecastAccuracy: number;
+  aggregateCarbonOffsetTons?: number;
+  avgForecastAccuracy?: number;
+  regionalAvgEUI?: number;
+  carbonReductionPercent?: number;
+}
+
+export interface GrowthTrendDataPoint {
+  yearQuarter: string;
+  activeInstitutions: number;
+  totalStudents: number;
+  regionalAvgEUI?: number;
+  carbonReductionPercent?: number;
+  aggregateCarbonOffsetTons?: number;
+  avgForecastAccuracy?: number;
 }
 
 // Initial Data Stores (Empty by default)

@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -7,9 +6,10 @@ import { SharedChallengeTemplate } from '@/lib/services/regionService';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { BarChart3, Trophy, Plus, TrendingUp, Users, Sparkles, Share2 } from 'lucide-react';
+import { GrowthTrendDataPoint } from '@/lib/services/regionService';
 
 export default function RegionalAnalyticsPage() {
-  const growthTrend = ([] as any);
+  const growthTrend: GrowthTrendDataPoint[] = [];
   const [templates, setTemplates] = useState<SharedChallengeTemplate[]>(() => ([] as any));
   const [isCreatingTpl, setIsCreatingTpl] = useState(false);
   const [newTitle, setNewTitle] = useState('');
@@ -75,8 +75,8 @@ export default function RegionalAnalyticsPage() {
                   <Badge variant="emerald">{pt.activeInstitutions} Campuses</Badge>
                 </div>
                 <div className="text-stone-600">Students: <strong>{pt.totalStudents.toLocaleString()}</strong></div>
-                <div className="text-emerald-800 font-bold">CO2 Offset: {pt.aggregateCarbonOffsetTons.toLocaleString()} Tons</div>
-                <div className="text-[11px] text-stone-500">Avg Accuracy: {pt.avgForecastAccuracy}%</div>
+                <div className="text-emerald-800 font-bold">CO2 Offset: {(pt.aggregateCarbonOffsetTons ?? 0).toLocaleString()} Tons</div>
+                <div className="text-[11px] text-stone-500">Avg Accuracy: {pt.avgForecastAccuracy ?? 0}%</div>
               </div>
             ))}
           </div>

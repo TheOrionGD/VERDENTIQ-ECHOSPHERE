@@ -1,9 +1,8 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
 import { Mail, CheckCircle2, AlertCircle, ShieldCheck, KeyRound, Loader2, X } from 'lucide-react';
-
+import { sendOtpForVerification, verifyOtpCode } from '@/lib/services/tenantPrivacyService';
 
 interface IdVerificationModalProps {
   isOpen: boolean;
@@ -34,7 +33,7 @@ export const IdVerificationModal: React.FC<IdVerificationModalProps> = ({
     setSuccessMessage(null);
 
     try {
-      const data = await ({ initVerification: () => ({ redirectUrl: "" }), checkVerificationStatus: () => ({ status: "pending" }) }).sendOtpForVerification(userEmail, userName, 'Institutional ID Verification');
+      const data = await sendOtpForVerification(userEmail, userName, 'Institutional ID Verification');
       if (data.success) {
         setStep('enter_otp');
         setSuccessMessage(`One-Time Verification Password (OTP) sent to ${userEmail}`);
@@ -62,7 +61,7 @@ export const IdVerificationModal: React.FC<IdVerificationModalProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await ({ initVerification: () => ({ redirectUrl: "" }), checkVerificationStatus: () => ({ status: "pending" }) }).verifyOtpCode(userEmail, otpCode.trim());
+      const data = await verifyOtpCode(userEmail, otpCode.trim());
       if (data.success && data.verified) {
         setStep('success');
         setSuccessMessage('Identity verified successfully! Status updated in database.');

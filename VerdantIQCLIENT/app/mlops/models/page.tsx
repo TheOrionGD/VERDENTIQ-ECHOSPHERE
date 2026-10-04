@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -44,7 +43,7 @@ export default function MlopsModelsPage() {
   const [retrainStep, setRetrainStep] = useState<string | null>(null);
   const [selectedModelId, setSelectedModelId] = useState<string>('m-001');
 
-  const models = ([] as any) || [];
+  const models: ModelVersion[] = [];
   const defaultModel: ModelVersion = {
     id: 'm-001',
     name: 'HVAC Thermal Load Predictor',
@@ -63,7 +62,7 @@ export default function MlopsModelsPage() {
       { feature: 'Occupancy Sensor Density', importance: 0.28 },
     ],
   };
-  const selectedModel = models.find((m) => m.id === selectedModelId) || models[0] || defaultModel;
+  const selectedModel = models.find((m: ModelVersion) => m.id === selectedModelId) || models[0] || defaultModel;
 
   const handleRollback = (targetVersion: string) => {
     ([] as any);

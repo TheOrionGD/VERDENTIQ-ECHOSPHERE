@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -98,7 +97,12 @@ export default function DeptDashboardPage() {
   const approvedItems = queue.filter((i) => i.status === 'approved');
   const totalCo2Saved = approvedItems.length * 125.4;
 
-  const trends = ([] as any);
+  const trends = [
+    { week: 'Week 1', approved: 24, totalSubmissions: 28, carbonOffsetKg: 142.5, borderlineFlagged: 2, rejected: 2 },
+    { week: 'Week 2', approved: 31, totalSubmissions: 35, carbonOffsetKg: 189.0, borderlineFlagged: 3, rejected: 1 },
+    { week: 'Week 3', approved: 29, totalSubmissions: 30, carbonOffsetKg: 175.2, borderlineFlagged: 1, rejected: 0 },
+    { week: 'Week 4', approved: 38, totalSubmissions: 40, carbonOffsetKg: 210.8, borderlineFlagged: 1, rejected: 1 },
+  ];
 
   return (
     <AppShell>

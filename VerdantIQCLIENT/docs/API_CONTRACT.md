@@ -1170,8 +1170,26 @@ This document establishes the official REST and Streaming API contract between t
       }
     ]
   }
-  ``
 
+### `GET /api/v1/institution/reports/download`
+- **Owner**: Spring Boot Gateway
+- **Description**: Download compiled ISO 50001 / GRI PDF report artifact.
+
+### `GET /api/v1/notifications/stream`
+- **Owner**: Spring Boot Gateway
+- **Description**: Server-Sent Events (SSE) stream for real-time system & tenant notification delivery.
+
+### `GET /api/v1/student/anomaly-trends`
+- **Owner**: Spring Boot Gateway -> FastAPI Proxy
+- **Description**: Proxies student dorm historical logs to FastAPI anomaly detector.
+
+### `GET /api/v1/user/anomaly-trends`
+- **Owner**: Spring Boot Gateway -> FastAPI Proxy
+- **Description**: Proxies household historical logs to FastAPI anomaly detector.
+
+### `POST /api/v1/dept/evidence/upload`
+- **Owner**: Spring Boot Gateway
+- **Description**: Upload student action proof files and metadata for OCR verification.
 #### Optimization Actions (POST /user/optimization-actions, POST /institution/milp-scenarios)
 - **Gateway Action**: Fetches the user's DigitalTwinHouse (or DigitalTwinDorm), generates candidate actions based on available appliances (e.g., EV Charger, Heat Pump), and defines the objective weights.
 - **ML Service Payload (OptimizationRequest)**:

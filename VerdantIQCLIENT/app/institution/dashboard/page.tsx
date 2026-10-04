@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -36,7 +35,7 @@ export default function InstitutionDashboard() {
   const { user, roleConfig } = useAuth();
   const [departments, setDepartments] = useState<DepartmentItem[]>(() => ([] as any));
   const [milpScenarios, setMilpScenarios] = useState<MilpScenario[]>(() => ([] as any));
-  const [escalations, setEscalations] = useState<EscalationResolutionItem[]>(() => ([] as any).filter((e) => e.status === 'open'));
+  const [escalations, setEscalations] = useState<EscalationResolutionItem[]>(() => ([] as EscalationResolutionItem[]).filter((e: EscalationResolutionItem) => e.status === 'open'));
 
   const totalBudget = departments.reduce((acc, d) => acc + d.budgetAnnualUsd, 0);
   const totalSpent = departments.reduce((acc, d) => acc + d.budgetSpentUsd, 0);

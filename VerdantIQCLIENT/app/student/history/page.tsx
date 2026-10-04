@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -19,13 +18,16 @@ import {
   Info,
 } from 'lucide-react';
 
+import { ActivityHistoryItem } from '@/lib/services/userDataService';
+
 export default function StudentHistoryPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [isOffboardingModalOpen, setIsOffboardingModalOpen] = useState(false);
   const [offboardingStep, setOffboardingStep] = useState<'idle' | 'exported' | 'anonymized'>('idle');
+  const [historyItems] = useState<ActivityHistoryItem[]>([]);
 
-  const filteredItems = [].filter((item) => {
+  const filteredItems = (historyItems || []).filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.details.toLowerCase().includes(searchQuery.toLowerCase());

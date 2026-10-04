@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import React, { useState } from 'react';
@@ -32,7 +31,7 @@ export const InstitutionOffboardingModal: React.FC<Props> = ({
     setIsSubmitting(true);
     await new Promise((res) => setTimeout(res, 800));
 
-    onOffboard();
+    onSuccess();
     setIsSubmitting(false);
     setCompleted(true);
   };
@@ -131,7 +130,7 @@ export const InstitutionOffboardingModal: React.FC<Props> = ({
 
           {!completed ? (
             <Button
-              onClick={handleExecuteOffboard}
+              onClick={handleConfirm}
               disabled={isSubmitting}
               className="bg-rose-700 hover:bg-rose-800 text-white"
             >

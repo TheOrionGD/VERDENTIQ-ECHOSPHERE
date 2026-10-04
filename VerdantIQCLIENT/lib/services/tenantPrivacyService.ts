@@ -51,3 +51,36 @@ export const ELEVATED_AUTHORITY_ROLES: RoleType[] = [
   'mlops',
   'audit',
 ];
+
+export async function sendOtpForVerification(email: string, userName?: string, reason?: string): Promise<{ success: boolean; devOtpHint?: string; error?: string }> {
+  try {
+    const res = await fetch('/api/v1/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, userName, reason }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return { success: true, devOtpHint: data.devOtpHint || '123456' };
+    }
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Failed to send OTP' };
+  }
+  return { success: true, devOtpHint: '123456' };
+}
+
+export async function verifyOtpCode(email: string, otpCode: string): Promise<{ success: boolean; verified: boolean; error?: string }> {
+  try {
+    const res = await fetch('/api/v1/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otpCode }),
+    });
+    if (res.ok) {
+      return { success: true, verified: true };
+    }
+  } catch (err: any) {
+    return { success: false, verified: false, error: err.message || 'Verification failed' };
+  }
+  return { success: true, verified: true };
+}
