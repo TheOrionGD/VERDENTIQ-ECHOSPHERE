@@ -48,7 +48,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*", "https://*.onrender.com", "*"));
+        configuration.setAllowedOriginPatterns(List.of("https://verdantiq-client.onrender.com", "https://*.onrender.com", "*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Internal-Service-Key"));
         configuration.setExposedHeaders(List.of("Content-Type"));

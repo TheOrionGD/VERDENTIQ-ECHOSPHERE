@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MinioConfig {
 
-    @Value("${minio.url:http://localhost:9000}")
+    @Value("${minio.url:https://verdantiq-sb-gateway.onrender.com}")
     private String minioUrl;
 
     @Value("${minio.access.key:minioadmin}")
