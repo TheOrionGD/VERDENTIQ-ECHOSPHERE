@@ -94,7 +94,7 @@ envVarGroups:
       - key: BREVO_API_KEY
         sync: false
       - key: BREVO_SENDER_EMAIL
-        value: noreply@verdantiq.org
+        value: godfrey.cs23@krct.ac.in
       - key: BREVO_SENDER_NAME
         value: VerdantIQ Verification System
       - key: NEXT_PUBLIC_FIREBASE_API_KEY
