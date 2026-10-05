@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   config:
@@ -10,9 +10,13 @@ spring:
     mongodb:
       uri: ${MONGODB_URI}
       database: ${MONGODB_DB_NAME:VerdantIQ}
-      auto-index-creation: true
+      auto-index-creation: false
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
   endpoint:
     health:
       show-details: always

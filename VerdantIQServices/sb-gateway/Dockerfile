@@ -14,4 +14,4 @@ COPY --from=build /app/target/gateway-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Dserver.port=${PORT:-8080} -jar app.jar"]
