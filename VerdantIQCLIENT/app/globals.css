@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --mac-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mac-bg-light: rgba(246, 246, 248, 0.75);
+    --mac-bg-dark: rgba(22, 22, 26, 0.78);
+    
+    /* Default Emerald HIG Accent */
+    --mac-accent-primary: #064e3b;
+    --mac-accent-hover: #065f46;
+    --mac-accent-light: rgba(6, 78, 59, 0.12);
+    --mac-accent-ring: #10b981;
+    --mac-glass-opacity: 0.65;
+  }
+
+  body {
+    font-family: var(--mac-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    user-select: none;
+    background-image: url('/bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #0c0a09;
+    color: #f5f5f4;
+  }
+}
+
+/* System Typography */
+.font-sf {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+}
+
+.font-editorial {
+  font-family: Georgia, "SF Pro Display", Cambria, serif;
+}
+
+/* Liquid Glass Backdrop Materials (VerdantIQ Visual Effect Views) - Dark Theme Locked */
+.macos-liquid-glass {
+  background: rgba(18, 18, 22, var(--mac-glass-opacity, 0.75));
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.dark .macos-liquid-glass {
+  background: rgba(18, 18, 22, var(--mac-glass-opacity, 0.75));
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.macos-menubar {
+  background: rgba(20, 20, 26, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.dark .macos-menubar {
+  background: rgba(20, 20, 26, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+
+/* System Window Shell */
+.macos-window-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.35),
+    0 0 0 0.5px rgba(255, 255, 255, 0.3);
+}
+
+.dark .macos-window-frame {
+  box-shadow: 
+    0 30px 80px -20px rgba(0, 0, 0, 0.7),
+    0 0 0 0.5px rgba(255, 255, 255, 0.15);
+}
+
+/* Control Buttons (Close, Minimize, Expand) */
+.macos-traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.macos-traffic-light-red {
+  background-color: #FF5F57;
+  border: 0.5px solid #E0443E;
+}
+
+.macos-traffic-light-yellow {
+  background-color: #FEBC2E;
+  border: 0.5px solid #DEA123;
+}
+
+.macos-traffic-light-green {
+  background-color: #28C840;
+  border: 0.5px solid #1AAB29;
+}
+
+/* Sidebar Item Selection Pill */
+.macos-sidebar-pill {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.macos-sidebar-pill.active {
+  background-color: var(--mac-accent-primary, #064e3b);
+  color: #ffffff;
+  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* Segmented Picker Control */
+.macos-segmented-picker {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .macos-segmented-picker {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.macos-segmented-option {
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.18s ease;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.dark .macos-segmented-option {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.macos-segmented-option.active {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+.dark .macos-segmented-option.active {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Glass Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 0.5px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+}
+
+.dark .glass-card {
+  background: rgba(24, 24, 30, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+  background-clip: content-box;
+}
+
+/* Soft Animations */
+@keyframes macosPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.96); }
+}
+
+.animate-macos-pulse {
+  animation: macosPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Marquee Infinite Scrolling Ticker */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Dropdown & Select Text Color Rules */
+select {
+  color: #000000 !important;
+}
+
+select option,
+select optgroup,
+option,
+optgroup {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+.dark select option,
+.dark option,
+.dark optgroup {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* Custom Dropdown & Listbox Elements */
+[role="listbox"],
+[role="option"],
+[role="menu"],
+[role="menuitem"],
+.dropdown-menu,
+.dropdown-content,
+.dropdown-item,
+.select-dropdown {
+  color: #000000 !important;
+}

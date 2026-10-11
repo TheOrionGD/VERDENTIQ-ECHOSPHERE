@@ -1,0 +1,84 @@
+{
+  "name": "verdantiq-ecosphere",
+  "version": "1.0.1",
+  "description": "VerdantIQ Ecosphere Desktop Software",
+  "author": {
+    "name": "theoriongd"
+  },
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev --turbo",
+    "dev:webpack": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "clean": "next clean",
+    "seed": "node scripts/seed_database.js",
+    "electron": "electron .",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "electron-builder --win",
+    "desktop:dev": "npm run electron:dev",
+    "desktop:build": "npm run electron:build"
+  },
+  "build": {
+    "appId": "com.verdantiq.ecosphere",
+    "productName": "VerdantIQ",
+    "copyright": "Copyright © 2026 theoriongd",
+    "icon": "build/icon.ico",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "build/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "portable",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@hookform/resolvers": "^5.2.1",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^20.17.19",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/three": "^0.170.0",
+    "autoprefixer": "^10.4.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "eslint": "^9.21.0",
+    "groq-sdk": "^1.5.0",
+    "lucide-react": "^0.475.0",
+    "mongodb": "^7.5.0",
+    "motion": "^12.4.7",
+    "next": "^15.1.7",
+    "postcss": "^8.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^2.15.1",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss": "^4.0.0",
+    "three": "^0.174.0",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^16.3.8",
+    "concurrently": "^10.0.5",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "wait-on": "^9.5.1"
+  }
+}

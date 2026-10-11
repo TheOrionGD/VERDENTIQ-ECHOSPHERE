@@ -1,0 +1,232 @@
+# ==========================================
+# Comprehensive .gitignore for Ecosphere (VerdantIQ)
+# Monorepo: Next.js + React + Electron + Python Services + Spring Boot
+# ==========================================
+
+# ------------------------------------------
+# Operating System & File System Artifacts
+# ------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+*~
+.fuse_hidden*
+.directory
+
+# ------------------------------------------
+# IDEs & Editor Configurations
+# ------------------------------------------
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# JetBrains / IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+cmake-build-*/
+
+# Eclipse & STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# NetBeans
+nbproject/private/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# Vim & Emacs
+*.swp
+*.swo
+.*.sw[a-p]
+#*#
+.#*
+
+# ------------------------------------------
+# Node.js, JavaScript, TypeScript & Frontend (VerdantIQCLIENT)
+# ------------------------------------------
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+.bun/
+.next/
+out/
+dist/
+build/
+release/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.turbo/
+.vercel/
+.netlify/
+
+# ------------------------------------------
+# Electron & Desktop Build Artifacts
+# ------------------------------------------
+# Executables & Installer Bundles
+*.exe
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.app
+*.snap
+*.AppImage
+
+# Electron Packaged Binaries & Dependencies (Root / Dist)
+resources/
+locales/
+chrome_100_percent.pak
+chrome_200_percent.pak
+resources.pak
+icudtl.dat
+snapshot_blob.bin
+v8_context_snapshot.bin
+vk_swiftshader_icd.json
+
+# Native Dynamic Link Libraries & Binary Artifacts
+*.dll
+*.so
+*.dylib
+*.pdb
+*.sys
+
+# ------------------------------------------
+# Python & Virtual Environments (VerdantIQServices / ml-gateway)
+# ------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pytype/
+.pyre/
+.hypothesis/
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.envrc
+.conda/
+htmlcov/
+.coverage
+.coverage.*
+*.egg-info/
+.eggs/
+
+# ------------------------------------------
+# Java, Spring Boot & Maven (VerdantIQServices / sb-gateway)
+# ------------------------------------------
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+
+# ------------------------------------------
+# Environment Files & Secrets (CRITICAL)
+# ------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.schema
+local_settings.py
+application-local.properties
+application-local.yml
+application-local.yaml
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+*.cer
+*.der
+firebase-admin-key.json
+*-firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+secrets/
+*.kdbx
+
+# ------------------------------------------
+# Local Databases & Data Stores
+# ------------------------------------------
+mongodb-data/
+mongodb/
+mongod.log
+*.sqlite3
+*.sqlite
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.ldf
+*.mdf
+dump.rdb
+
+# ------------------------------------------
+# Logs, Temporary Files & Dumps
+# ------------------------------------------
+tmp/
+temp/
+logs/
+*.log
+*.tmp
+*.bak
+*.backup
+*.dmp
+crashpad/
+
+# ------------------------------------------
+# Test Scripts, Audits & Local Sandboxes
+# ------------------------------------------
+TestScript/
+audit_results.json
+temp.txt
+
+# ------------------------------------------
+# Local Tooling & Caches
+# ------------------------------------------
+.cache/
+.gemini/
+
