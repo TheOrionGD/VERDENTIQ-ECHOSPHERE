@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ROLE_CONFIGS, RoleType } from '@/lib/services/authService';
 import { validateRoleDomain, isEducationalEmail, inferRoleFromEmail } from '@/lib/auth/domainValidation';
 import {
@@ -26,7 +26,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/components/ui/Toast';
 
-export default function LoginPage() {
+function LoginContent() {
   const {
     signInWithEmail,
     signUpWithEmail,
@@ -38,7 +38,16 @@ export default function LoginPage() {
     user,
   } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const toast = useToast();
+
+  const fromParam = searchParams?.get('from');
+  const getSafeDestination = (fallbackPath: string) => {
+    if (fromParam && fromParam.startsWith('/') && !fromParam.startsWith('//') && fromParam !== '/login') {
+      return fromParam;
+    }
+    return fallbackPath;
+  };
 
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
@@ -49,13 +58,14 @@ export default function LoginPage() {
   const [domainError, setDomainError] = useState<string | null>(null);
   const [shakeEmail, setShakeEmail] = useState(false);
 
-  // Auto-redirect already logged-in users to their role dashboard
+  // Auto-redirect already logged-in users to their role dashboard or from URL
   React.useEffect(() => {
     if (!isInitializing && isLoggedIn && user?.role) {
       const activeConfig = ROLE_CONFIGS[user.role] || ROLE_CONFIGS.user;
-      router.push(activeConfig.dashboardPath);
+      const target = getSafeDestination(activeConfig.dashboardPath);
+      router.push(target);
     }
-  }, [isInitializing, isLoggedIn, user, router]);
+  }, [isInitializing, isLoggedIn, user, router, fromParam]);
 
   const triggerShake = () => {
     setShakeEmail(true);
@@ -94,9 +104,9 @@ export default function LoginPage() {
         toast.success('Signed In', `Welcome back! Active Role: ${ROLE_CONFIGS[authUser?.role || activeRole]?.label}`);
       }
 
-      // Direct routing to authentic resolved role dashboard from database
+      // Direct routing to authentic resolved role dashboard from database (preserving from query)
       const resolvedRole = authUser?.role || activeRole;
-      const targetPath = ROLE_CONFIGS[resolvedRole]?.dashboardPath || '/user/dashboard';
+      const targetPath = getSafeDestination(ROLE_CONFIGS[resolvedRole]?.dashboardPath || '/user/dashboard');
       if (typeof window !== 'undefined') {
         window.location.href = targetPath;
       } else {
@@ -113,11 +123,12 @@ export default function LoginPage() {
         const authUser = await login(email, activeRole);
         const resolvedRole = authUser?.role || activeRole;
         const activeConfig = ROLE_CONFIGS[resolvedRole] || ROLE_CONFIGS.user;
+        const targetPath = getSafeDestination(activeConfig.dashboardPath);
         toast.info('Session Logged In', `Routed to ${activeConfig.label} Task Board`);
         if (typeof window !== 'undefined') {
-          window.location.href = activeConfig.dashboardPath;
+          window.location.href = targetPath;
         } else {
-          router.push(activeConfig.dashboardPath);
+          router.push(targetPath);
         }
       }
     } finally {
@@ -135,11 +146,12 @@ export default function LoginPage() {
       const authUser = await login(sampleEmail, targetRole);
       const resolvedRole = authUser?.role || targetRole;
       const targetConfig = ROLE_CONFIGS[resolvedRole] || ROLE_CONFIGS.user;
+      const targetPath = getSafeDestination(targetConfig.dashboardPath);
       toast.success('Authenticated', `Role Differentiated: ${targetConfig.label}`);
       if (typeof window !== 'undefined') {
-        window.location.href = targetConfig.dashboardPath;
+        window.location.href = targetPath;
       } else {
-        router.push(targetConfig.dashboardPath);
+        router.push(targetPath);
       }
     } catch (err: any) {
       toast.error('Auth Error', err?.message || 'Failed to authenticate');
@@ -427,3 +439,18 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-stone-950 text-white flex items-center justify-center p-4">
+          <div className="h-10 w-10 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
+  );
+}
+

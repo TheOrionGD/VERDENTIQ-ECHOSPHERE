@@ -3,16 +3,16 @@ import type { NextRequest } from 'next/server';
 
 const SESSION_COOKIE_NAME = 'verdantiq_session';
 
-// Role dashboard path mappings
+// Role dashboard direct canonical path mappings
 const ROLE_DASHBOARDS: Record<string, string> = {
   user: '/user/dashboard',
   student: '/student/dashboard',
   dept: '/dept/dashboard',
   institution: '/institution/dashboard',
   region: '/region/dashboard',
-  admin: '/admin-dashboard',
-  mlops: '/mlops-dashboard',
-  audit: '/audit-dashboard',
+  admin: '/admin/telemetry',
+  mlops: '/mlops/models',
+  audit: '/audit/overview',
 };
 
 // Protected routes prefix patterns
@@ -32,7 +32,10 @@ const PROTECTED_PREFIXES = [
   '/mlops-dashboard',
   '/region-dashboard',
   '/student-dashboard',
+  '/household-dashboard',
+  '/user-dashboard',
   '/dashboard',
+  '/security',
   '/my-activity',
   '/notifications',
   '/profile',
@@ -42,7 +45,9 @@ const PROTECTED_PREFIXES = [
 
 // Public paths that do not require authentication
 const PUBLIC_PATHS = [
+  '/',
   '/login',
+  '/logout',
   '/landing',
   '/tenant-request',
   '/onboarding',
@@ -85,7 +90,13 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const hasValidToken = Boolean(session && session.token);
+  const hasValidToken = Boolean(
+    session &&
+    typeof session.token === 'string' &&
+    session.token.trim().length > 0 &&
+    session.token !== 'undefined' &&
+    session.token !== 'null'
+  );
   const isProtectedRoute = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   // Case 1: Attempting to access protected route without a valid session token cookie
@@ -95,9 +106,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Case 2: User has a valid session token and visits /login -> redirect to their role dashboard
+  // Case 2: User has a valid session token and visits /login -> redirect to intended page or role dashboard
   if (pathname === '/login' && hasValidToken && session?.role) {
-    const targetDashboard = ROLE_DASHBOARDS[session.role] || '/user/dashboard';
+    const fromParam = request.nextUrl.searchParams.get('from');
+    const safeFrom = fromParam && fromParam.startsWith('/') && !fromParam.startsWith('//') && fromParam !== '/login' ? fromParam : null;
+    const targetDashboard = safeFrom || ROLE_DASHBOARDS[session.role] || '/user/dashboard';
     return NextResponse.redirect(new URL(targetDashboard, request.url));
   }
 

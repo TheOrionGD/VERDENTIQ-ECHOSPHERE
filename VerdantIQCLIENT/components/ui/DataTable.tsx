@@ -94,13 +94,13 @@ export function DataTable<T extends Record<string, any>>({
   }
 
   return (
-    <div className={cn('rounded-xl border border-stone-200/90 bg-white shadow-xs overflow-hidden', className)}>
+    <div className={cn('rounded-xl border border-slate-800 bg-slate-950/80 dark:bg-stone-900/80 shadow-md overflow-hidden text-slate-100', className)}>
       {/* Header bar with Search & Actions */}
       {(searchKey || actions) && (
-        <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-stone-200/80 bg-stone-50/50">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-slate-800 bg-slate-900/60">
           {searchKey ? (
             <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-stone-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
               <input
                 type="text"
                 placeholder={searchPlaceholder}
@@ -109,7 +109,7 @@ export function DataTable<T extends Record<string, any>>({
                   setSearchTerm(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full h-8 pl-9 pr-3 text-xs bg-white border border-stone-200 rounded-lg text-stone-800 placeholder-stone-400 focus:outline-none focus:border-emerald-700 focus:ring-1 focus:ring-emerald-700 transition-colors"
+                className="w-full h-8 pl-9 pr-3 text-xs bg-slate-900 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
               />
             </div>
           ) : <div />}
@@ -128,19 +128,19 @@ export function DataTable<T extends Record<string, any>>({
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-stone-200/80 bg-stone-100/60 text-stone-600 font-medium">
+              <tr className="border-b border-slate-800 bg-slate-900/90 text-slate-300 font-medium">
                 {columns.map((col) => (
                   <th
                     key={col.key}
-                    className="py-3 px-4 text-[11px] font-semibold text-stone-600 uppercase tracking-wider"
+                    className="py-3 px-4 text-[11px] font-semibold text-slate-300 uppercase tracking-wider"
                   >
                     {col.sortable ? (
                       <button
                         onClick={() => handleSort(col.key)}
-                        className="inline-flex items-center gap-1 hover:text-emerald-900 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 hover:text-emerald-400 transition-colors cursor-pointer"
                       >
                         {col.header}
-                        <ArrowUpDown className="h-3 w-3 text-stone-400" />
+                        <ArrowUpDown className="h-3 w-3 text-slate-400" />
                       </button>
                     ) : (
                       col.header
@@ -149,18 +149,18 @@ export function DataTable<T extends Record<string, any>>({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-slate-800/80">
               {paginatedData.map((row, idx) => (
                 <tr
                   key={idx}
                   onClick={() => onRowClick && onRowClick(row)}
                   className={cn(
-                    'transition-colors hover:bg-emerald-50/40',
+                    'transition-colors hover:bg-emerald-950/30',
                     onRowClick && 'cursor-pointer'
                   )}
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="py-3 px-4 text-stone-800">
+                    <td key={col.key} className="py-3 px-4 text-slate-200">
                       {col.render ? col.render(row) : row[col.key]}
                     </td>
                   ))}
@@ -172,10 +172,10 @@ export function DataTable<T extends Record<string, any>>({
       )}
 
       {/* Pagination Footer */}
-      <div className="flex items-center justify-between p-3.5 border-t border-stone-200/80 bg-stone-50/50 text-[11px] text-stone-500">
+      <div className="flex items-center justify-between p-3.5 border-t border-slate-800 bg-slate-900/60 text-[11px] text-slate-400">
         <span>
-          Showing <strong className="text-stone-800">{paginatedData.length}</strong> of{' '}
-          <strong className="text-stone-800">{sortedData.length}</strong> entries
+          Showing <strong className="text-white font-bold">{paginatedData.length}</strong> of{' '}
+          <strong className="text-white font-bold">{sortedData.length}</strong> entries
         </span>
         <div className="flex items-center gap-1.5">
           <Button

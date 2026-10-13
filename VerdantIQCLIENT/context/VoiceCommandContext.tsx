@@ -264,15 +264,23 @@ export const VoiceCommandProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return true;
       }
       if (text.includes('region dashboard') || text.includes('go to region')) {
-        router.push('/region-dashboard');
+        router.push('/region/dashboard');
         const msg = 'Navigating to Regional Analytics';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);
         return true;
       }
+      if (text.includes('household dashboard') || text.includes('user dashboard') || text.includes('go to household') || text.includes('go to user')) {
+        router.push('/user/dashboard');
+        const msg = 'Navigating to Household Digital Twin';
+        setFeedbackMessage(msg);
+        speak(msg);
+        addVoiceLog(cmdRaw, msg);
+        return true;
+      }
       if (text.includes('student dashboard') || text.includes('go to student')) {
-        router.push('/student-dashboard');
+        router.push('/student/dashboard');
         const msg = 'Navigating to Student Hub';
         setFeedbackMessage(msg);
         speak(msg);

@@ -253,27 +253,188 @@
   animation-play-state: paused;
 }
 
-/* Dropdown & Select Text Color Rules */
+/* ==========================================================================
+   UI/UX PRO MAX — ACCESSIBILITY & CONTRAST ENGINE (DARK THEME WCAG AAA)
+   Rectifies dark text visibility against dark background wallpaper
+   ========================================================================== */
+
+/* 1. Global Typography Contrast Overrides for Dark Backgrounds */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #f8fafc;
+}
+
+.dark .text-stone-900,
+.text-stone-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-stone-800,
+.text-stone-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-stone-700,
+.text-stone-700 {
+  color: #e2e8f0 !important;
+}
+
+.dark .text-stone-600,
+.text-stone-600 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-stone-500,
+.text-stone-500 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-stone-400,
+.text-stone-400 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-gray-900,
+.text-gray-900,
+.dark .text-slate-900,
+.text-slate-900,
+.dark .text-zinc-900,
+.text-zinc-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-gray-800,
+.text-gray-800,
+.dark .text-slate-800,
+.text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-gray-700,
+.text-gray-700,
+.dark .text-slate-700,
+.text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+.dark .text-gray-600,
+.text-gray-600,
+.dark .text-slate-600,
+.text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+/* 2. Brand & Accent Visibility (Prevent dark emerald #064E3B from vanishing on dark) */
+.dark .text-\[\#064E3B\],
+.text-\[\#064E3B\],
+[class*="text-[#064E3B]"] {
+  color: #34d399 !important;
+}
+
+.dark .text-emerald-950,
+.text-emerald-950,
+.dark .text-emerald-900,
+.text-emerald-900,
+.dark .text-emerald-800,
+.text-emerald-800 {
+  color: #34d399 !important;
+}
+
+/* 3. Surface & Card Contrast: Transform harsh white patches into frosted obsidian glass */
+.dark .bg-white:not([data-keep-light="true"]),
+.bg-white:not([data-keep-light="true"]) {
+  background-color: rgba(18, 22, 34, 0.82) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+.dark .bg-white\/95,
+.bg-white\/95,
+.dark .bg-white\/90,
+.bg-white\/90,
+.dark .bg-white\/85,
+.bg-white\/85,
+.dark .bg-white\/80,
+.bg-white\/80,
+.dark .bg-white\/60,
+.bg-white\/60,
+.dark .bg-white\/40,
+.bg-white\/40,
+.dark .bg-white\/30,
+.bg-white\/30 {
+  background-color: rgba(18, 22, 34, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+.dark .bg-stone-50\/50,
+.bg-stone-50\/50,
+.dark .bg-stone-50,
+.bg-stone-50,
+.dark .bg-stone-100\/60,
+.bg-stone-100\/60,
+.dark .bg-stone-100,
+.bg-stone-100 {
+  background-color: rgba(28, 34, 52, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f8fafc !important;
+}
+
+/* 4. Elegant Borders on Dark Background */
+.dark .border-stone-200,
+.border-stone-200,
+.dark .border-stone-200\/80,
+.border-stone-200\/80,
+.dark .border-stone-200\/90,
+.border-stone-200\/90,
+.dark .border-stone-100,
+.border-stone-100,
+.dark .border-stone-300,
+.border-stone-300 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* 5. Inputs & Textareas Accessible Contrast */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  color: #f8fafc !important;
+  background-color: rgba(16, 20, 32, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* 6. High-Contrast Dropdowns, Selects & Menus (Rectifies previous pitch-black text bug) */
 select {
-  color: #000000 !important;
+  color: #f8fafc !important;
+  background-color: rgba(18, 24, 38, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
 select option,
 select optgroup,
 option,
 optgroup {
-  color: #000000 !important;
-  background-color: #ffffff !important;
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
 }
 
 .dark select option,
 .dark option,
 .dark optgroup {
-  color: #000000 !important;
-  background-color: #ffffff !important;
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
 }
 
-/* Custom Dropdown & Listbox Elements */
 [role="listbox"],
 [role="option"],
 [role="menu"],
@@ -282,5 +443,14 @@ optgroup {
 .dropdown-content,
 .dropdown-item,
 .select-dropdown {
-  color: #000000 !important;
+  color: #f8fafc !important;
+  background-color: rgba(15, 23, 42, 0.96) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+[role="option"]:hover,
+[role="menuitem"]:hover,
+.dropdown-item:hover {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #34d399 !important;
 }

@@ -33,6 +33,26 @@ const nextConfig: NextConfig = {
   },
   output: 'standalone',
   transpilePackages: ['motion'],
+  async redirects() {
+    return [
+      { source: '/admin', destination: '/admin/telemetry', permanent: false },
+      { source: '/admin/dashboard', destination: '/admin/telemetry', permanent: false },
+      { source: '/mlops', destination: '/mlops/models', permanent: false },
+      { source: '/mlops/dashboard', destination: '/mlops/models', permanent: false },
+      { source: '/audit', destination: '/audit/overview', permanent: false },
+      { source: '/audit/dashboard', destination: '/audit/overview', permanent: false },
+      { source: '/region', destination: '/region/dashboard', permanent: false },
+      { source: '/region-dashboard', destination: '/region/dashboard', permanent: false },
+      { source: '/institution', destination: '/institution/dashboard', permanent: false },
+      { source: '/dept', destination: '/dept/dashboard', permanent: false },
+      { source: '/dept/challenges', destination: '/dept/challenges/templates', permanent: false },
+      { source: '/student', destination: '/student/dashboard', permanent: false },
+      { source: '/user', destination: '/user/dashboard', permanent: false },
+      { source: '/user-dashboard', destination: '/user/dashboard', permanent: false },
+      { source: '/household-dashboard', destination: '/user/dashboard', permanent: false },
+      { source: '/security', destination: '/security/db-claims', permanent: false },
+    ];
+  },
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
     // Do not modify—file watching is disabled to prevent flickering during agent edits.

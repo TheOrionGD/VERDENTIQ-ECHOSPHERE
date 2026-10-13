@@ -15,12 +15,12 @@ This launches `VerdantIQCLIENT\dist\win-unpacked\VerdantIQ.exe` directly connect
 
 ---
 
-### 2. Launch Desktop Dev Mode (Local Microservices)
+### 2. Launch Desktop App (Render Cloud)
 Double-click `start_electron_desktop.bat` or run:
 ```cmd
 .\start_electron_desktop.bat
 ```
-This launches all 3 local microservices (ML Gateway, Spring Boot Gateway, Next.js Dev Client) alongside the Electron desktop window loading `http://localhost:3000`.
+This launches the Electron desktop application directly connected to the Render cloud deployment (`https://verdantiq-client.onrender.com`).
 
 ---
 
@@ -33,5 +33,7 @@ To compile and package a new `VerdantIQ.exe` standalone installer/executable:
 ```
 
 Output binaries will be saved in:
-- `VerdantIQCLIENT\dist\win-unpacked\VerdantIQ.exe` (Standalone Unpacked Release)
+- `VerdantIQCLIENT\dist\VerdantIQ Setup 1.0.1.exe` (NSIS Full Windows Setup Installer)
 - `VerdantIQCLIENT\dist\VerdantIQ 1.0.1.exe` (Portable Single Executable)
+- `VerdantIQCLIENT\dist\win-unpacked\VerdantIQ.exe` (Standalone Unpacked Release Binary)
+- `VerdantIQCLIENT\dist\VerdantIQ-1.0.1-win.zip` (Portable ZIP Distribution Package)

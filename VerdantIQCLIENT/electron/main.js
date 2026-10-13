@@ -34,8 +34,19 @@ function createWindow() {
   });
 
   // Handle load failures gracefully (e.g. cold start on free hosting, offline, network drops)
-  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL, isMainFrame) => {
+    // Net error -3 is net::ERR_ABORTED (happens when Next.js router cancels previous route or in-flight transitions)
+    // isMainFrame === false means it was a subresource/iframe, not the main page
+    if (errorCode === -3 || isMainFrame === false) {
+      return;
+    }
+    // Prevent fallback loop if data URI triggered
+    if (validatedURL && validatedURL.startsWith('data:')) {
+      return;
+    }
+
     console.warn(`Failed to load ${validatedURL}: ${errorDescription} (${errorCode})`);
+    const targetRetryUrl = validatedURL || appUrl;
     
     // Fallback HTML page with custom styling & auto-retry
     const fallbackHTML = `
@@ -86,12 +97,12 @@ function createWindow() {
         <div class="card">
           <h1>VerdantIQ Ecosphere</h1>
           <p>Connecting to Cloud Services...<br>If the server is waking up from a cold start, this may take up to 30 seconds.</p>
-          <button class="btn" onclick="window.location.href='${appUrl}'">Retry Connection</button>
+          <button class="btn" onclick="window.location.href='${targetRetryUrl}'">Retry Connection</button>
           <div class="subtext">Auto-retrying in 5 seconds...</div>
         </div>
         <script>
           setTimeout(() => {
-            window.location.href = '${appUrl}';
+            window.location.href = '${targetRetryUrl}';
           }, 5000);
         </script>
       </body>
@@ -100,13 +111,47 @@ function createWindow() {
     mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(fallbackHTML));
   });
 
-  // Open external links in default web browser instead of electron window
-  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('http:') || url.startsWith('https:')) {
-      shell.openExternal(url);
-      return { action: 'deny' };
+  // Keep internal app navigation within the electron window, and open external links in browser
+  mainWindow.webContents.on('will-navigate', (event, navigationUrl) => {
+    try {
+      const parsedTarget = new URL(navigationUrl);
+      const parsedApp = new URL(appUrl);
+      const isAppOrigin =
+        parsedTarget.origin === parsedApp.origin ||
+        parsedTarget.hostname === 'localhost' ||
+        parsedTarget.hostname === '127.0.0.1';
+
+      if (!isAppOrigin && (navigationUrl.startsWith('http:') || navigationUrl.startsWith('https:'))) {
+        event.preventDefault();
+        shell.openExternal(navigationUrl);
+      }
+    } catch {
+      // allow relative/local route navigation
     }
-    return { action: 'allow' };
+  });
+
+  // Open external links in default web browser, keep in-app links in the electron window
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      const parsedTarget = new URL(url);
+      const parsedApp = new URL(appUrl);
+      const isAppOrigin =
+        parsedTarget.origin === parsedApp.origin ||
+        parsedTarget.hostname === 'localhost' ||
+        parsedTarget.hostname === '127.0.0.1';
+
+      if (isAppOrigin) {
+        mainWindow.loadURL(url);
+        return { action: 'deny' };
+      }
+    } catch {
+      // fallback
+    }
+
+    if (url.startsWith('http:') || url.startsWith('https:') || url.startsWith('mailto:')) {
+      shell.openExternal(url);
+    }
+    return { action: 'deny' };
   });
 
   mainWindow.on('closed', () => {

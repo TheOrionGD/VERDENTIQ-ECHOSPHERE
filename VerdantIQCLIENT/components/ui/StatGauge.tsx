@@ -49,17 +49,17 @@ export const StatGauge: React.FC<StatGaugeProps> = ({
   return (
     <div
       className={cn(
-        'rounded-3xl border border-white/80 bg-white/40 backdrop-blur-md p-5 shadow-xs transition-all hover:border-emerald-500/30 hover:shadow-md',
+        'rounded-3xl border border-emerald-500/25 bg-slate-950/85 dark:bg-stone-900/85 backdrop-blur-xl p-5 shadow-lg transition-all hover:border-emerald-500/50 hover:shadow-emerald-950/20 text-slate-100',
         className
       )}
     >
       <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">
+          <span className="text-[11px] font-semibold text-slate-300 dark:text-stone-300 uppercase tracking-wider">
             {title}
           </span>
           {subtitle && (
-            <p className="text-[11px] text-stone-400 mt-0.5">{subtitle}</p>
+            <p className="text-[11px] text-slate-400 dark:text-stone-400 mt-0.5">{subtitle}</p>
           )}
         </div>
         {getStatusBadge()}
@@ -69,26 +69,26 @@ export const StatGauge: React.FC<StatGaugeProps> = ({
         {/* Value Display */}
         <div>
           <div className="flex items-baseline gap-1.5">
-            <span className="font-editorial text-3xl font-bold tracking-tight text-stone-900">
+            <span className="font-editorial text-3xl font-bold tracking-tight text-white dark:text-stone-100">
               {value.toLocaleString()}
             </span>
-            <span className="text-xs font-medium text-stone-500">{unit}</span>
+            <span className="text-xs font-medium text-slate-300 dark:text-stone-300">{unit}</span>
           </div>
 
           {/* Target & Trend */}
           <div className="flex items-center gap-2 mt-2 text-xs">
-            <span className="text-stone-500 text-[11px]">
-              Target: <strong className="text-stone-700">{target}</strong> {unit}
+            <span className="text-slate-300 dark:text-stone-300 text-[11px]">
+              Target: <strong className="text-white dark:text-stone-100 font-bold">{target}</strong> {unit}
             </span>
             {changePercentage !== undefined && (
               <span
                 className={cn(
                   'inline-flex items-center gap-0.5 text-[11px] font-semibold rounded-md px-1.5 py-0.5',
                   trend === 'down'
-                    ? 'text-emerald-800 bg-emerald-50'
+                    ? 'text-emerald-300 bg-emerald-950/80 border border-emerald-500/30'
                     : trend === 'up'
-                    ? 'text-amber-800 bg-amber-50'
-                    : 'text-stone-600 bg-stone-100'
+                    ? 'text-amber-300 bg-amber-950/80 border border-amber-500/30'
+                    : 'text-slate-300 bg-slate-800/80 border border-slate-700/50'
                 )}
               >
                 {trend === 'up' && <ArrowUpRight className="h-3 w-3" />}
@@ -109,7 +109,7 @@ export const StatGauge: React.FC<StatGaugeProps> = ({
               cy="50"
               r="45"
               fill="transparent"
-              stroke="#e7e5e4"
+              stroke="#334155"
               strokeWidth="9"
             />
             {/* Progress Arc */}
@@ -127,10 +127,10 @@ export const StatGauge: React.FC<StatGaugeProps> = ({
             />
           </svg>
           <div className="absolute flex flex-col items-center justify-center text-center">
-            <span className="text-xs font-bold text-stone-800">
+            <span className="text-xs font-bold text-white">
               {Math.round(percentage)}%
             </span>
-            <span className="text-[9px] text-stone-400 leading-tight uppercase">
+            <span className="text-[9px] text-slate-400 leading-tight uppercase font-mono">
               Target
             </span>
           </div>

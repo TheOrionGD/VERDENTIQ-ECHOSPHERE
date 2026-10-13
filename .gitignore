@@ -125,6 +125,22 @@ vk_swiftshader_icd.json
 *.sys
 
 # ------------------------------------------
+# Android & Mobile Build Artifacts
+# ------------------------------------------
+*.apk
+*.aab
+.gradle/
+**/android/.gradle/
+**/android/build/
+**/android/app/build/
+**/android/capacitor-android/build/
+**/android/local.properties
+*.keystore
+!debug.keystore
+*.jks
+
+
+# ------------------------------------------
 # Python & Virtual Environments (VerdantIQServices / ml-gateway)
 # ------------------------------------------
 __pycache__/
