@@ -53,21 +53,12 @@ import { SecurityOverviewScreen } from './components/screens/SecurityOverviewScr
 function MainApplicationContent() {
   const { currentRole, roleMeta, switchRole, isDarkMode } = useAuth();
   
-  // App navigation state: 'splash' -> 'landing' -> 'login' -> 'workspace' | 'tenant-request' | 'tenant-status' | 'help' | 'documentation' | 'api-reference' | 'security'
-  const [appState, setAppState] = useState('splash');
+  // App navigation state: 'landing' -> 'login' -> 'workspace' | 'tenant-request' | 'tenant-status' | 'help' | 'documentation' | 'api-reference' | 'security'
+  const [appState, setAppState] = useState('landing');
   const [tenantStatusRef, setTenantStatusRef] = useState('');
   const [securityInitialTab, setSecurityInitialTab] = useState('db-claims');
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [isActionCenterOpen, setIsActionCenterOpen] = useState(false);
-
-  // 1. Splash Screen
-  if (appState === 'splash') {
-    return (
-      <div key="splash" className="liquid-screen-transition w-full h-full">
-        <SplashScreen onFinish={() => setAppState('landing')} />
-      </div>
-    );
-  }
 
   // 2. Landing Page
   if (appState === 'landing') {

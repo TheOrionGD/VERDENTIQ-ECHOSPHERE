@@ -168,8 +168,8 @@ const vertexShader = `
       pos.y += sin(uTime * 0.15 + aRandom.x) * 1.2;
     }
 
-    // Gentle infinite parallax Y offset with wrapping
-    pos.y -= mod(uScrollY * 0.04, 80.0) - 40.0;
+    // Smooth continuous parallax based on scroll without initial jumping
+    pos.y += uScrollY * 0.035;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
@@ -268,7 +268,7 @@ export function CinematicParticleCanvas({ className = '' }) {
       const shellOffset = Math.pow(Math.random(), 0.65) * r;
 
       positions[idx * 3] = Math.cos(u) * Math.cos(v) * shellOffset;
-      positions[idx * 3 + 1] = Math.sin(v) * shellOffset * 2.8 + (Math.random() - 0.5) * 40;
+      positions[idx * 3 + 1] = Math.sin(v) * shellOffset * 1.35;
       positions[idx * 3 + 2] = Math.sin(u) * Math.cos(v) * shellOffset;
 
       sizes[idx] = 0.4 + Math.random() * 0.8;
@@ -468,7 +468,7 @@ export function CinematicParticleCanvas({ className = '' }) {
   return (
     <div 
       ref={containerRef} 
-      className={`fixed inset-0 w-screen h-screen pointer-events-none z-0 overflow-hidden ${className}`} 
+      className={`fixed inset-0 w-full h-full pointer-events-none overflow-hidden ${className}`} 
     />
   );
 }

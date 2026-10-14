@@ -55,8 +55,15 @@ export function LandingPage({
 
   return (
     <div className="min-h-screen text-white selection:bg-emerald-500 selection:text-black font-sans relative">
-      {/* Background Video */}
-      <BackgroundVideo overlayClassName="bg-gradient-to-b from-neutral-950/75 via-neutral-950/85 to-neutral-950/92 backdrop-blur-[1px]" />
+      {/* Background Video (Exact styling matching LoginPage) */}
+      <BackgroundVideo overlayClassName="bg-neutral-950/75 backdrop-blur-[2px]" />
+      {/* Background glow matching LoginPage */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-30 -z-10"
+        style={{
+          background: 'radial-gradient(circle at 50% 30%, rgba(16, 185, 129, 0.2) 0%, transparent 60%)',
+        }}
+      />
       {/* SECTION 1: Top Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 h-16 fluent-mica border-b border-white/10 flex items-center justify-between px-6 z-50">
         <div className="flex items-center space-x-3">
@@ -110,24 +117,24 @@ export function LandingPage({
       </nav>
 
       {/* SECTION 2: Hero Section */}
-      <section id="hero" className="pt-32 pb-20 px-6 max-w-6xl mx-auto text-center relative">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium mb-6">
+      <section id="hero" className="pt-24 pb-8 px-6 max-w-6xl mx-auto text-center relative">
+        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-medium mb-4">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Full-Stack Multi-Resource Sustainability Intelligence</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white mb-4 leading-tight">
           Next-Generation Environmental <br />
           <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 bg-clip-text text-transparent">
             Campus Governance & Action
           </span>
         </h1>
 
-        <p className="max-w-2xl mx-auto text-sm sm:text-base text-neutral-400 mb-10 leading-relaxed">
+        <p className="max-w-2xl mx-auto text-sm sm:text-base text-neutral-400 mb-8 leading-relaxed">
           Unifying institutional electricity accounting, water conservation, circular waste streams, verified Scope 1–3 emissions, living lab biodiversity, and student eco-challenge engagement.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
           <button
             onClick={onEnterLogin}
             className="liquid-btn liquid-shimmer flex items-center space-x-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white text-sm font-semibold shadow-xl shadow-emerald-600/30 border border-emerald-400/30 cursor-pointer"
@@ -173,7 +180,7 @@ export function LandingPage({
       </section>
 
       {/* SECTION 3: The 6 Core Sustainability Pillars */}
-      <section id="pillars" className="py-20 px-6 max-w-6xl mx-auto border-t border-white/10">
+      <section id="pillars" className="py-10 px-6 max-w-6xl mx-auto border-t border-white/10">
         <div className="text-center mb-12">
           <div className="text-xs font-mono uppercase text-emerald-400 font-bold mb-2 tracking-wider">Multi-Resource Accounting</div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
@@ -186,85 +193,85 @@ export function LandingPage({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Pillar 1 */}
-          <div className="fluent-card p-5 border-amber-500/20 bg-amber-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-amber-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
               <Zap className="w-5 h-5 text-amber-400" />
             </div>
             <h3 className="text-base font-bold text-white">1. Real-Time Electricity Grid</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Main distribution panel telemetry, time-of-use tariffs, solar micro-inverter export tracking, and automated peak shaving alerts.
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-amber-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-amber-300">
               BACnet/IP & Smart Submeter Ingestion
             </div>
           </div>
 
           {/* Pillar 2 */}
-          <div className="fluent-card p-5 border-sky-500/20 bg-sky-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-sky-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center">
               <Droplet className="w-5 h-5 text-sky-400" />
             </div>
             <h3 className="text-base font-bold text-white">2. Water Storage & Harvesting</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Municipal supply monitoring, greywater filtration systems, smart flow meters, and rainfall catchment storage basin analytics.
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-sky-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-sky-300">
               Greywater Recycling + Reservoir Tracking
             </div>
           </div>
 
           {/* Pillar 3 */}
-          <div className="fluent-card p-5 border-teal-500/20 bg-teal-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-teal-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center">
               <Recycle className="w-5 h-5 text-teal-400" />
             </div>
             <h3 className="text-base font-bold text-white">3. Circular Waste Streams</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Compost collection, e-waste triage, recycling contamination logging, and certified waste-to-landfill diversion rate calculations.
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-teal-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-teal-300">
               Zero-Waste Campus Certification Metrics
             </div>
           </div>
 
           {/* Pillar 4 */}
-          <div className="fluent-card p-5 border-emerald-500/20 bg-emerald-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-emerald-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
               <Leaf className="w-5 h-5 text-emerald-400" />
             </div>
             <h3 className="text-base font-bold text-white">4. Scope 1–3 GHG Inventory</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Automated GHG Protocol emission factors applied to fuel usage (Scope 1), purchased power (Scope 2), and travel surveys (Scope 3).
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-emerald-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-emerald-300">
               EPA eGRID + Regional Factors Engine
             </div>
           </div>
 
           {/* Pillar 5 */}
-          <div className="fluent-card p-5 border-green-500/20 bg-green-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-green-500/20 border border-green-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-green-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-green-500/20 border border-green-500/40 flex items-center justify-center">
               <TreePine className="w-5 h-5 text-green-400" />
             </div>
             <h3 className="text-base font-bold text-white">5. Biodiversity & Living Labs</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Campus arboretum mapping, native flora survival rates, microclimate sensor networks, and student-planted urban tree inventories.
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-green-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-green-300">
               Living Lab Geotagged Canopy Inventory
             </div>
           </div>
 
           {/* Pillar 6 */}
-          <div className="fluent-card p-5 border-purple-500/20 bg-purple-950/10 space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+          <div className="liquid-glass-panel liquid-shimmer p-5 border-purple-500/25 rounded-2xl space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center">
               <Bike className="w-5 h-5 text-purple-400" />
             </div>
             <h3 className="text-base font-bold text-white">6. Clean Mobility & Transit</h3>
             <p className="text-xs text-neutral-300 leading-relaxed">
               Campus commuter mode-share surveys, bicycle rack occupancy telemetry, EV charging utilization, and transit pass incentive validation.
             </p>
-            <div className="pt-2 border-t border-white/5 text-[11px] font-mono text-purple-300">
+            <div className="pt-2 border-t border-white/10 text-[11px] font-mono text-purple-300">
               Multimodal Modal Split Analytics
             </div>
           </div>
@@ -290,20 +297,20 @@ export function LandingPage({
               <div 
                 key={roleKey}
                 onClick={() => onDirectRoleSelect(roleKey)}
-                className="fluent-card p-4 flex flex-col justify-between hover:border-emerald-500/60 cursor-pointer transition-all"
+                className="liquid-glass-panel liquid-shimmer p-4 rounded-2xl flex flex-col justify-between hover:border-emerald-500/60 cursor-pointer transition-all hover:scale-[1.02]"
               >
                 <div>
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white/5 text-emerald-400 border border-white/5">
+                    <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
                       Tier {conf.hierarchyLevel}
                     </span>
-                    <span className="text-[10px] text-neutral-500 uppercase">{conf.id}</span>
+                    <span className="text-[10px] text-neutral-400 font-mono uppercase">{conf.id}</span>
                   </div>
                   <h3 className="text-sm font-semibold text-white mb-1">{conf.label}</h3>
-                  <p className="text-[11px] text-neutral-400 leading-relaxed mb-4">{conf.description}</p>
+                  <p className="text-[11px] text-neutral-300 leading-relaxed mb-4">{conf.description}</p>
                 </div>
 
-                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs text-emerald-400 font-medium">
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-emerald-400 font-medium">
                   <span>Launch Workspace</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
@@ -320,14 +327,14 @@ export function LandingPage({
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
             Engineered with Zero TypeScript Overhead
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl mx-auto">
             Built using modern 100% pure JavaScript: React 19, Express.js backend on Port 5000, and MongoDB Atlas with cryptographic ledger hashing.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="fluent-card p-6 space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <div className="liquid-glass-panel liquid-shimmer p-6 rounded-2xl space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-sm">
               <Cpu className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Client Environment</h3>
@@ -339,8 +346,8 @@ export function LandingPage({
             </ul>
           </div>
 
-          <div className="fluent-card p-6 space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400">
+          <div className="liquid-glass-panel liquid-shimmer p-6 rounded-2xl space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shadow-sm">
               <Activity className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">Express Backend Pipeline</h3>
@@ -352,8 +359,8 @@ export function LandingPage({
             </ul>
           </div>
 
-          <div className="fluent-card p-6 space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
+          <div className="liquid-glass-panel liquid-shimmer p-6 rounded-2xl space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-500/30 flex items-center justify-center text-teal-400 shadow-sm">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-base font-bold text-white">MongoDB Atlas & Compliance</h3>
@@ -380,31 +387,31 @@ export function LandingPage({
             </p>
 
             <div className="space-y-3 pt-2">
-              <div className="p-3.5 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 rounded-xl liquid-glass-panel border border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
                   <div>
                     <div className="text-xs font-bold text-white">BACnet/IP Gateway Node</div>
-                    <div className="text-[11px] text-neutral-400">Main Quad Substation Transformer · 480V 3-Phase</div>
+                    <div className="text-[11px] text-neutral-300">Main Quad Substation Transformer · 480V 3-Phase</div>
                   </div>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">ONLINE</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono border border-emerald-500/30">ONLINE</span>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 rounded-xl liquid-glass-panel border border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Gauge className="w-4 h-4 text-sky-400" />
                   <div>
                     <div className="text-xs font-bold text-white">Ultrasonic Flow Sensor Array</div>
-                    <div className="text-[11px] text-neutral-400">North Water Tower Municipal Intake · 12.4 L/sec</div>
+                    <div className="text-[11px] text-neutral-300">North Water Tower Municipal Intake · 12.4 L/sec</div>
                   </div>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono">NOMINAL</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono border border-sky-500/30">NOMINAL</span>
               </div>
             </div>
           </div>
 
-          <div className="fluent-card p-6 space-y-4">
+          <div className="liquid-glass-panel liquid-shimmer p-6 rounded-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <span className="text-xs font-bold text-white flex items-center gap-2">
                 <Activity className="w-4 h-4 text-emerald-400" /> Live Campus Ingestion Feed
@@ -413,19 +420,19 @@ export function LandingPage({
             </div>
 
             <div className="space-y-2 text-[11px] font-mono">
-              <div className="p-2.5 rounded bg-neutral-950 border border-white/5 flex justify-between text-neutral-300">
+              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-white/10 flex justify-between text-neutral-300">
                 <span>[14:02:11] METER_01_KWH</span>
                 <span className="text-emerald-400">142.8 kW (Cos φ: 0.96)</span>
               </div>
-              <div className="p-2.5 rounded bg-neutral-950 border border-white/5 flex justify-between text-neutral-300">
+              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-white/10 flex justify-between text-neutral-300">
                 <span>[14:02:14] WATER_M3_INTAKE</span>
                 <span className="text-sky-400">3.4 m³ (Rainwater: 42%)</span>
               </div>
-              <div className="p-2.5 rounded bg-neutral-950 border border-white/5 flex justify-between text-neutral-300">
+              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-white/10 flex justify-between text-neutral-300">
                 <span>[14:02:17] GEOFENCE_LOC_PING</span>
                 <span className="text-teal-400">13.0102° N, 80.2354° E [LOCKED]</span>
               </div>
-              <div className="p-2.5 rounded bg-neutral-950 border border-white/5 flex justify-between text-neutral-300">
+              <div className="p-2.5 rounded-lg bg-neutral-900/60 border border-white/10 flex justify-between text-neutral-300">
                 <span>[14:02:20] AI_PEAK_SHED_SOLVER</span>
                 <span className="text-amber-400">Pareto Opt: -18 kW Target</span>
               </div>
@@ -436,9 +443,9 @@ export function LandingPage({
 
       {/* SECTION 7: Pre-Auth Tenant Provisioning & Geofencing */}
       <section id="governance" className="py-20 px-6 max-w-6xl mx-auto border-t border-white/10">
-        <div className="fluent-card p-8 sm:p-12 border-emerald-500/30 bg-gradient-to-br from-emerald-950/40 via-neutral-900 to-neutral-950 space-y-6">
+        <div className="liquid-glass-panel liquid-shimmer p-8 sm:p-12 border-emerald-500/35 rounded-3xl space-y-6">
           <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-300 text-xs font-mono">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-mono">
               <MapPin className="w-3.5 h-3.5" />
               <span>Real-Time GPS Sensor Geofencing</span>
             </div>
@@ -451,29 +458,29 @@ export function LandingPage({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1">
+            <div className="p-4 rounded-xl bg-neutral-900/60 border border-white/10 space-y-1">
               <Building2 className="w-4 h-4 text-emerald-400" />
               <div className="text-xs font-bold text-white">Tier Selection</div>
-              <div className="text-[11px] text-neutral-400">Academic Campus or Regional District Authority</div>
+              <div className="text-[11px] text-neutral-300">Academic Campus or Regional District Authority</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1">
+            <div className="p-4 rounded-xl bg-neutral-900/60 border border-white/10 space-y-1">
               <Compass className="w-4 h-4 text-sky-400" />
               <div className="text-xs font-bold text-white">Hardware GPS Lock</div>
-              <div className="text-[11px] text-neutral-400">2dsphere perimeter boundary and radius verification</div>
+              <div className="text-[11px] text-neutral-300">2dsphere perimeter boundary and radius verification</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1">
+            <div className="p-4 rounded-xl bg-neutral-900/60 border border-white/10 space-y-1">
               <FileCheck2 className="w-4 h-4 text-teal-400" />
               <div className="text-xs font-bold text-white">Instant Tracking</div>
-              <div className="text-[11px] text-neutral-400">Live TR-XXXXXX lookup and status simulator</div>
+              <div className="text-[11px] text-neutral-300">Live TR-XXXXXX lookup and status simulator</div>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <button
               onClick={onOpenTenantRequest}
-              className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-stone-950 font-bold text-xs shadow-xl shadow-emerald-950/60 flex items-center gap-2 cursor-pointer transition-all"
+              className="liquid-btn px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-xl shadow-emerald-950/60 flex items-center gap-2 cursor-pointer transition-all border border-emerald-400/40"
             >
               <span>Begin Tenant Application</span>
               <ArrowRight className="w-4 h-4" />
@@ -481,7 +488,7 @@ export function LandingPage({
 
             <button
               onClick={() => onOpenTenantStatus('')}
-              className="px-5 py-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold border border-white/10 transition-colors cursor-pointer"
+              className="liquid-btn px-5 py-3 rounded-xl bg-neutral-900/70 hover:bg-neutral-800 text-neutral-200 text-xs font-semibold border border-white/15 transition-colors cursor-pointer"
             >
               Track Existing Application
             </button>
@@ -496,7 +503,7 @@ export function LandingPage({
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-400">
+          <p className="text-xs sm:text-sm text-neutral-300">
             Everything you need to know about deployment, compliance, and multi-tenant telemetry.
           </p>
         </div>
@@ -505,7 +512,7 @@ export function LandingPage({
           {faqs.map((faq, idx) => (
             <div 
               key={idx}
-              className="fluent-card p-4 transition-all cursor-pointer"
+              className="liquid-glass-panel p-4.5 rounded-xl transition-all cursor-pointer hover:border-emerald-500/40"
               onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
             >
               <div className="flex items-center justify-between text-xs font-semibold text-white">
@@ -513,7 +520,7 @@ export function LandingPage({
                 <ChevronRight className={`w-4 h-4 text-emerald-400 transition-transform ${activeFaq === idx ? 'rotate-90' : ''}`} />
               </div>
               {activeFaq === idx && (
-                <div className="pt-3 text-xs text-neutral-400 leading-relaxed border-t border-white/5 mt-3">
+                <div className="pt-3 text-xs text-neutral-300 leading-relaxed border-t border-white/10 mt-3">
                   {faq.a}
                 </div>
               )}

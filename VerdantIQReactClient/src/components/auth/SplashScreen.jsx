@@ -66,13 +66,9 @@ export function SplashScreen({ onFinish }) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center text-white select-none overflow-hidden bg-black">
-      {/* 16:9 Native Background Video Loop */}
+      {/* 16:9 Full Landscape Background Video & Ambient Starfield */}
       <BackgroundVideo 
-        overlayClassName={`transition-all duration-1000 ${
-          videoDimmed 
-            ? 'bg-neutral-950/90 backdrop-blur-[4px]' 
-            : 'bg-neutral-950/65 backdrop-blur-[1px]'
-        }`} 
+        overlayClassName="bg-neutral-950/45 backdrop-blur-[0.5px]"
         poster="/bg.png"
         showParticles={true}
       />
@@ -86,9 +82,7 @@ export function SplashScreen({ onFinish }) {
 
       {/* Stage 3: Windows 11 Fluent UI Telemetry Card & Brand Overlay */}
       <div 
-        className={`relative z-40 flex flex-col items-center max-w-[92vw] sm:max-w-md w-full px-6 sm:px-8 py-5 rounded-2xl liquid-glass-panel border border-white/15 text-center my-auto shadow-2xl transition-all duration-700 ${
-          phase === 'text-intro' ? 'opacity-0 translate-y-6 pointer-events-none' : 'opacity-100 translate-y-0'
-        }`}
+        className="relative z-40 flex flex-col items-center max-w-[92vw] sm:max-w-md w-full px-6 sm:px-8 py-5 rounded-2xl liquid-glass-panel border border-white/20 text-center my-auto shadow-2xl transition-all duration-700 opacity-100 translate-y-0"
       >
         {/* Animated Brand Emblem */}
         <div className="relative mb-4">

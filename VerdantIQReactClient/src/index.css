@@ -73,36 +73,94 @@
 }
 
 .fluid-glass {
-  background: rgba(24, 24, 27, var(--fluid-alpha-dark, 0.76));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    rgba(16, 185, 129, 0.04) 100%
+  ), rgba(18, 20, 26, var(--fluid-alpha-dark, 0.74));
   backdrop-filter: blur(var(--fluid-blur, 32px)) saturate(var(--fluid-saturate, 160%));
   -webkit-backdrop-filter: blur(var(--fluid-blur, 32px)) saturate(var(--fluid-saturate, 160%));
-  border: 1px solid rgba(255, 255, 255, calc(0.08 + (var(--fluid-density-pct, 65%) / 100) * 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 8px 30px -4px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .light .fluid-glass {
-  background: rgba(241, 245, 249, var(--fluid-alpha-light, 0.81));
-  border: 1px solid rgba(15, 23, 42, calc(0.08 + (var(--fluid-density-pct, 65%) / 100) * 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.25) 40%,
+    rgba(16, 185, 129, 0.06) 100%
+  ), rgba(248, 250, 252, var(--fluid-alpha-light, 0.82));
+  backdrop-filter: blur(var(--fluid-blur, 32px)) saturate(var(--fluid-saturate, 160%));
+  -webkit-backdrop-filter: blur(var(--fluid-blur, 32px)) saturate(var(--fluid-saturate, 160%));
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 8px 28px -4px rgba(15, 23, 42, 0.12),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .fluent-acrylic {
   background: rgba(24, 24, 27, 0.75);
   backdrop-filter: blur(var(--fluid-blur, 40px)) saturate(var(--fluid-saturate, 160%));
   -webkit-backdrop-filter: blur(var(--fluid-blur, 40px)) saturate(var(--fluid-saturate, 160%));
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-/* Windows 11 Card Style - Always Theme-Consistent and High-Contrast */
+/* Fluid Liquid Glass Card Architecture - Applied across all containers and cards */
 .fluent-card {
-  background: var(--win-card);
-  border: 1px solid var(--win-card-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 45%,
+    rgba(16, 185, 129, 0.03) 100%
+  ), var(--win-card);
+  backdrop-filter: blur(var(--fluid-blur, 28px)) saturate(var(--fluid-saturate, 150%));
+  -webkit-backdrop-filter: blur(var(--fluid-blur, 28px)) saturate(var(--fluid-saturate, 150%));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 
+    0 6px 20px -3px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fluent-card:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 
+    0 14px 32px -4px rgba(0, 0, 0, 0.45),
+    0 0 18px rgba(16, 185, 129, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.light .fluent-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(16, 185, 129, 0.05) 100%
+  ), var(--win-card);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 
+    0 6px 20px -3px rgba(15, 23, 42, 0.1),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.light .fluent-card:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 
+    0 14px 30px -4px rgba(15, 23, 42, 0.16),
+    0 0 16px rgba(16, 185, 129, 0.18),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
 }
 
 /* Windows 11 Taskbar */

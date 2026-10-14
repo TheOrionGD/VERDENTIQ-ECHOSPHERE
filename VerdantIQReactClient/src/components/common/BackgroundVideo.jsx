@@ -21,8 +21,8 @@ export function BackgroundVideo({
 }) {
   return (
     <div className={`fixed inset-0 w-full h-full overflow-hidden pointer-events-none -z-10 select-none ${opacity}`}>
-      {/* 16:9 Aspect Ratio Constrained Video Container */}
-      <div className="absolute inset-0 flex items-center justify-center -z-20 overflow-hidden bg-black">
+      {/* 16:9 Full Landscape Background Video with Poster Fallback */}
+      <div className="absolute inset-0 w-full h-full -z-20 overflow-hidden bg-black pointer-events-none">
         <video
           autoPlay
           loop
@@ -30,8 +30,7 @@ export function BackgroundVideo({
           playsInline
           preload="auto"
           poster={poster}
-          className="w-full h-full object-cover object-center pointer-events-none filter brightness-95 contrast-105"
-          style={{ aspectRatio: '16 / 9' }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto max-w-none object-cover pointer-events-none filter brightness-95 contrast-105"
           ref={(el) => {
             if (el && playbackRate !== 1.0) {
               el.playbackRate = playbackRate;
@@ -45,19 +44,11 @@ export function BackgroundVideo({
 
       {/* GPU Instanced Cinematic Particle Field */}
       {showParticles && (
-        <CinematicParticleCanvas className="absolute inset-0 -z-15 opacity-75" />
+        <CinematicParticleCanvas className="absolute inset-0 -z-15 opacity-85" />
       )}
 
-      {/* Ambient Radial Vignette & Glass Blur Overlay */}
+      {/* Subtle Ambient Vignette (Keeps Video & Particles Visible) */}
       <div className={`absolute inset-0 pointer-events-none -z-10 transition-colors duration-500 ${overlayClassName}`} />
-      
-      {/* 16:9 Edge Feathering Vignette */}
-      <div 
-        className="absolute inset-0 pointer-events-none -z-10"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 14, 0.65) 100%)',
-        }}
-      />
     </div>
   );
 }
