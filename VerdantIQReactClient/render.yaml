@@ -3,7 +3,7 @@ services:
   # Single Unified Web Service (Vite React Client + Express Backend)
   # -------------------------------------------------------------
   - type: web
-    name: verdantiq-ecosphere
+    name: ecosphere-client
     runtime: node
     plan: free
     region: oregon
