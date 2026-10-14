@@ -148,7 +148,7 @@ export const VoiceCommandProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }
       if (text.includes('switch role to student') || text.includes('student view') || text.includes('role student')) {
         switchRole('student');
-        const msg = 'Switched to Tier 7: Student Learner';
+        const msg = 'Switched to Tier 7: Student';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);
@@ -156,7 +156,7 @@ export const VoiceCommandProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }
       if (text.includes('switch role to standard user') || text.includes('household view') || text.includes('role user')) {
         switchRole('user');
-        const msg = 'Switched to Tier 8: Standard User (Household)';
+        const msg = 'Switched to Tier 8: Standard User / Household';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);

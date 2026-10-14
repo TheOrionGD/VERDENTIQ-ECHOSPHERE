@@ -1,0 +1,13 @@
+{
+  "appId": "com.verdantiq.ecosphere",
+  "appName": "VerdantIQ",
+  "webDir": "dist",
+  "server": {
+    "cleartext": true,
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#0a0f1d"
+  }
+}

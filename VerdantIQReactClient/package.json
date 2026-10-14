@@ -1,0 +1,93 @@
+{
+  "name": "verdantiqreactclient",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"yellow.bold,cyan.bold\" \"npm run server\" \"npm run client\"",
+    "start": "node server/index.js",
+    "client": "vite",
+    "server": "node server/index.js",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron:dev": "concurrently -k -n \"VITE,ELECTRON\" -c \"cyan.bold,magenta.bold\" \"vite\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "npm run build && electron-builder --win",
+    "desktop:dev": "npm run electron:dev",
+    "desktop:build": "npm run electron:build",
+    "cap:sync": "cap sync",
+    "android:init": "cap add android",
+    "android:sync": "cap sync android",
+    "android:build": "npm run build && cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:open": "cap open android"
+  },
+  "build": {
+    "appId": "com.verdantiq.ecosphere",
+    "productName": "VerdantIQ",
+    "copyright": "Copyright © 2026 theoriongd",
+    "icon": "build/icon.ico",
+    "directories": {
+      "output": "dist-electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "build/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "portable",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "VerdantIQ",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "concurrently": "^10.0.6",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.56.0",
+    "mongodb": "^7.7.0",
+    "motion": "^14.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "cross-env": "^10.1.0",
+    "electron": "^44.7.2",
+    "electron-builder": "^26.15.3",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0",
+    "wait-on": "^9.5.1"
+  }
+}
