@@ -22,7 +22,7 @@ export function BackgroundVideo({
   return (
     <div className={`fixed inset-0 w-full h-full overflow-hidden pointer-events-none -z-10 select-none ${opacity}`}>
       {/* 16:9 Aspect Ratio Constrained Video Container */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full min-w-[177.78vh] min-h-[56.25vw] aspect-video -z-20 overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center -z-20 overflow-hidden bg-black">
         <video
           autoPlay
           loop
@@ -30,13 +30,15 @@ export function BackgroundVideo({
           playsInline
           preload="auto"
           poster={poster}
-          className="w-full h-full object-cover object-center pointer-events-none filter brightness-90 contrast-105"
+          className="w-full h-full object-cover object-center pointer-events-none filter brightness-95 contrast-105"
+          style={{ aspectRatio: '16 / 9' }}
           ref={(el) => {
             if (el && playbackRate !== 1.0) {
               el.playbackRate = playbackRate;
             }
           }}
         >
+          <source src="./landig.mp4" type="video/mp4" />
           <source src="/landig.mp4" type="video/mp4" />
         </video>
       </div>

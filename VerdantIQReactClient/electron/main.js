@@ -27,13 +27,23 @@ function createWindow() {
   });
 
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
-  const startUrl = process.env.ELECTRON_START_URL || (isDev 
-    ? 'http://localhost:3000' 
-    : `file://${path.join(__dirname, '../dist/index.html')}`);
-
-  mainWindow.loadURL(startUrl).catch((err) => {
-    console.error('Failed to load initial URL:', err);
-  });
+  
+  if (isDev && process.env.ELECTRON_START_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_START_URL).catch((err) => {
+      console.error('Failed to load ELECTRON_START_URL:', err);
+    });
+  } else if (isDev) {
+    mainWindow.loadURL('http://localhost:3000').catch(() => {
+      // If dev server not running, fall back directly to packaged file
+      mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch((err) => {
+        console.error('Failed to load local dist:', err);
+      });
+    });
+  } else {
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html')).catch((err) => {
+      console.error('Failed to load packaged index.html:', err);
+    });
+  }
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
