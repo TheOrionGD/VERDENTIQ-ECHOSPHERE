@@ -14,10 +14,10 @@ import java.util.Enumeration;
 @Service
 public class ProxyService {
 
-    @Value("${verdantiq.ml-service-url}")
+    @Value("${verdantiq.ml-service-url:https://verdantiq-ml-gateway.onrender.com}")
     private String mlServiceUrl;
 
-    @Value("${verdantiq.internal-service-key}")
+    @Value("${verdantiq.internal-service-key:txXAWT1rwc43vCeDWTot36HRysaDHzrouNC7wGr2juW9oHWOH0Dfh6BUH9XaJlDH}")
     private String internalServiceKey;
 
     private final RestTemplate restTemplate = new RestTemplate();

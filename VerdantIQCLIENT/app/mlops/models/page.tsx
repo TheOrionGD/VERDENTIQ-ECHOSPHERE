@@ -7,19 +7,13 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ModelVersion } from '@/lib/services/mlopsService';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
-  BarChart,
-  Bar,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ModelChartsSkeleton } from './ModelCharts';
+
+const ModelCharts = dynamic(
+  () => import('./ModelCharts').then((m) => m.ModelCharts),
+  { ssr: false, loading: () => <ModelChartsSkeleton /> }
+);
 import {
   Server,
   RotateCcw,
@@ -269,67 +263,12 @@ export default function MlopsModelsPage() {
           </Card>
         </div>
 
-        {/* Drift Chart & Feature Importance Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Live Prediction Drift Chart */}
-          <Card className="p-5 bg-white/95 border-stone-200 shadow-xs space-y-3">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-2">
-              <div>
-                <h3 className="font-editorial text-base font-bold text-stone-900">
-                  Prediction Drift vs Baseline Threshold
-                </h3>
-                <p className="text-[11px] text-stone-500">
-                  Comparing 14-day rolling live prediction RMSE error against training-time baseline.
-                </p>
-              </div>
-              <Badge variant="amber">KS-Test Drift Threshold = 0.050</Badge>
-            </div>
-
-            <div className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={driftChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                  <XAxis dataKey="day" stroke="#78716c" fontSize={11} tickLine={false} />
-                  <YAxis domain={[0.02, 0.06]} stroke="#78716c" fontSize={11} tickLine={false} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e7e5e4', fontSize: '11px' }}
-                  />
-                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
-                  <ReferenceLine y={0.050} label={{ value: 'Retrain Threshold (0.05)', fill: '#b91c1c', fontSize: 10 }} stroke="#b91c1c" strokeDasharray="4 4" />
-                  <Line type="monotone" dataKey="liveRmse" name="Rolling Live RMSE Error (°C)" stroke="#064E3B" strokeWidth={2.5} dot={{ r: 3 }} />
-                  <Line type="monotone" dataKey="trainingBaseline" name="Training Baseline (0.035)" stroke="#78716c" strokeDasharray="3 3" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
-
-          {/* Feature Importance Viewer */}
-          <Card className="p-5 bg-white/95 border-stone-200 shadow-xs space-y-3">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-2">
-              <div>
-                <h3 className="font-editorial text-base font-bold text-stone-900">
-                  SHAP Feature Importance (Forecast Explainability)
-                </h3>
-                <p className="text-[11px] text-stone-500">
-                  Normalized relative influence of input features for {selectedModel.name}.
-                </p>
-              </div>
-              <Badge variant="emerald">Permutation SHAP</Badge>
-            </div>
-
-            <div className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={selectedModel.featureImportance} layout="vertical" margin={{ top: 5, right: 20, left: 40, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e7e5e4" />
-                  <XAxis type="number" stroke="#78716c" fontSize={11} domain={[0, 0.5]} />
-                  <YAxis dataKey="feature" type="category" stroke="#78716c" fontSize={10} width={130} tickLine={false} />
-                  <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e7e5e4', fontSize: '11px' }} />
-                  <Bar dataKey="importance" name="SHAP Importance Weight" fill="#064E3B" radius={[0, 6, 6, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
-        </div>
+        {/* Drift Chart & Feature Importance — lazy-loaded to defer recharts bundle */}
+        <ModelCharts
+          driftChartData={driftChartData}
+          featureImportance={selectedModel.featureImportance}
+          modelName={selectedModel.name}
+        />
       </div>
     </AppShell>
   );

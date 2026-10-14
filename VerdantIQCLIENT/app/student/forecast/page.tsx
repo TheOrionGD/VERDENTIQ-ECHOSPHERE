@@ -15,17 +15,13 @@ import {
   Zap,
 } from 'lucide-react';
 import { ForecastDataPoint,  } from '@/lib/services/userDataService';
-import {
-  ComposedChart,
-  Line,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Dot,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ForecastChartSkeleton } from '@/components/shared/ForecastChart';
+
+const ForecastChart = dynamic(
+  () => import('@/components/shared/ForecastChart').then((m) => m.ForecastChart),
+  { ssr: false, loading: () => <ForecastChartSkeleton height={340} /> }
+);
 
 export default function StudentForecastPage() {
   const [data] = useState<ForecastDataPoint[]>(() => []);
@@ -53,7 +49,7 @@ export default function StudentForecastPage() {
         />
       );
     }
-    return <Dot key={`std-dot-std-${payload.day}`} cx={cx} cy={cy} r={2} fill="#065f46" opacity={0.6} />;
+    return <circle key={`std-dot-std-${payload.day}`} cx={cx} cy={cy} r={2} fill="#065f46" opacity={0.6} />;
   };
 
   return (
@@ -91,20 +87,12 @@ export default function StudentForecastPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
-              <div className="h-[340px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
-                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#78716c' }} dy={5} />
-                    <YAxis unit=" kWh" tick={{ fontSize: 11, fill: '#78716c' }} domain={[0, 40]} />
-                    <Tooltip />
-                    <Area type="monotone" dataKey="confidenceUpper" stroke="none" fill="#d1fae5" fillOpacity={0.6} />
-                    <Area type="monotone" dataKey="confidenceLower" stroke="none" fill="#ffffff" fillOpacity={1.0} />
-                    <Line type="monotone" dataKey="baselineKw" stroke="#a8a29e" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
-                    <Line type="monotone" dataKey="actualOrForecastKw" stroke="#065f46" strokeWidth={2.5} dot={renderCustomDot} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Forecast Chart — lazy-loaded to defer recharts bundle */}
+              <ForecastChart
+                data={data}
+                height={340}
+                renderCustomDot={renderCustomDot}
+              />
             </CardContent>
           </Card>
 

@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  experimental: {
+    // Tree-shake large icon/chart libraries — avoids bundling the entire package on first page load
+    optimizePackageImports: ['lucide-react', 'recharts'],
+  },
   // Allow access to remote image placeholder.
   images: {
     unoptimized: process.env.TAURI_EXPORT === 'true',

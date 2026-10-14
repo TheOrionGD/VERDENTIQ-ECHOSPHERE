@@ -8,17 +8,13 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { MilpWhatIfSimulator } from '@/components/shared/ConsistencyPatterns';
 import { MilpWeights } from '@/lib/services/mlopsService';
-import {
-  ScatterChart,
-  Scatter,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-  ReferenceLine,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ParetoChartSkeleton } from './ParetoChart';
+
+const ParetoChart = dynamic(
+  () => import('./ParetoChart').then((m) => m.ParetoChart),
+  { ssr: false, loading: () => <ParetoChartSkeleton /> }
+);
 import { SlidersHorizontal, Cpu, Zap, Activity, Save, CheckCircle2, RotateCcw, ShieldCheck } from 'lucide-react';
 
 export default function MlopsOptimizerPage() {
@@ -188,21 +184,8 @@ export default function MlopsOptimizerPage() {
               <Badge variant="emerald">C++ CBC Solver</Badge>
             </div>
 
-            <div className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <ScatterChart margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                  <XAxis type="number" dataKey="costDollars" name="Daily Energy Cost ($)" stroke="#78716c" fontSize={11} unit="$" />
-                  <YAxis type="number" dataKey="thermalDiscomfort" name="Discomfort (°C·hr)" stroke="#78716c" fontSize={11} unit="°C" />
-                  <Tooltip cursor={{ strokeDasharray: '3 3' }} contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: '1px solid #e7e5e4', fontSize: '11px' }} />
-                  <Scatter name="Operating Points" data={paretoData} fill="#064E3B">
-                    {paretoData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.active ? '#064E3B' : '#a8a29e'} />
-                    ))}
-                  </Scatter>
-                </ScatterChart>
-              </ResponsiveContainer>
-            </div>
+            {/* Pareto Frontier Scatter Chart — lazy-loaded to defer recharts bundle */}
+            <ParetoChart paretoData={paretoData} />
           </Card>
         </div>
 

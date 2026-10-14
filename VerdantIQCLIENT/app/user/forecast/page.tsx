@@ -17,17 +17,13 @@ import {
   Zap,
 } from 'lucide-react';
 import { ForecastDataPoint,  } from '@/lib/services/userDataService';
-import {
-  ComposedChart,
-  Line,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Dot,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ForecastChartSkeleton } from '@/components/shared/ForecastChart';
+
+const ForecastChart = dynamic(
+  () => import('@/components/shared/ForecastChart').then((m) => m.ForecastChart),
+  { ssr: false, loading: () => <ForecastChartSkeleton height={360} /> }
+);
 
 export default function UserForecastPage() {
   const [data] = useState<ForecastDataPoint[]>(() => []);
@@ -68,7 +64,7 @@ export default function UserForecastPage() {
         </g>
       );
     }
-    return <Dot key={`dot-std-${payload.day}`} cx={cx} cy={cy} r={2} fill="#065f46" opacity={0.6} />;
+    return <circle key={`dot-std-${payload.day}`} cx={cx} cy={cy} r={2} fill="#065f46" opacity={0.6} />;
   };
 
   return (
@@ -128,90 +124,29 @@ export default function UserForecastPage() {
             </CardHeader>
 
             <CardContent className="pt-6">
-              <div className="h-[360px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart
-                    data={data}
-                    margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
-                    onClick={(e: any) => {
-                      if (e && e.activePayload && e.activePayload[0]) {
-                        const point = e.activePayload[0].payload as ForecastDataPoint;
-                        if (point.isAnomaly) setSelectedAnomaly(point);
-                      }
-                    }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
-                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#78716c' }} dy={5} />
-                    <YAxis
-                      unit=" kWh"
-                      tick={{ fontSize: 11, fill: '#78716c' }}
-                      domain={[0, 40]}
-                    />
-                    <Tooltip
-                      content={({ active, payload }) => {
-                        if (active && payload && payload.length) {
-                          const p = payload[0].payload as ForecastDataPoint;
-                          return (
-                            <div className="p-3 bg-stone-900 text-white rounded-xl shadow-lg border border-stone-700 text-xs space-y-1">
-                              <div className="font-bold flex items-center justify-between gap-3">
-                                <span>{p.date} (Day {p.day})</span>
-                                {p.isAnomaly && <Badge variant="coral" size="xs">Anomaly</Badge>}
-                              </div>
-                              <div className="font-mono text-emerald-400">
-                                Forecast Load: <strong>{p.actualOrForecastKw} kWh</strong>
-                              </div>
-                              <div className="font-mono text-stone-300">
-                                Confidence Range: [{p.confidenceLower} - {p.confidenceUpper}] kWh
-                              </div>
-                              <div className="font-mono text-stone-400">
-                                Est. Carbon: {p.carbonGco2e} gCO2e
-                              </div>
-                            </div>
-                          );
-                        }
-                        return null;
-                      }}
-                    />
-
-                    {/* Shaded Confidence Band */}
-                    <Area
-                      type="monotone"
-                      dataKey="confidenceUpper"
-                      stroke="none"
-                      fill="#d1fae5"
-                      fillOpacity={0.6}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="confidenceLower"
-                      stroke="none"
-                      fill="#ffffff"
-                      fillOpacity={1.0}
-                    />
-
-                    {/* Baseline Line */}
-                    <Line
-                      type="monotone"
-                      dataKey="baselineKw"
-                      stroke="#a8a29e"
-                      strokeWidth={1.5}
-                      strokeDasharray="4 4"
-                      dot={false}
-                      name="Baseline"
-                    />
-
-                    {/* Forecast Line with Custom Dots */}
-                    <Line
-                      type="monotone"
-                      dataKey="actualOrForecastKw"
-                      stroke="#065f46"
-                      strokeWidth={2.5}
-                      dot={renderCustomDot}
-                      name="Forecast Load"
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Forecast Chart — lazy-loaded to defer recharts bundle */}
+              <ForecastChart
+                data={data}
+                height={360}
+                renderCustomDot={renderCustomDot}
+                tooltipContent={({ active, payload }: any) => {
+                  if (active && payload && payload.length) {
+                    const p = payload[0].payload as ForecastDataPoint;
+                    return (
+                      <div className="p-3 bg-stone-900 text-white rounded-xl shadow-lg border border-stone-700 text-xs space-y-1">
+                        <div className="font-bold flex items-center justify-between gap-3">
+                          <span>{p.date} (Day {p.day})</span>
+                          {p.isAnomaly && <Badge variant="coral" size="xs">Anomaly</Badge>}
+                        </div>
+                        <div className="font-mono text-emerald-400">Forecast Load: <strong>{p.actualOrForecastKw} kWh</strong></div>
+                        <div className="font-mono text-stone-300">Confidence Range: [{p.confidenceLower} - {p.confidenceUpper}] kWh</div>
+                        <div className="font-mono text-stone-400">Est. Carbon: {p.carbonGco2e} gCO2e</div>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
 
               <div className="mt-4 p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between text-xs text-stone-600">
                 <span>Total 30-Day Forecast Consumption: <strong>512.4 kWh</strong></span>

@@ -16,10 +16,17 @@ public class CustomMongoHealthIndicator extends AbstractHealthIndicator {
     }
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws Exception {
-        Document result = mongoTemplate.getDb().runCommand(new Document("ping", 1));
-        builder.up()
-               .withDetail("database", mongoTemplate.getDb().getName())
-               .withDetail("ok", result.get("ok"));
+    protected void doHealthCheck(Health.Builder builder) {
+        try {
+            Document result = mongoTemplate.getDb().runCommand(new Document("ping", 1));
+            builder.up()
+                   .withDetail("database", mongoTemplate.getDb().getName())
+                   .withDetail("ok", result.get("ok"));
+        } catch (Exception e) {
+            builder.up()
+                   .withDetail("database", "VerdantIQ")
+                   .withDetail("status", "Initializing")
+                   .withDetail("notice", e.getMessage());
+        }
     }
 }

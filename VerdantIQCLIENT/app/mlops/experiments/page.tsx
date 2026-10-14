@@ -18,16 +18,13 @@ import {
   Play,
   ArrowRight,
 } from 'lucide-react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+import { ExperimentChartSkeleton } from './ExperimentChart';
+
+const ExperimentLineChart = dynamic(
+  () => import('./ExperimentChart').then((m) => m.ExperimentLineChart),
+  { ssr: false, loading: () => <ExperimentChartSkeleton /> }
+);
 
 interface Experiment {
   id: string;
@@ -154,19 +151,8 @@ export default function MlopsExperimentsPage() {
                 </div>
               </div>
 
-              {/* Metric Chart */}
-              <div className="h-40 w-full bg-stone-50/50 p-2 rounded-xl border border-stone-200/80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={exp.metricComparison} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                    <XAxis dataKey="time" stroke="#78716c" fontSize={10} />
-                    <YAxis stroke="#78716c" fontSize={10} />
-                    <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '10px', fontSize: '11px' }} />
-                    <Line type="monotone" dataKey="variantAVal" name="Variant A" stroke="#78716c" strokeWidth={2} />
-                    <Line type="monotone" dataKey="variantBVal" name="Variant B" stroke="#064E3B" strokeWidth={2.5} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Metric Chart — lazy-loaded to defer recharts bundle */}
+              <ExperimentLineChart data={exp.metricComparison} />
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-stone-100 text-xs">
                 <div className="flex items-center gap-3 font-mono">
