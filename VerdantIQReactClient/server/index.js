@@ -833,8 +833,8 @@ app.post('/api/user/ai-savings-tips', async (req, res) => {
 const distPath = path.resolve(__dirname, '../dist');
 app.use(express.static(distPath));
 
-// Fallback all non-API routes to index.html for client-side routing
-app.get('*', (req, res, next) => {
+// Fallback all non-API routes to index.html for client-side routing (Express 5 syntax)
+app.get('/{0,}', (req, res, next) => {
   if (req.path.startsWith('/api')) {
     return next();
   }
