@@ -65,12 +65,16 @@ GEMINI_API_KEY="AIzaSy..."
 npm install
 ```
 
+### Live Cloud Deployment
+- Hosted on Render: [https://ecosphere-client.onrender.com](https://ecosphere-client.onrender.com)
+- Live API Health: [https://ecosphere-client.onrender.com/api/health](https://ecosphere-client.onrender.com/api/health)
+
 ### Run Full Stack (Frontend + Backend Concurrently)
 ```bash
 npm run dev
 ```
-- Client runs on `http://localhost:5173`
-- Server API runs on `http://localhost:5000`
+- Local Client: `http://localhost:3000`
+- Local Server API: `http://localhost:5000` (or proxy to `https://ecosphere-client.onrender.com`)
 
 ### Build Production Bundle
 ```bash

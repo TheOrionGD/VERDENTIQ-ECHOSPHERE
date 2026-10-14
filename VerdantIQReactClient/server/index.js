@@ -850,7 +850,8 @@ async function startServer() {
     await seedInitialDatabase();
 
     app.listen(PORT, () => {
-      console.log(`🚀 VerdantIQ Full Sustainability Platform API on http://localhost:${PORT}`);
+      const hostUrl = process.env.RENDER_EXTERNAL_URL || (process.env.NODE_ENV === 'production' ? 'https://ecosphere-client.onrender.com' : `http://localhost:${PORT}`);
+      console.log(`🚀 VerdantIQ Full Sustainability Platform API on ${hostUrl}`);
     });
   } catch (err) {
     console.error('❌ Failed to start server:', err);

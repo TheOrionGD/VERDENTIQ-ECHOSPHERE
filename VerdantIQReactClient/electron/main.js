@@ -112,7 +112,9 @@ function createWindow() {
   mainWindow.webContents.on('will-navigate', (event, navigationUrl) => {
     try {
       const parsedTarget = new URL(navigationUrl);
-      const isLocal = parsedTarget.hostname === 'localhost' || parsedTarget.hostname === '127.0.0.1';
+      const isLocal = parsedTarget.hostname === 'localhost' || 
+                      parsedTarget.hostname === '127.0.0.1' || 
+                      parsedTarget.hostname === 'ecosphere-client.onrender.com';
 
       if (!isLocal && (navigationUrl.startsWith('http:') || navigationUrl.startsWith('https:'))) {
         event.preventDefault();
@@ -126,7 +128,9 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     try {
       const parsedTarget = new URL(url);
-      const isLocal = parsedTarget.hostname === 'localhost' || parsedTarget.hostname === '127.0.0.1';
+      const isLocal = parsedTarget.hostname === 'localhost' || 
+                      parsedTarget.hostname === '127.0.0.1' || 
+                      parsedTarget.hostname === 'ecosphere-client.onrender.com';
 
       if (isLocal) {
         mainWindow.loadURL(url);
