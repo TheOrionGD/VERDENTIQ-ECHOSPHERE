@@ -7,7 +7,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    rootDir: .
+    rootDir: VerdantIQReactClient
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
