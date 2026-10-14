@@ -86,7 +86,7 @@ export function SplashScreen({ onFinish }) {
 
       {/* Stage 3: Windows 11 Fluent UI Telemetry Card & Brand Overlay */}
       <div 
-        className={`relative z-40 flex flex-col items-center max-w-md w-full px-8 py-6 rounded-2xl liquid-glass-panel border border-white/15 text-center transition-all duration-700 ${
+        className={`relative z-40 flex flex-col items-center max-w-[92vw] sm:max-w-md w-full px-6 sm:px-8 py-5 rounded-2xl liquid-glass-panel border border-white/15 text-center my-auto shadow-2xl transition-all duration-700 ${
           phase === 'text-intro' ? 'opacity-0 translate-y-6 pointer-events-none' : 'opacity-100 translate-y-0'
         }`}
       >

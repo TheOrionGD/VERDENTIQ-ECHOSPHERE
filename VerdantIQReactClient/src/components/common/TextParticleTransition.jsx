@@ -48,11 +48,11 @@ export function TextParticleTransition({
       offCtx.font = `900 ${titleFontSize}px "Segoe UI Variable Display", -apple-system, system-ui, sans-serif`;
       offCtx.fillText(title, width / 2, height / 2 - 25);
 
-      // Subtitle font calculation
-      const subFontSize = Math.min(Math.max(width * 0.016, 12), 22);
+      // Subtitle font calculation (guaranteed to not overflow canvas)
+      const subFontSize = Math.min(Math.max(width * 0.014, 10), 16);
       offCtx.font = `600 ${subFontSize}px "Segoe UI Variable Text", monospace, sans-serif`;
-      offCtx.letterSpacing = '6px';
-      offCtx.fillText(subtitle, width / 2, height / 2 + 55);
+      offCtx.letterSpacing = width < 640 ? '2px' : '4px';
+      offCtx.fillText(subtitle, width / 2, height / 2 + 50);
 
       const imgData = offCtx.getImageData(0, 0, width, height).data;
       const points = [];
