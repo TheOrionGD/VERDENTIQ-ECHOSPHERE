@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { AuthProvider } from '@/context/AuthContext';
-import { MacThemeProvider } from '@/context/MacThemeContext';
+import { WindowsThemeProvider } from '@/context/WindowsThemeContext';
+import { MorphismProvider } from '@/context/MorphismContext';
 import { ToastProvider } from '@/components/ui/Toast';
 import { VoiceCommandProvider } from '@/context/VoiceCommandContext';
 
@@ -17,18 +18,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <DesktopProvider>
       <ScreenCompilationProvider>
         <AuthProvider>
-          <MacThemeProvider>
-            <VoiceCommandProvider>
-              <ToastProvider>
-                <div className="relative min-h-screen flex flex-col text-slate-100 bg-stone-950">
-                  <BackgroundVideo />
-                  <DesktopTitlebar />
-                  <DesktopTelemetryDrawer />
-                  <div className="flex-1 relative z-0">{children}</div>
-                </div>
-              </ToastProvider>
-            </VoiceCommandProvider>
-          </MacThemeProvider>
+          <WindowsThemeProvider>
+            <MorphismProvider>
+              <VoiceCommandProvider>
+                <ToastProvider>
+                  <div className="relative min-h-screen flex flex-col text-slate-100 bg-stone-950">
+                    <BackgroundVideo />
+                    <DesktopTitlebar />
+                    <DesktopTelemetryDrawer />
+                    <div className="flex-1 relative z-0">{children}</div>
+                  </div>
+                </ToastProvider>
+              </VoiceCommandProvider>
+            </MorphismProvider>
+          </WindowsThemeProvider>
         </AuthProvider>
       </ScreenCompilationProvider>
     </DesktopProvider>

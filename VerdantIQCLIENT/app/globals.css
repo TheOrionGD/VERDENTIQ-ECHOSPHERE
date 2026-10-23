@@ -50,37 +50,274 @@
   font-family: "Segoe UI Variable Display", "Segoe UI", sans-serif;
 }
 
-/* Windows 11 Fluent Mica Material Surfaces */
-.win11-mica-surface {
-  background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.85));
+/* ==========================================================================
+   MULTI-MORPHISM DESIGN SYSTEM ENGINES (8 CORE STYLES)
+   ========================================================================== */
+
+/* 1. OBSIDIAN GLASSMORHPISM (Signature System Administrator Workspace)
+   Replicates the exact dark smoked-glass material, directional lighting,
+   fine silver-white edge illumination and charcoal surface from image.png */
+.morphism-obsidian-panel,
+.morphism-obsidian-surface,
+.glass-obsidian-standard {
+  background: linear-gradient(
+    145deg,
+    rgba(28, 32, 42, 0.78) 0%,
+    rgba(14, 18, 26, 0.88) 55%,
+    rgba(8, 11, 18, 0.96) 100%
+  ) !important;
+  backdrop-filter: blur(36px) saturate(190%) contrast(115%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%) contrast(115%);
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-top-color: rgba(255, 255, 255, 0.38) !important;
+  border-left-color: rgba(255, 255, 255, 0.28) !important;
+  border-right-color: rgba(255, 255, 255, 0.14) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    0 24px 60px -12px rgba(0, 0, 0, 0.85),
+    0 8px 24px -4px rgba(0, 0, 0, 0.6),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+  border-radius: 14px;
+}
+
+.glass-obsidian-subtle {
+  background: rgba(18, 23, 34, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  border-radius: 10px;
+}
+
+.glass-obsidian-premium,
+.morphism-obsidian-dialog {
+  background: linear-gradient(
+    135deg,
+    rgba(32, 38, 50, 0.88) 0%,
+    rgba(16, 21, 30, 0.94) 50%,
+    rgba(6, 9, 14, 0.99) 100%
+  ) !important;
+  backdrop-filter: blur(44px) saturate(210%) contrast(120%);
+  -webkit-backdrop-filter: blur(44px) saturate(210%) contrast(120%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  border-top-color: rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 
+    0 32px 80px -16px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px 0 rgba(0, 0, 0, 0.6) !important;
+  border-radius: 16px;
+}
+
+.morphism-obsidian-btn {
+  background: linear-gradient(180deg, rgba(38, 46, 62, 0.9) 0%, rgba(18, 24, 34, 0.95) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-top-color: rgba(255, 255, 255, 0.45) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.15s cubic-bezier(0, 0, 0.2, 1);
+  border-radius: 8px;
+}
+.morphism-obsidian-btn:hover {
+  background: linear-gradient(180deg, rgba(48, 58, 78, 0.95) 0%, rgba(24, 32, 46, 0.98) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+
+.morphism-obsidian-badge {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  color: #34d399 !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px;
+}
+
+/* 2. FLAT DESIGN (Dense Data, Configurations, Audit & SEC Disclosures) */
+.morphism-flat-panel,
+.morphism-flat-surface {
+  background: #0f172a !important;
+  border: 1px solid #1e293b !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+}
+.morphism-flat-table {
+  background: #090e1a !important;
+  border: 1px solid #1e293b !important;
+}
+.morphism-flat-btn {
+  background: #1e293b !important;
+  border: 1px solid #334155 !important;
+  color: #f1f5f9 !important;
+  box-shadow: none !important;
+  border-radius: 6px;
+}
+.morphism-flat-btn:hover {
+  background: #334155 !important;
+  border-color: #475569 !important;
+}
+.morphism-flat-input {
+  background: #0b1120 !important;
+  border: 1px solid #334155 !important;
+  color: #f8fafc !important;
+  border-radius: 6px;
+}
+
+/* 3. NEUMORPHISM (Tactile, Soft Recessed/Raised Surfaces - Dept Admin) */
+.morphism-neumorphic-panel,
+.morphism-neumorphic-surface {
+  background: #111827 !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 
+    8px 8px 18px rgba(0, 0, 0, 0.5),
+    -6px -6px 14px rgba(255, 255, 255, 0.04) !important;
+  border-radius: 14px;
+}
+.morphism-neumorphic-btn {
+  background: #141d30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 
+    4px 4px 10px rgba(0, 0, 0, 0.55),
+    -3px -3px 8px rgba(255, 255, 255, 0.04) !important;
+  color: #e2e8f0 !important;
+  border-radius: 10px;
+}
+.morphism-neumorphic-btn:active {
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.6),
+    inset -3px -3px 6px rgba(255, 255, 255, 0.04) !important;
+}
+.morphism-neumorphic-input {
+  background: #0c121e !important;
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.6),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 8px;
+}
+
+/* 4. MATERIAL DESIGN (Elevated Layers, Predictable Hierarchy - MLOps & Institution) */
+.morphism-material-panel,
+.morphism-material-surface {
+  background: #131c2e !important;
+  border: 1px solid #1e293b !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45), 0 2px 6px -1px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 10px;
+}
+.morphism-material-btn {
+  background: #0284c7 !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.morphism-material-btn:hover {
+  background: #0369a1 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 5. STANDARD FLUENT GLASSMORHPISM (Household User & Standard Workspaces) */
+.morphism-glass-panel,
+.morphism-glass-surface,
+.win11-mica-surface,
+.glass-fluent-standard {
+  background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.82)) !important;
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 16px 40px -8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px;
+}
+.morphism-glass-btn {
+  background: rgba(30, 41, 59, 0.75) !important;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #f1f5f9 !important;
+  border-radius: 8px;
 }
 
-/* Windows 11 Acrylic Material Overlays & Dialogs */
+/* 6. CLAYMORHPISM (Soft, Puffy, High-Engagement - Student Campus Portal) */
+.morphism-clay-panel,
+.morphism-clay-surface {
+  background: #182238 !important;
+  border: 2px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    inset 4px 4px 8px rgba(255, 255, 255, 0.1),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 20px;
+}
+.morphism-clay-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: 2px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 
+    0 8px 16px rgba(16, 185, 129, 0.35),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.25) !important;
+  color: #ffffff !important;
+  border-radius: 14px;
+}
+
+/* 7. NEUBRUTALISM (Bold Borders, High-Contrast - Destructive / Security Incidents) */
+.morphism-neubrutal-panel,
+.morphism-neubrutal-surface {
+  background: #0f172a !important;
+  border: 2px solid #ef4444 !important;
+  box-shadow: 6px 6px 0px 0px #ef4444 !important;
+  border-radius: 4px;
+}
+.morphism-neubrutal-btn {
+  background: #dc2626 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 4px 4px 0px 0px #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border-radius: 4px;
+}
+.morphism-neubrutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #ffffff !important;
+}
+
+/* 8. SKEUOMORPHISM (Physical Metaphors, Inset Dials & Gauges) */
+.morphism-skeuo-panel {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 10px;
+}
+.morphism-skeuo-gauge {
+  background: radial-gradient(circle, #0b1120 60%, #1e293b 100%) !important;
+  border: 3px solid #334155 !important;
+  box-shadow: 
+    inset 0 4px 8px rgba(0, 0, 0, 0.8),
+    0 2px 4px rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px;
+}
+
+/* ==========================================================================
+   WINDOWS 11 NATIVE WORKSPACE ENHANCEMENTS
+   ========================================================================== */
+
 .win11-acrylic-surface {
-  background: rgba(18, 24, 38, 0.92);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 24, 38, 0.94);
+  backdrop-filter: blur(36px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 
-    0 24px 48px -12px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    0 24px 60px -12px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
 }
 
-/* Legacy macos-liquid-glass mapped directly to Windows Fluent Mica */
 .macos-liquid-glass {
   background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.85));
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 16px 40px -8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .dark .macos-liquid-glass {
@@ -88,29 +325,8 @@
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 16px 40px -8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Windows 11 Fluent Native Window Frame */
-.win11-window-frame {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 
-    0 24px 64px -12px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-.macos-window-frame {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 
-    0 24px 64px -12px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-/* Windows 11 Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -129,47 +345,30 @@
   background: rgba(255, 255, 255, 0.32);
 }
 
-/* Windows 11 Controls Focus Rect */
 :focus-visible {
   outline: 2px solid var(--win-accent-primary, #10b981);
   outline-offset: 1px;
 }
 
-/* Soft Animations */
-@keyframes winFadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.animate-win-fade-in {
-  animation: winFadeIn 0.15s cubic-bezier(0, 0, 0, 1) forwards;
-}
-
-/* WCAG AAA Accessible Dark Contrast */
+/* Contrast Engine Overrides */
 .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
   color: #f8fafc;
 }
-
 .dark .text-stone-900, .text-stone-900 {
   color: #f8fafc !important;
 }
-
 .dark .text-stone-800, .text-stone-800 {
   color: #f1f5f9 !important;
 }
-
 .dark .text-stone-700, .text-stone-700 {
   color: #e2e8f0 !important;
 }
-
 .dark .text-stone-600, .text-stone-600 {
   color: #cbd5e1 !important;
 }
-
 .dark .text-stone-500, .text-stone-500 {
   color: #94a3b8 !important;
 }
-
 .dark .text-stone-400, .text-stone-400 {
   color: #94a3b8 !important;
 }
@@ -203,4 +402,67 @@ select {
 select option {
   color: #f8fafc !important;
   background-color: #0f172a !important;
+}
+
+/* ==========================================================================
+   WINDOWS 11 FLUENT ICONOGRAPHY & OPTICAL SYSTEM
+   ========================================================================== */
+
+/* Universal SVG Icon alignment across controls & glassmorphism cards */
+svg.lucide,
+svg.system-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  shape-rendering: geometricPrecision;
+}
+
+/* Optical centering for icon button hitboxes */
+.fluent-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.15s cubic-bezier(0, 0, 0.2, 1);
+  border-radius: 6px;
+}
+
+.fluent-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.fluent-icon-button:active {
+  transform: scale(0.96);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Consistent Windows 11 icon sizes */
+.icon-density-compact {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2px;
+}
+
+.icon-density-standard {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.85px;
+}
+
+.icon-density-prominent {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.75px;
+}
+
+.icon-density-nav {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.75px;
+}
+
+.icon-density-hero {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.75px;
 }

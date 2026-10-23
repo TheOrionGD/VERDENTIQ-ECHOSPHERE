@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { useMorphism, MorphismStyle } from '@/context/MorphismContext';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'coral' | 'rose' | 'amber' | 'emerald' | 'outline' | 'glass';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'coral' | 'rose' | 'amber' | 'emerald' | 'outline' | 'glass' | 'danger';
+  styleVariant?: MorphismStyle;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'icon';
   isLoading?: boolean;
 }
@@ -13,6 +15,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       variant = 'primary',
+      styleVariant,
       size = 'md',
       isLoading = false,
       children,
@@ -21,30 +24,45 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    let roleMorphismBtnClass = '';
+    try {
+      const { resolveComponentStyle } = useMorphism();
+      // If variant is danger or rose, apply neubrutalism for high impact clarity
+      const effectiveStyle = (variant === 'danger' || variant === 'rose') ? 'neubrutalism' : styleVariant;
+      roleMorphismBtnClass = resolveComponentStyle('button', effectiveStyle);
+    } catch {
+      // Fallback if rendered outside MorphismProvider
+    }
+
     return (
       <button
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          'inline-flex items-center justify-center whitespace-nowrap rounded-xl font-medium text-xs tracking-tight transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50 cursor-pointer active:scale-[0.97] font-sf select-none',
+          'inline-flex items-center justify-center whitespace-nowrap font-medium text-xs tracking-tight transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50 cursor-pointer active:scale-[0.98] select-none',
           
-          // VerdantIQ System Variants
-          variant === 'primary' &&
-            'bg-[var(--mac-accent-primary,#064e3b)] text-white hover:opacity-90 shadow-xs border border-white/20',
+          // Role-aware Morphism base class (if available and not ghost/outline)
+          (variant === 'primary' || variant === 'secondary' || variant === 'danger') && roleMorphismBtnClass
+            ? roleMorphismBtnClass
+            : null,
+
+          // VerdantIQ Standard Fallback Variants
+          variant === 'primary' && !roleMorphismBtnClass &&
+            'bg-[var(--win-accent-primary,#10b981)] text-white hover:opacity-90 shadow-xs border border-white/20 rounded-xl',
           variant === 'glass' &&
-            'macos-liquid-glass text-stone-900 dark:text-stone-100 hover:bg-white/80 dark:hover:bg-stone-800/80 shadow-xs',
-          variant === 'secondary' &&
-            'bg-stone-200/60 dark:bg-stone-800/60 text-stone-900 dark:text-stone-100 hover:bg-stone-200 dark:hover:bg-stone-800 border border-white/40 dark:border-white/10 shadow-xs',
+            'win11-mica-surface text-stone-100 hover:bg-white/10 shadow-xs rounded-xl',
+          variant === 'secondary' && !roleMorphismBtnClass &&
+            'bg-slate-800/80 text-slate-100 hover:bg-slate-800 border border-white/10 shadow-xs rounded-xl',
           variant === 'ghost' &&
-            'bg-transparent text-stone-800 dark:text-stone-200 hover:bg-stone-900/10 dark:hover:bg-stone-100/10',
+            'bg-transparent text-slate-300 hover:bg-white/10 hover:text-white rounded-xl',
           variant === 'outline' &&
-            'border border-stone-300 dark:border-stone-700 text-stone-800 dark:text-stone-200 hover:bg-white/50 dark:hover:bg-stone-800/50',
-          (variant === 'coral' || variant === 'rose') &&
-            'bg-rose-600 text-white hover:bg-rose-700 shadow-xs border border-white/20',
+            'border border-slate-700 text-slate-200 hover:bg-white/10 rounded-xl',
+          (variant === 'coral' || variant === 'rose' || variant === 'danger') && !roleMorphismBtnClass &&
+            'bg-rose-600 text-white hover:bg-rose-700 shadow-xs border border-white/20 rounded-xl',
           variant === 'amber' &&
-            'bg-amber-600 text-white hover:bg-amber-700 shadow-xs border border-white/20',
+            'bg-amber-600 text-white hover:bg-amber-700 shadow-xs border border-white/20 rounded-xl',
           variant === 'emerald' &&
-            'bg-emerald-800 text-white hover:bg-emerald-900 shadow-xs border border-white/20',
+            'bg-emerald-700 text-white hover:bg-emerald-800 shadow-xs border border-white/20 rounded-xl',
 
           // Sizes
           size === 'xs' && 'h-6 px-2 text-[10px] rounded-md',

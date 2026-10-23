@@ -6,6 +6,7 @@ import { Search, ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react';
 import { Button } from './Button';
 import { EmptyState } from './EmptyState';
 import { LoadingSkeleton } from './LoadingSkeleton';
+import { useMorphism, MorphismStyle } from '@/context/MorphismContext';
 
 export interface Column<T> {
   key: string;
@@ -25,6 +26,7 @@ export interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   className?: string;
   actions?: React.ReactNode;
+  styleVariant?: MorphismStyle;
 }
 
 export function DataTable<T extends Record<string, any>>({
@@ -38,6 +40,7 @@ export function DataTable<T extends Record<string, any>>({
   onRowClick,
   className,
   actions,
+  styleVariant,
 }: DataTableProps<T>) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortKey, setSortKey] = useState<string | null>(null);
@@ -85,16 +88,22 @@ export function DataTable<T extends Record<string, any>>({
     }
   };
 
+  let tableMorphismClass = '';
+  try {
+    const { resolveComponentStyle } = useMorphism();
+    tableMorphismClass = resolveComponentStyle('table', styleVariant);
+  } catch {}
+
   if (isLoading) {
     return (
-      <div className={cn('space-y-3 p-4 bg-white border border-stone-200 rounded-xl', className)}>
+      <div className={cn('space-y-3 p-4 bg-slate-900 border border-slate-800 rounded-xl', className)}>
         <LoadingSkeleton type="table" rows={4} />
       </div>
     );
   }
 
   return (
-    <div className={cn('rounded-xl border border-slate-800 bg-slate-950/80 dark:bg-stone-900/80 shadow-md overflow-hidden text-slate-100', className)}>
+    <div className={cn('rounded-xl border border-slate-800 bg-slate-950/80 shadow-md overflow-hidden text-slate-100', tableMorphismClass, className)}>
       {/* Header bar with Search & Actions */}
       {(searchKey || actions) && (
         <div className="flex flex-wrap items-center justify-between gap-3 p-4 border-b border-slate-800 bg-slate-900/60">

@@ -1,27 +1,46 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { useMorphism, MorphismStyle, GlassMaterialLevel } from '@/context/MorphismContext';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'flat' | 'glow' | 'dark' | 'glass';
+  styleVariant?: MorphismStyle;
+  glassLevel?: GlassMaterialLevel;
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'default', ...props }, ref) => {
+  ({ className, variant = 'default', styleVariant, glassLevel, ...props }, ref) => {
+    let morphismClasses = '';
+    let glassClass = '';
+    
+    try {
+      // Polymorphically resolve active style and material based on role or explicit override
+      const { resolveComponentStyle, getGlassMaterial } = useMorphism();
+      morphismClasses = resolveComponentStyle('panel', styleVariant);
+      if (glassLevel) {
+        glassClass = getGlassMaterial(glassLevel);
+      }
+    } catch {
+      // Fallback if rendered outside MorphismProvider
+    }
+
     return (
       <div
         ref={ref}
         className={cn(
-          'rounded-2xl transition-all duration-200 font-sf select-none',
+          'transition-all duration-200 select-none',
+          morphismClasses || 'rounded-xl',
+          glassClass,
           variant === 'default' &&
-            'glass-card text-stone-900 dark:text-stone-100 hover:shadow-md',
+            !morphismClasses && 'glass-card text-stone-900 dark:text-stone-100 hover:shadow-md rounded-2xl',
           variant === 'glass' &&
-            'macos-liquid-glass text-stone-900 dark:text-stone-100',
+            !morphismClasses && 'win11-mica-surface text-stone-900 dark:text-stone-100 rounded-2xl',
           variant === 'flat' &&
-            'bg-white/40 dark:bg-stone-900/40 border border-white/60 dark:border-white/10 backdrop-blur-sm',
+            !morphismClasses && 'morphism-flat-panel rounded-lg',
           variant === 'glow' &&
-            'border-emerald-500/30 bg-emerald-950/20 backdrop-blur-md shadow-lg shadow-emerald-950/10 text-stone-900 dark:text-stone-100',
+            'shadow-[0_0_25px_rgba(16,185,129,0.22)]',
           variant === 'dark' &&
-            'border-white/10 bg-stone-900 text-white shadow-xl',
+            'border-white/10 bg-slate-900 text-white shadow-xl',
           className
         )}
         {...props}
