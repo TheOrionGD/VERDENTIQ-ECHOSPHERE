@@ -141,6 +141,16 @@ export const ScreenCompilationProvider: React.FC<{ children: React.ReactNode }> 
       const currentElapsed = (Date.now() - startTimeRef.current) / 1000;
       setElapsedTime(Number(currentElapsed.toFixed(1)));
     }, 100);
+
+    // Safety fallback: Never stay stuck in compiling state for longer than 1.5s
+    if (autoDismissRef.current) clearTimeout(autoDismissRef.current);
+    autoDismissRef.current = setTimeout(() => {
+      setStatus('ready');
+      setTimeout(() => {
+        setVisible(false);
+        setStatus('idle');
+      }, 500);
+    }, 1500);
   }, [pathname]);
 
   const finishCompilation = useCallback((name?: string) => {
@@ -157,7 +167,7 @@ export const ScreenCompilationProvider: React.FC<{ children: React.ReactNode }> 
     autoDismissRef.current = setTimeout(() => {
       setVisible(false);
       setStatus('idle');
-    }, 2400);
+    }, 800);
   }, [pathname]);
 
   const dismissNotification = useCallback(() => {
@@ -176,18 +186,11 @@ export const ScreenCompilationProvider: React.FC<{ children: React.ReactNode }> 
       // Only trigger if changing to a distinct route
       if (prevPath) {
         const destName = ROUTE_NAME_MAP[pathname] || pathname;
-        startCompilation(destName, 'Compiling and rendering route components...');
-
-        // In Next.js client-side navigation, the page has already switched when useEffect fires;
-        // give a brief natural compilation completion animation
-        const doneTimer = setTimeout(() => {
-          finishCompilation(destName);
-        }, 800);
-
-        return () => clearTimeout(doneTimer);
+        // Fast instant completion since page transition already mounted
+        finishCompilation(destName);
       }
     }
-  }, [pathname, startCompilation, finishCompilation]);
+  }, [pathname, finishCompilation]);
 
   // Global click interception to catch navigational link clicks immediately
   useEffect(() => {

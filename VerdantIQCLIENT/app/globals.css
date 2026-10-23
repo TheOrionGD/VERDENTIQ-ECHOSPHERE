@@ -344,7 +344,7 @@
   color: #34d399 !important;
 }
 
-/* 3. Surface & Card Contrast: Transform harsh white patches into frosted obsidian glass */
+/* 3. Surface & Card Contrast: Transform light patches into frosted obsidian glass */
 .dark .bg-white:not([data-keep-light="true"]),
 .bg-white:not([data-keep-light="true"]) {
   background-color: rgba(18, 22, 34, 0.82) !important;
@@ -352,16 +352,6 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-color: rgba(255, 255, 255, 0.12) !important;
   color: #f8fafc !important;
-}
-
-/* Keep-light surfaces: preserve white background with black text */
-[data-keep-light="true"].bg-white,
-.bg-white[data-keep-light="true"] {
-  background-color: #ffffff !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-color: initial !important;
-  color: #000000 !important;
 }
 
 .dark .bg-white\/95,
@@ -372,12 +362,22 @@
 .bg-white\/85,
 .dark .bg-white\/80,
 .bg-white\/80,
+.dark .bg-white\/75,
+.bg-white\/75,
+.dark .bg-white\/70,
+.bg-white\/70,
 .dark .bg-white\/60,
 .bg-white\/60,
+.dark .bg-white\/50,
+.bg-white\/50,
 .dark .bg-white\/40,
 .bg-white\/40,
 .dark .bg-white\/30,
-.bg-white\/30 {
+.bg-white\/30,
+.dark .bg-white\/20,
+.bg-white\/20,
+.dark .bg-white\/10,
+.bg-white\/10 {
   background-color: rgba(18, 22, 34, 0.78) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
   color: #f8fafc !important;
@@ -385,15 +385,106 @@
 
 .dark .bg-stone-50\/50,
 .bg-stone-50\/50,
+.dark .bg-stone-50\/70,
+.bg-stone-50\/70,
+.dark .bg-stone-50\/80,
+.bg-stone-50\/80,
 .dark .bg-stone-50,
 .bg-stone-50,
 .dark .bg-stone-100\/60,
 .bg-stone-100\/60,
+.dark .bg-stone-100\/80,
+.bg-stone-100\/80,
 .dark .bg-stone-100,
-.bg-stone-100 {
+.bg-stone-100,
+.dark .bg-stone-200\/40,
+.bg-stone-200\/40,
+.dark .bg-stone-200\/50,
+.bg-stone-200\/50,
+.dark .bg-stone-200\/60,
+.bg-stone-200\/60,
+.dark .bg-stone-200\/80,
+.bg-stone-200\/80,
+.dark .bg-stone-200,
+.bg-stone-200 {
   background-color: rgba(28, 34, 52, 0.65) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
   color: #f8fafc !important;
+}
+
+/* Light color-tinted containers (amber, emerald, blue, rose) transformed into dark frosted glass */
+[class*="bg-amber-50"],
+[class*="bg-amber-100"],
+[class*="bg-amber-200"] {
+  background-color: rgba(69, 26, 3, 0.6) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  color: #fef3c7 !important;
+}
+
+[class*="bg-amber-50"] *,
+[class*="bg-amber-100"] *,
+[class*="bg-amber-200"] * {
+  color: #fef3c7 !important;
+}
+
+[class*="bg-emerald-50"],
+[class*="bg-emerald-100"],
+[class*="bg-emerald-200"] {
+  background-color: rgba(6, 78, 59, 0.55) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: #d1fae5 !important;
+}
+
+[class*="bg-emerald-50"] *,
+[class*="bg-emerald-100"] *,
+[class*="bg-emerald-200"] * {
+  color: #d1fae5 !important;
+}
+
+[class*="bg-blue-50"],
+[class*="bg-blue-100"],
+[class*="bg-blue-200"] {
+  background-color: rgba(30, 58, 138, 0.55) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: #dbeafe !important;
+}
+
+[class*="bg-blue-50"] *,
+[class*="bg-blue-100"] *,
+[class*="bg-blue-200"] * {
+  color: #dbeafe !important;
+}
+
+[class*="bg-rose-50"],
+[class*="bg-rose-100"],
+[class*="bg-rose-200"],
+[class*="bg-red-50"],
+[class*="bg-red-100"] {
+  background-color: rgba(136, 19, 55, 0.55) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  color: #ffe4e6 !important;
+}
+
+[class*="bg-rose-50"] *,
+[class*="bg-rose-100"] *,
+[class*="bg-rose-200"] *,
+[class*="bg-red-50"] *,
+[class*="bg-red-100"] * {
+  color: #ffe4e6 !important;
+}
+
+/* Fallback for any designated light background surface: ensure dark crisp text */
+[data-keep-light="true"],
+.light-surface,
+.bg-light-surface {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+[data-keep-light="true"] *,
+.light-surface *,
+.bg-light-surface * {
+  color: #0f172a !important;
 }
 
 /* 4. Elegant Borders on Dark Background */

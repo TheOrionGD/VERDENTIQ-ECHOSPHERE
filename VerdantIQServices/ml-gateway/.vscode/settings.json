@@ -1,8 +1,7 @@
 {
-  "python.defaultInterpreterPath": "C:\\Python314\\python.exe",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
   "python.analysis.extraPaths": [
-    "C:\\Users\\godfr\\AppData\\Roaming\\Python\\Python314\\site-packages",
-    "C:\\Python314\\Lib\\site-packages",
-    "o:\\PROJECTS\\Ecosphere\\VerdantIQServices\\ml-gateway"
+    "${workspaceFolder}/.venv/Lib/site-packages",
+    "${workspaceFolder}"
   ]
 }

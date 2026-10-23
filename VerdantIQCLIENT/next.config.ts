@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   experimental: {
-    // Tree-shake large icon/chart libraries — avoids bundling the entire package on first page load
-    optimizePackageImports: ['lucide-react', 'recharts'],
+    // Tree-shake and modularize large packages to cut compilation & rendering latency
+    optimizePackageImports: ['lucide-react', 'recharts', 'three', 'motion'],
   },
   // Allow access to remote image placeholder.
   images: {
