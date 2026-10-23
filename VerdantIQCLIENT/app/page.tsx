@@ -33,16 +33,8 @@ export default function RootLoaderPage() {
   }, [redirectCountdown, isInitializing, isLoggedIn, roleConfig, router]);
 
   return (
-    <div
-      className="min-h-screen text-stone-100 font-sans flex items-center justify-center p-4 relative bg-no-repeat bg-cover bg-center bg-fixed"
-      style={{
-        backgroundImage: "url('/bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <div className="fixed inset-0 bg-stone-950/75 backdrop-blur-md pointer-events-none z-0" />
+    <div className="min-h-screen text-stone-100 font-sans flex items-center justify-center p-4 relative">
+      <div className="fixed inset-0 bg-stone-950/65 backdrop-blur-sm pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-md w-full bg-stone-900/90 border border-emerald-800/50 rounded-3xl p-8 shadow-2xl backdrop-blur-xl text-center space-y-6">
         {/* Animated Brand Header */}

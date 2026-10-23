@@ -1,46 +1,42 @@
 'use client';
 
 import React from 'react';
-import { MacMenuBar } from './MacMenuBar';
-import { MacDock } from './MacDock';
-import { MacControlCenter } from './MacControlCenter';
-import { MacSpotlight } from './MacSpotlight';
-import { MacNotificationCenter } from './MacNotificationCenter';
-import { MacSiriOrb } from './MacSiriOrb';
-import { MacWindow } from './MacWindow';
+import { WindowsCommandPalette } from './WindowsCommandPalette';
+import { WindowsMobileWheelNav } from './WindowsMobileWheelNav';
+import { WindowsQuickSettings } from './WindowsQuickSettings';
+import { WindowsActionCenter } from './WindowsActionCenter';
+import { WindowsAppHeader } from './WindowsAppHeader';
+import { WindowsCommandStrip } from './WindowsCommandStrip';
 import { VoiceCommandWidget } from './VoiceCommandWidget';
 import { ApiProgressIndicator } from '@/components/ui/ApiProgressIndicator';
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div
-      className="min-h-screen bg-stone-950 text-stone-100 dark flex flex-col antialiased relative overflow-x-hidden font-sf bg-no-repeat bg-cover bg-center bg-fixed"
-      style={{
-        backgroundImage: "url('/bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
-    >
-      {/* Top Network & API Progress Indicator Bar */}
+    <div className="min-h-screen text-slate-100 flex flex-col antialiased relative font-segoe select-none">
+      {/* Top Network & API Progress Bar */}
       <ApiProgressIndicator />
 
-      {/* Top System Menu Bar */}
-      <MacMenuBar />
+      {/* Windows 11 Fluent App Header (Integrated Search, Role & Actions) */}
+      <WindowsAppHeader />
 
-      {/* Main Window Frame wrapping children */}
-      <MacWindow>{children}</MacWindow>
+      {/* Compact Contextual Windows Command Strip (Replaces bulky permanent sidebars & navbars) */}
+      <WindowsCommandStrip />
 
-      {/* Floating System Dock */}
-      <MacDock />
+      {/* Immersive Windows Desktop Workspace */}
+      <main className="flex-1 w-full p-2 sm:p-4 lg:p-6 flex flex-col min-w-0">
+        <div className="flex-1 w-full max-w-7xl mx-auto rounded-xl win11-mica-surface border border-slate-800/80 p-3 sm:p-5 lg:p-6 shadow-xl backdrop-blur-xl">
+          {children}
+        </div>
+      </main>
 
-      {/* Flyout & Overlay Controls */}
-      <MacControlCenter />
-      <MacSpotlight />
-      <MacNotificationCenter />
-      <MacSiriOrb />
+      {/* Windows 11 Global Overlays & Interaction Surfaces */}
+      <WindowsCommandPalette />
+      <WindowsQuickSettings />
+      <WindowsActionCenter />
+      <WindowsMobileWheelNav />
       <VoiceCommandWidget />
     </div>
   );
 };
+
+export default AppShell;

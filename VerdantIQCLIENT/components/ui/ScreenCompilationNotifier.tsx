@@ -192,155 +192,19 @@ export const ScreenCompilationProvider: React.FC<{ children: React.ReactNode }> 
     }
   }, [pathname, finishCompilation]);
 
-  // Global click interception to catch navigational link clicks immediately
-  useEffect(() => {
-    const handleDocumentClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement)?.closest('a');
-      if (target && target.href) {
-        try {
-          const targetUrl = new URL(target.href);
-          if (targetUrl.origin === window.location.origin) {
-            const destPath = targetUrl.pathname;
-            if (destPath !== pathname && !destPath.startsWith('/#') && !destPath.startsWith('mailto:')) {
-              const destName = ROUTE_NAME_MAP[destPath] || destPath;
-              startCompilation(destName, 'Preparing and compiling target screen...');
-            }
-          }
-        } catch {
-          // ignore non-URL clicks
-        }
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick, { capture: true });
-    return () => {
-      document.removeEventListener('click', handleDocumentClick, { capture: true });
-    };
-  }, [pathname, startCompilation]);
-
   return (
     <ScreenCompilationContext.Provider
       value={{
-        isCompiling: status === 'compiling',
-        screenName,
-        compilationTime: elapsedTime,
-        status,
-        startCompilation,
-        finishCompilation,
-        dismissNotification,
+        isCompiling: false,
+        screenName: '',
+        compilationTime: 0,
+        status: 'idle',
+        startCompilation: () => {},
+        finishCompilation: () => {},
+        dismissNotification: () => {},
       }}
     >
       {children}
-
-      {/* In-App Notification Component anchored at LEFT BOTTOM */}
-      {visible && (
-        <aside
-          role="status"
-          aria-live="polite"
-          aria-label="Screen Compilation Notification"
-          className={cn(
-            'fixed bottom-5 left-5 z-[9999] pointer-events-auto max-w-sm sm:max-w-md w-[calc(100vw-2.5rem)]',
-            'transition-all duration-300 ease-out select-none font-sans',
-            'animate-in fade-in slide-in-from-bottom-4'
-          )}
-        >
-          <div
-            className={cn(
-              'relative overflow-hidden rounded-2xl p-4 shadow-2xl backdrop-blur-xl border',
-              'transition-colors duration-300',
-              status === 'compiling'
-                ? 'bg-slate-950/90 border-emerald-500/40 text-slate-100 shadow-[0_10px_35px_-5px_rgba(6,78,59,0.3)]'
-                : 'bg-slate-950/95 border-emerald-400/60 text-slate-100 shadow-[0_10px_35px_-5px_rgba(16,185,129,0.35)]'
-            )}
-          >
-            {/* Ambient Background Gradient Glow */}
-            <div
-              className={cn(
-                'absolute -right-8 -top-8 w-32 h-32 rounded-full blur-2xl pointer-events-none transition-opacity duration-500',
-                status === 'compiling' ? 'bg-emerald-500/15' : 'bg-emerald-400/20'
-              )}
-            />
-
-            {/* Top Bar: Icon + Status Tag + Timer + Close */}
-            <div className="flex items-center justify-between gap-3 relative z-10">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div
-                  className={cn(
-                    'flex h-8 w-8 items-center justify-center rounded-xl border flex-shrink-0 transition-colors',
-                    status === 'compiling'
-                      ? 'bg-emerald-950/80 border-emerald-500/40 text-emerald-400'
-                      : 'bg-emerald-900/60 border-emerald-400 text-emerald-300'
-                  )}
-                >
-                  {status === 'compiling' ? (
-                    <Cpu className="h-4 w-4 animate-spin text-emerald-400" />
-                  ) : (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                  )}
-                </div>
-
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className={cn(
-                        'text-[10px] font-mono uppercase tracking-wider font-bold px-1.5 py-0.5 rounded-md border',
-                        status === 'compiling'
-                          ? 'bg-emerald-950/60 border-emerald-500/30 text-emerald-400'
-                          : 'bg-emerald-900/40 border-emerald-400/50 text-emerald-300'
-                      )}
-                    >
-                      {status === 'compiling' ? 'Compiling Screen' : 'Compiled & Ready'}
-                    </span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Controls: Timer Badge + Dismiss */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700/60 text-[10px] font-mono text-emerald-300">
-                  <Clock className="h-3 w-3 text-emerald-400" />
-                  <span>{elapsedTime > 0 ? `${elapsedTime}s` : '0.1s'}</span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={dismissNotification}
-                  title="Dismiss notification"
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 transition-colors cursor-pointer"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Screen Title & Description */}
-            <div className="mt-2.5 relative z-10 space-y-1">
-              <div className="text-xs font-bold text-white truncate flex items-center gap-1.5">
-                <Zap className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
-                <span className="truncate">{screenName}</span>
-              </div>
-              <p className="text-[11px] text-slate-300 leading-tight">
-                {status === 'compiling'
-                  ? customNote || 'Compiling Next.js route chunks & hydrating client components...'
-                  : `Hydration completed in ${elapsedTime > 0 ? `${elapsedTime}s` : 'instantaneous'}. Screen components active.`}
-              </p>
-            </div>
-
-            {/* Micro Progress Bar along bottom */}
-            <div className="mt-3 h-1 w-full rounded-full bg-slate-800/80 overflow-hidden relative">
-              <div
-                className={cn(
-                  'h-full rounded-full transition-all duration-300',
-                  status === 'compiling'
-                    ? 'w-2/3 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-300 animate-pulse'
-                    : 'w-full bg-emerald-400'
-                )}
-              />
-            </div>
-          </div>
-        </aside>
-      )}
     </ScreenCompilationContext.Provider>
   );
 };
@@ -352,3 +216,4 @@ export const useScreenCompilation = () => {
   }
   return context;
 };
+

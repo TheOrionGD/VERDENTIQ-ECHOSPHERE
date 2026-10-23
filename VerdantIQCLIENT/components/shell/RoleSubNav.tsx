@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import {
@@ -54,7 +54,6 @@ import {
 
 export const RoleSubNav: React.FC = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const { role } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -67,7 +66,7 @@ export const RoleSubNav: React.FC = () => {
   const isStudentRoute = role === 'student' || pathname.startsWith('/student');
   const isUserRoute = role === 'user' || pathname.startsWith('/user');
 
-  let title = 'User Suite';
+  let title = 'Household Workspace';
   let tabs: { label: string; path: string; icon: any }[] = [];
 
   if (isAdminRoute) {
@@ -86,7 +85,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Broadcasts', path: '/admin/broadcasts', icon: Radio },
     ];
   } else if (isMlopsRoute) {
-    title = 'ML Ops Admin';
+    title = 'MLOps Operations';
     tabs = [
       { label: 'ML Center', path: '/mlops-dashboard', icon: LayoutDashboard },
       { label: 'Model Registry', path: '/mlops/models', icon: Server },
@@ -98,10 +97,10 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Registry Diff', path: '/mlops/registry-diff', icon: GitCompare },
       { label: 'Canary Rollout', path: '/mlops/canary', icon: Flame },
       { label: 'Fallback Console', path: '/mlops/fallback-console', icon: Radio },
-      { label: 'Governance Settings', path: '/mlops/settings', icon: Settings },
+      { label: 'Governance', path: '/mlops/settings', icon: Settings },
     ];
   } else if (isAuditRoute) {
-    title = 'Auditor & Research';
+    title = 'Compliance & Research';
     tabs = [
       { label: 'Audit Dashboard', path: '/audit-dashboard', icon: LayoutDashboard },
       { label: 'Anonymized Overview', path: '/audit/overview', icon: Eye },
@@ -116,7 +115,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Retention Policies', path: '/audit/settings', icon: Settings },
     ];
   } else if (isDeptRoute) {
-    title = 'Department Suite';
+    title = 'Department Administration';
     tabs = [
       { label: 'Overview', path: '/dept/dashboard', icon: LayoutDashboard },
       { label: 'Verification Queue', path: '/dept/verify', icon: CheckCircle },
@@ -130,7 +129,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Settings & Geofence', path: '/dept/settings', icon: Settings },
     ];
   } else if (isInstitutionRoute) {
-    title = 'Institution Suite';
+    title = 'Institution Administration';
     tabs = [
       { label: 'Overview', path: '/institution-dashboard', icon: LayoutDashboard },
       { label: 'Analytics', path: '/institution/analytics', icon: BarChart3 },
@@ -144,11 +143,11 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Settings', path: '/institution/settings', icon: Settings },
     ];
   } else if (isRegionRoute) {
-    title = 'Regional Suite (District Governance)';
+    title = 'Regional District Governance';
     tabs = [
       { label: 'Overview', path: '/region/dashboard', icon: LayoutDashboard },
       { label: 'Institutions Stream', path: '/region/institutions', icon: Building },
-      { label: 'Standard Household Stream', path: '/user/dashboard', icon: Home },
+      { label: 'Household Stream', path: '/user/dashboard', icon: Home },
       { label: 'Benchmarking', path: '/region/benchmark', icon: Scale },
       { label: 'Reports', path: '/region/reports', icon: FileText },
       { label: 'Tenant Requests', path: '/region/tenant-requests', icon: FileCheck },
@@ -158,7 +157,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Students', path: '/region/students', icon: GraduationCap },
     ];
   } else if (isStudentRoute) {
-    title = 'Student Suite';
+    title = 'Student Campus Portal';
     tabs = [
       { label: 'Domain Verify', path: '/student/register', icon: UserCheck },
       { label: 'Overview', path: '/student/dashboard', icon: LayoutDashboard },
@@ -173,7 +172,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Activity Log', path: '/student/history', icon: History },
     ];
   } else {
-    title = 'User Suite';
+    title = 'Household Suite';
     tabs = [
       { label: 'Overview', path: '/user/dashboard', icon: LayoutDashboard },
       { label: 'Digital Twin', path: '/user/digital-twin', icon: Cpu },
@@ -192,23 +191,22 @@ export const RoleSubNav: React.FC = () => {
   const activeTab = tabs.find((t) => t.path === pathname) || tabs[0];
 
   return (
-    <div className="mb-4 sm:mb-6">
-      {/* Mobile-Friendly Quick Tab Dropdown (Small Viewports) */}
+    <div className="mb-4 select-none font-segoe">
+      {/* Mobile Selector Dropdown */}
       <div className="sm:hidden mb-2 relative">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="w-full flex items-center justify-between p-2.5 bg-white/90 dark:bg-stone-900/90 border border-stone-200/90 dark:border-stone-800 rounded-xl shadow-xs text-xs font-semibold text-stone-900 dark:text-stone-100 cursor-pointer"
+          className="w-full flex items-center justify-between px-3 py-2 bg-slate-900 border border-slate-700/80 rounded-lg text-xs font-medium text-slate-100 cursor-pointer shadow-xs"
         >
           <div className="flex items-center gap-2 truncate">
-            <Sparkles className="h-4 w-4 text-emerald-600 flex-shrink-0" />
-            <span className="text-[11px] text-stone-500 font-mono uppercase">{title}:</span>
-            <span className="truncate text-emerald-800 dark:text-emerald-400 font-bold">{activeTab?.label || 'Select View'}</span>
+            <span className="text-[10px] text-slate-400 uppercase font-mono">{title}:</span>
+            <span className="truncate text-emerald-400 font-semibold">{activeTab?.label || 'Select View'}</span>
           </div>
-          <ChevronDown className={cn('h-4 w-4 text-stone-400 transition-transform', isMobileMenuOpen && 'rotate-180')} />
+          <ChevronDown className={cn('h-3.5 w-3.5 text-slate-400 transition-transform', isMobileMenuOpen && 'rotate-180')} />
         </button>
 
         {isMobileMenuOpen && (
-          <div className="absolute top-12 left-0 right-0 z-40 bg-stone-900/95 dark:bg-stone-950/95 border border-stone-800 rounded-xl shadow-2xl p-1.5 space-y-1 max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-1">
+          <div className="absolute top-11 left-0 right-0 z-40 win11-acrylic-surface border border-slate-700 rounded-lg shadow-2xl p-1 space-y-0.5 max-h-60 overflow-y-auto animate-in fade-in zoom-in-95 duration-100">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = pathname === tab.path;
@@ -218,17 +216,17 @@ export const RoleSubNav: React.FC = () => {
                   href={tab.path}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    'flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors',
+                    'flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors',
                     isActive
-                      ? 'bg-emerald-600 text-white font-bold'
-                      : 'text-stone-300 hover:bg-stone-800 hover:text-white'
+                      ? 'bg-emerald-600/30 text-emerald-300 font-semibold border border-emerald-500/40'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   )}
                 >
                   <div className="flex items-center gap-2">
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{tab.label}</span>
                   </div>
-                  {isActive && <span className="text-[10px] uppercase font-mono">Current</span>}
+                  {isActive && <span className="text-[10px] font-mono text-emerald-400">ACTIVE</span>}
                 </Link>
               );
             })}
@@ -236,11 +234,10 @@ export const RoleSubNav: React.FC = () => {
         )}
       </div>
 
-      {/* Touch-Scrollable Horizontal Tab Bar */}
-      <div className="p-1 sm:p-1.5 bg-white/85 dark:bg-stone-900/85 backdrop-blur-md border border-stone-200/90 dark:border-stone-800/90 rounded-2xl shadow-xs overflow-x-auto scrollbar-none snap-x flex items-center">
+      {/* Windows 11 Pivot Tab Strip (Desktop & Tablet) */}
+      <div className="px-2 py-1 bg-slate-900/60 border border-slate-800/80 rounded-lg overflow-x-auto scrollbar-none flex items-center">
         <div className="flex items-center gap-1 min-w-max">
-          <div className="hidden sm:flex px-3 py-1.5 items-center gap-1.5 text-xs font-semibold text-emerald-950 dark:text-emerald-300 border-r border-stone-200 dark:border-stone-800 mr-1 flex-shrink-0">
-            <Sparkles className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400" />
+          <div className="hidden sm:flex px-2.5 py-1 items-center gap-1.5 text-xs font-semibold text-slate-300 border-r border-slate-800 mr-1 flex-shrink-0">
             <span>{title}</span>
           </div>
 
@@ -252,13 +249,13 @@ export const RoleSubNav: React.FC = () => {
                 key={tab.path}
                 href={tab.path}
                 className={cn(
-                  'flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap min-h-[36px] sm:min-h-[32px]',
+                  'flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap',
                   isActive
-                    ? 'bg-[#064E3B] text-white shadow-xs font-bold'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800/80'
+                    ? 'bg-emerald-600/25 text-emerald-300 font-semibold border border-emerald-500/40 shadow-xs'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                 )}
               >
-                <Icon className={cn('h-3.5 w-3.5', isActive ? 'text-emerald-300' : 'text-stone-500 dark:text-stone-400')} />
+                <Icon className={cn('h-3.5 w-3.5', isActive ? 'text-emerald-400' : 'text-slate-500')} />
                 <span>{tab.label}</span>
               </Link>
             );
@@ -268,3 +265,5 @@ export const RoleSubNav: React.FC = () => {
     </div>
   );
 };
+
+export default RoleSubNav;

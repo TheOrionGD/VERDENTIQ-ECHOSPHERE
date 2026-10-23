@@ -1,0 +1,173 @@
+# MASTER UI ICON REDESIGN PROMPT — PREMIUM WINDOWS 11 SYSTEM ICONOGRAPHY
+
+## Objective
+
+Replace **every existing icon throughout the entire application** with a sophisticated, consistent, professional system icon set inspired by Windows 11 Fluent Design, modern desktop operating systems, and premium productivity software.
+
+The icons must feel native to a polished Windows desktop environment, complement the existing dark Glassmorphism interface, and communicate functionality with precision.
+
+Do not simply change a few icons on the dashboard. Audit and replace icons across every page, component, dialog, command palette, contextual menu, toolbar, form, notification, empty state, and responsive layout.
+
+## 1. Adopt a Unified System Icon Library
+
+- Audit the entire codebase and identify every existing icon source, including emoji, Unicode symbols, inconsistent SVGs, mixed icon libraries, generic text glyphs, and outdated icon packages.
+- Standardize the application around **one consistent, high-quality icon system**.
+- Prefer Fluent UI System Icons or an equivalent professionally maintained library that complements Windows 11.
+- If the project already uses Lucide, Heroicons, Font Awesome, or another icon library, evaluate whether to replace it completely or establish a consistent, carefully curated icon set. Avoid mixing libraries without a clear reason.
+- Use the appropriate icon variant for each context, such as regular, filled, or emphasized styles, when supported by the selected library.
+- Keep the implementation compatible with the existing framework and dependency setup.
+
+Icons must look intentional, refined, balanced, and native to the overall design language.
+
+## 2. Windows 11 Fluent Iconography
+
+Follow these visual principles:
+
+- Clean, geometrically balanced silhouettes.
+- Consistent stroke weights and visual density.
+- Precise alignment and optical centering.
+- Restrained, professional shapes rather than playful illustrations.
+- Consistent corner treatments and proportions.
+- Appropriate negative space and clear visual recognition.
+- Minimal visual clutter and no unnecessary decorative details.
+
+Use outline-style icons as the default for general navigation and inactive controls. Use filled variants selectively for active navigation states, selected tools, important statuses, and meaningful emphasis.
+
+Do not make every icon filled, oversized, multicolored, or heavily outlined.
+
+## 3. Replace Icons Across the Entire Application
+
+Perform a comprehensive icon audit and replace every inconsistent or outdated icon.
+
+**Application navigation and workspace**
+- Page navigation and workspace destinations.
+- Command palette results.
+- Toolbars and contextual action menus.
+- Settings, preferences, and application controls.
+- Window actions, search, filtering, sorting, and view controls.
+
+**Interactive elements**
+- Add, edit, delete, save, cancel, close, expand, collapse, refresh, and reset.
+- Dropdowns, toggles, checkboxes, radio controls, and segmented controls.
+- Copy, share, download, upload, export, import, and duplicate.
+- Undo, redo, undo history, and other editing actions where applicable.
+
+**Data and information**
+- Search, analytics, charts, reports, tables, and dashboards.
+- Status indicators, alerts, notifications, and activity history.
+- Information, warnings, errors, success, and pending states.
+- Files, folders, documents, images, and other relevant data types.
+
+**System and account controls**
+- User profile, account, permissions, security, privacy, and authentication.
+- Network, connectivity, synchronization, and integrations.
+- Theme selection, display settings, accessibility, and help.
+
+**Mobile interface**
+- Touch controls, rotary navigation, gestures, contextual actions, and compact toolbars.
+- Maintain consistent icon recognition and proportions across desktop, tablet, and mobile.
+
+Only implement icons for features that actually exist. Do not introduce fake functionality simply to populate an interface.
+
+## 4. Icon Sizing and Optical Alignment
+
+Establish a consistent icon sizing system based on the role of each component.
+
+- **12–14 px:** Compact metadata and dense table controls.
+- **16 px:** Standard inline actions and secondary controls.
+- **20 px:** Primary buttons, command palette results, and common interface controls.
+- **24 px:** Major navigation destinations and prominent toolbar actions.
+- **32 px or larger:** Empty states, onboarding illustrations, or special feature highlights when genuinely needed.
+
+Treat these as starting guidelines, not rigid requirements. Adapt to the selected library's native grid and optical proportions.
+
+Requirements:
+- Align icons precisely with their accompanying text.
+- Use consistent spacing between icons and labels.
+- Center icons within buttons and interactive hit areas.
+- Avoid icons that appear too thin, too heavy, or visually unbalanced beside neighboring icons.
+- Use consistent icon-box dimensions to prevent layout shifts.
+
+## 5. Integrate Icons With Dark Glassmorphism
+
+Make the icon system complement the application's premium dark glass surfaces.
+
+- Use soft white, cool gray, or carefully selected neutral tones for default icons.
+- Apply the existing brand accent color to active, selected, or important states.
+- Use subtle opacity differences to establish hierarchy.
+- Ensure icons remain legible against translucent and blurred backgrounds.
+- Avoid excessive neon glows, gradients inside every icon, rainbow colors, and decorative shadows.
+- Use restrained accent-colored emphasis only where it improves usability.
+- Maintain strong contrast for critical actions and accessibility controls.
+
+Hover and focus states may introduce a subtle change in opacity, color, or background surface. Keep these transitions smooth and restrained.
+
+## 6. Sophisticated Icon Interaction
+
+Implement consistent interaction states for every interactive icon:
+
+- **Default:** Clear, balanced, and unobtrusive.
+- **Hover:** Subtle color or surface change.
+- **Pressed:** Immediate visual feedback.
+- **Active:** Distinctive but restrained accent treatment.
+- **Disabled:** Reduced emphasis without becoming indistinguishable.
+- **Focused:** Clearly visible keyboard-focus indication.
+- **Loading:** Use an appropriate progress indicator only when an operation is actually in progress.
+
+Add tooltips to icon-only buttons where the action is not immediately obvious. Use accessible labels for screen readers, and ensure tooltips do not replace those labels.
+
+Use short, subtle transitions without animating static decorative icons unnecessarily.
+
+## 7. Command Palette and Context Menus
+
+Give the global command palette and contextual menus especially careful icon treatment.
+
+- Use a consistent icon family for every command and destination.
+- Align icons on a common grid.
+- Distinguish page destinations from actions through clear grouping and concise labels.
+- Use filled variants for selected items only when visually appropriate.
+- Keep shortcut hints separate from icons.
+- Ensure icons do not shift when search results change.
+- Preserve keyboard navigation and existing command functionality.
+
+The command palette should feel like a professionally designed Windows productivity tool.
+
+## 8. Technical Implementation
+
+Before making changes:
+
+1. Inspect the project structure and identify all icon dependencies and icon-rendering patterns.
+2. Search for emoji, Unicode substitutes, inline SVGs, duplicated icon components, and inconsistent icon libraries.
+3. Create a centralized, reusable icon component or mapping system.
+4. Standardize icon sizes, variants, colors, accessibility attributes, and interaction states.
+5. Replace icons throughout all existing screens and shared components.
+6. Remove obsolete icon dependencies only after confirming they are no longer used.
+7. Preserve routing, business logic, API integrations, event handlers, state management, and existing functionality.
+
+Use the project's existing framework and compatible library APIs. Avoid unnecessary dependencies, custom SVG recreation when a suitable system icon already exists, and hardcoded icon markup repeated throughout the codebase.
+
+## 9. Accessibility and Quality Assurance
+
+- Provide accessible names for icon-only controls.
+- Mark purely decorative icons appropriately for assistive technology.
+- Maintain keyboard accessibility and visible focus states.
+- Ensure adequate contrast on glass surfaces in light and dark themes.
+- Verify that every icon communicates the intended action.
+- Check for missing glyphs, inconsistent sizing, duplicated icons, incorrect semantic mappings, and broken imports.
+- Test desktop, tablet, and mobile layouts.
+- Confirm that replacing icons does not break buttons, navigation, forms, or interactions.
+
+## 10. Final Acceptance Criteria
+
+The redesign is complete only when:
+
+- Every existing icon has been audited and standardized.
+- The application uses one coherent, sophisticated system icon language.
+- Icons match the Windows 11-inspired Glassmorphism design.
+- Outline and filled variants are used intentionally and consistently.
+- Sizes, alignment, spacing, contrast, and interaction states are standardized.
+- No random emoji, mismatched icon styles, or crude placeholder symbols remain in the production interface.
+- Every icon retains its correct functionality and semantic meaning.
+- All existing screens and responsive layouts have been updated.
+
+**Final execution instruction:** Implement the icon replacement directly in the existing codebase. Apply it globally, not just to the landing page or dashboard. Prioritize professional system iconography, optical precision, consistency, accessibility, and seamless integration with the existing Windows-inspired Glassmorphism design. Do not alter working application functionality or redesign the navigation architecture as part of this task.

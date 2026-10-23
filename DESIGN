@@ -1,0 +1,354 @@
+# MASTER IMPLEMENTATION PROMPT — WINDOWS 11 MULTI-MORPHISM DESIGN SYSTEM WITH SYSTEM ADMINISTRATOR WORKSPACE
+
+## 1. Project Objective
+
+Completely transform the existing application's UI/UX into a premium, Windows 11-inspired application featuring a role-aware, multi-morphism design architecture.
+
+Implement eight design styles — Skeuomorphism, Flat Design, Neumorphism, Material Design, Glassmorphism, Claymorphism, Neubrutalism, and Polymorphism — and intelligently assign them to actual user roles, workspaces, and interactions.
+
+**System Administrator must be explicitly included as a first-class role in the design architecture.** It must receive a dedicated, powerful, security-oriented administrative workspace with its own visual identity, global system controls, and appropriate access to existing administrative capabilities.
+
+The entire application must feel like a carefully engineered desktop operating environment rather than a generic website.
+
+Preserve the existing business logic, routes, data, integrations, authentication, permissions, and application features. Redesign the entire interface, not just the landing page.
+
+## 2. System Administrator — Dedicated Administrative Experience
+
+Create a distinct workspace for the **System Administrator**, separate from ordinary user, departmental, institutional, analytical, and auditing experiences.
+
+### Visual identity: Obsidian Glassmorphism + Flat Design
+
+Use a sophisticated combination of:
+
+- Premium dark smoked Glassmorphism for floating controls, command palettes, system dialogs, and important administrative panels.
+- Flat Design for dense configuration forms, permissions tables, audit records, and technical information.
+- Restrained Material Design elevation for configuration workflows and confirmation dialogs.
+- Selective Neubrutalism-inspired emphasis for destructive actions and critical incident controls.
+- Polymorphic adaptation to change the appropriate treatment for each administrative task.
+
+The aesthetic must communicate authority, precision, operational visibility, and security.
+
+### Administrative visual language
+
+- Deep obsidian, graphite, charcoal, and carefully controlled neutral tones.
+- Reflective silver-white glass edges and subtle inner highlights.
+- Layered shadows that establish clear depth without excessive glow.
+- Fine borders and clean typography for configuration-heavy content.
+- Restrained use of the existing brand accent color.
+- Sophisticated Windows-inspired system icons.
+- Compact, information-dense layouts with strong visual hierarchy.
+- Subtle transitions, clear active states, and responsive feedback.
+
+Avoid making every administrative screen translucent. Use opaque or lightly translucent surfaces wherever clarity, data density, or operational precision takes priority.
+
+## 3. System Administrator Workspace Capabilities
+
+First inspect the existing codebase and implement only the administrative capabilities that are supported by the application or explicitly required by its existing architecture.
+
+Organize available capabilities into functional workspaces where applicable:
+
+**System Overview**
+- Application health and system status.
+- Operational metrics and resource summaries.
+- Service health, integration status, and recent activity.
+- High-priority alerts and unresolved operational issues.
+
+**User and Access Administration**
+- User management and account status.
+- Role assignment and permission management.
+- Access review and authorization visibility.
+- Session and authentication management, where supported.
+
+**System Configuration**
+- Application-wide settings.
+- Feature configuration and environment-specific options.
+- Integration configuration and service connectivity.
+- Supported maintenance and operational controls.
+
+**Monitoring and Incident Management**
+- System events and error monitoring.
+- Incident review and status tracking.
+- Operational logs and diagnostic information.
+- Supported recovery and remediation workflows.
+
+**Audit and Security**
+- Administrative activity history.
+- Security events and access records.
+- Configuration change history.
+- Audit trails and accountability information.
+
+**Data and Integration Management**
+- Existing database connectivity and integration status.
+- Supported data-management workflows.
+- Synchronization and background-task monitoring.
+- Data integrity and operational diagnostics, where implemented.
+
+Do not fabricate metrics, invent backend services, expose secrets, or add nonfunctional controls. If a capability does not exist, do not present it as operational.
+
+## 4. System Administrator Navigation Architecture
+
+Eliminate the conventional website navigation layout.
+
+Do not introduce a permanent generic sidebar, traditional navbar, oversized header, footer, or redundant menu bar.
+
+Instead, implement a command-driven administrative workspace.
+
+### Global command palette
+
+Use `Ctrl + K` as the primary desktop navigation shortcut.
+
+The System Administrator command palette must:
+
+- Use the premium Obsidian Glassmorphism treatment.
+- Search authorized pages, administrative workspaces, settings, and supported actions.
+- Group results into meaningful categories such as System, Users and Access, Monitoring, Security, Configuration, and Recent.
+- Support arrow-key navigation, Enter to execute, and Escape to close.
+- Display consistent system icons, descriptions, and keyboard shortcut hints.
+- Dynamically respect the authenticated administrator's actual permissions.
+- Provide contextual commands when supported by the current page.
+- Preserve the existing router and navigate without unnecessary full-page reloads.
+
+The command palette is the primary navigation mechanism, not an additional search feature placed on top of a conventional navbar.
+
+### Contextual workspace controls
+
+Use compact floating toolbars, inline actions, contextual menus, and unobtrusive location indicators where needed.
+
+Keep the main workspace focused on content and tasks. Make essential functionality discoverable without permanently occupying screen space.
+
+### Mobile navigation
+
+Preserve the existing wheel-style or rotary navigation architecture where implemented.
+
+Adapt the interaction for touch devices and provide an accessible destination-list alternative. Use a mobile-friendly command search interface rather than simply shrinking the desktop layout.
+
+## 5. Eight-Style Morphism Engine
+
+Create a centralized design engine that supports the following eight visual styles.
+
+### A. Skeuomorphism
+Realistic material cues, directional lighting, textures, and physical metaphors for specialized controls where they improve understanding.
+
+### B. Flat Design
+Clean, lightweight, two-dimensional interfaces for dense data, forms, lists, and high-efficiency workflows.
+
+### C. Neumorphism
+Soft raised and recessed surfaces for selected controls, settings, and tactile interactions. Maintain clear boundaries and sufficient contrast.
+
+### D. Material Design
+Structured elevation, layered content, clear motion, and consistent interactive feedback for workflows and task-oriented interfaces.
+
+### E. Glassmorphism
+Translucent surfaces, smoked-glass backgrounds, backdrop blur, refined reflections, and subtle luminous edges for floating workspaces, dialogs, and overlays.
+
+### F. Claymorphism
+Soft, rounded, inflated surfaces for appropriate onboarding, guided workflows, and engagement-oriented experiences.
+
+### G. Neubrutalism
+Bold borders, strong contrast, hard shadows, and high-visibility emphasis for selected urgent actions and important states.
+
+### H. Polymorphism
+A deterministic adaptation layer that chooses or combines suitable visual styles according to the user's role, task, workspace, component, device, and accessibility preferences.
+
+Polymorphism must coordinate the other styles rather than introduce unpredictable visual changes.
+
+## 6. Role-Based Design Assignment
+
+Inspect the actual roles in the existing application. Use the following mapping as an initial design recommendation, adapting it to the real authorization model.
+
+| User role | Primary style | Supporting style |
+|---|---|---|
+| System Administrator | Obsidian Glassmorphism | Flat Design |
+| Platform Administrator | Glassmorphism | Material Design |
+| Operations and Management | Material Design | Glassmorphism |
+| Analytics and Monitoring | Flat Design | Material Design |
+| Audit and Compliance | Flat Design | Frosted Glassmorphism |
+| Institutional Management | Material Design | Layered Glassmorphism |
+| Department Management | Neumorphism | Flat Design |
+| Student or General User | Claymorphism | Soft Neumorphism |
+| Incident Response | Flat Design | Selective Neubrutalism |
+
+These assignments must not create duplicate roles or override the actual permission hierarchy. If System Administrator and Platform Administrator represent the same role in the existing application, use one canonical role definition with the appropriate administrative capabilities.
+
+Skeuomorphism should be applied to specific components when useful rather than forced onto every screen.
+
+## 7. Role Detection and Authorization
+
+Build role-aware styling on top of the existing trusted authentication and authorization system.
+
+- Load the authenticated user's permitted roles and current active role.
+- Resolve the appropriate design configuration centrally.
+- Apply role-specific design tokens to shared components.
+- Update the visual system when a supported role switch occurs.
+- Keep protected routes and administrative actions enforced by the existing authorization architecture.
+- Ensure client-side theme selection never grants access to privileged capabilities.
+- Avoid exposing administrative commands or sensitive data to unauthorized users.
+- Do not create new authentication mechanisms or duplicate the existing role model unnecessarily.
+
+The visual identity communicates the active workspace; it must never substitute for actual authorization.
+
+## 8. Premium Glass Material System
+
+Use the supplied reference image as the primary reference for the System Administrator's signature glass treatment.
+
+Implement:
+
+- Dark smoked-glass backgrounds.
+- Semi-transparent charcoal and graphite surfaces.
+- Carefully tuned backdrop blur and saturation.
+- Soft silver-white edge highlights.
+- Inner reflections and layered shadows.
+- Subtle directional gradients.
+- Restrained surface grain when appropriate.
+- Smooth, consistent corner geometry.
+
+Create reusable material levels:
+
+- **Subtle Glass:** Supporting controls and secondary surfaces.
+- **Standard Glass:** Primary floating workspace panels.
+- **Premium Glass:** Command palettes, high-priority dialogs, and selected administrative controls.
+
+Use CSS custom properties and reusable components rather than duplicating styling values.
+
+Provide solid-background fallbacks for unsupported backdrop filters and performance-sensitive devices.
+
+## 9. Sophisticated Windows System Iconography
+
+Standardize all application icons using one consistent, professional system icon library compatible with the existing framework.
+
+Prefer Windows Fluent System Icons or a coherent equivalent.
+
+- Use consistent outline and filled variants.
+- Standardize dimensions, stroke weight, alignment, and spacing.
+- Replace inconsistent emoji, Unicode placeholders, and mismatched icon packs.
+- Apply restrained neutral colors and existing brand accents.
+- Keep the same semantic icon for the same action across every role.
+- Use tooltips for ambiguous icon-only actions.
+- Preserve accessibility labels and keyboard focus states.
+
+For the System Administrator workspace, favor clear, technical iconography for system health, access management, configuration, monitoring, security, and diagnostics.
+
+Do not use decorative icons to imply unsupported functionality.
+
+## 10. Centralized Component and Token Architecture
+
+Implement a reusable component system that can render different styles without duplicating business logic.
+
+Suggested shared components:
+
+- `AdaptiveSurface`
+- `MorphismPanel`
+- `MorphismButton`
+- `MorphismInput`
+- `MorphismDialog`
+- `MorphismPopover`
+- `MorphismToolbar`
+- `MorphismCommandPalette`
+- `MorphismDataTable`
+- `MorphismMetric`
+- `MorphismStatus`
+- `MorphismEmptyState`
+
+Centralize tokens for:
+
+- Surface colors and opacity.
+- Blur intensity and saturation.
+- Shadow depth and direction.
+- Border treatment and edge illumination.
+- Corner radii and spacing.
+- Typography and contrast.
+- Interaction states and transition timing.
+- Icon sizing and semantic colors.
+- Reduced-motion and accessibility settings.
+
+Shared components must preserve behavior while receiving the correct design configuration from the active role and context.
+
+## 11. Context-Aware Style Selection
+
+Use deterministic rules to resolve style selection in this order:
+
+1. Accessibility requirements and explicit user preferences.
+2. Critical task requirements and interaction clarity.
+3. Active authenticated role and workspace.
+4. Component-specific functional needs.
+5. Global application appearance.
+
+Examples:
+
+- System Administrator overview: Obsidian Glassmorphism with flat metric panels.
+- Permission management: Flat Design with clear selection and access indicators.
+- System settings: Material Design workflows with restrained glass dialogs.
+- Audit history: Flat, high-readability tables with subtle frosted-glass filters.
+- Critical destructive confirmation: High-contrast controls with unmistakable action labels.
+- Student onboarding: Claymorphism within the shared application design system.
+
+Transitions between styles must be deliberate and consistent. Do not change the entire interface's visual identity unexpectedly during routine navigation.
+
+## 12. Motion, Interaction, and Responsive Design
+
+Implement restrained, purposeful transitions for:
+
+- Command palette entrance and exit.
+- Dialogs and contextual menus.
+- Focus, hover, pressed, and selected states.
+- Role changes and supported workspace transitions.
+- Toggle and segmented-control interactions.
+- Mobile wheel rotation and snapping.
+- Loading indicators and progress feedback.
+
+Desktop should prioritize keyboard interaction and command-driven navigation.
+
+Tablet should provide adaptive layouts and touch-friendly controls.
+
+Mobile should provide appropriately redesigned content, touch interactions, and accessible navigation alternatives.
+
+Respect `prefers-reduced-motion`, avoid unnecessary full-screen animations, and reduce expensive blur or layered shadows on performance-constrained devices.
+
+## 13. Security, Accessibility, and Quality Assurance
+
+- Preserve existing authentication and authorization.
+- Ensure administrative controls respect the actual permissions model.
+- Maintain visible focus indicators and sufficient text contrast.
+- Never communicate security status through color alone.
+- Preserve keyboard and screen-reader accessibility.
+- Avoid blur and shadow combinations that obscure essential data.
+- Keep audit records and system diagnostics readable.
+- Test all roles, routes, dialogs, tables, forms, and responsive layouts.
+- Verify command-palette navigation, active-role changes, and protected-route behavior.
+- Check for broken icons, console errors, missing styles, and functional regressions.
+
+## 14. Implementation Workflow
+
+Follow this implementation sequence:
+
+1. Audit the complete codebase and actual role model.
+2. Map existing screens, permissions, shared components, and navigation.
+3. Establish the eight-style design token architecture.
+4. Implement the System Administrator workspace and its Obsidian Glassmorphism identity.
+5. Implement the remaining role-specific style configurations.
+6. Migrate shared components and screens incrementally.
+7. Integrate the global command palette and system icon library.
+8. Adapt tablet and mobile interactions.
+9. Test role permissions, visual consistency, accessibility, and performance.
+10. Resolve regressions and verify that existing features still work.
+
+Do not stop after implementing a landing page, dashboard mockup, or isolated design demonstration.
+
+## 15. Final Acceptance Criteria
+
+The application is complete only when:
+
+- The entire UI follows the Windows 11-inspired design architecture.
+- System Administrator is explicitly supported with a dedicated, security-oriented visual identity.
+- All eight morphism styles are implemented as reusable visual treatments.
+- Every real role has a documented and appropriate primary and supporting style.
+- Polymorphism coordinates role, task, component, device, and accessibility context.
+- `Ctrl + K` provides functional, permission-aware navigation.
+- The mobile navigation experience remains usable and responsive.
+- The system icon library is consistent throughout the application.
+- Existing business logic, APIs, routes, data, and authorization remain intact.
+- Every relevant screen uses the new design system.
+- No decorative placeholder controls or unsupported administrative features are presented as functional.
+- The result is accessible, performant, cohesive, and production-ready.
+
+**Final execution instruction:** Implement this redesign directly in the existing project. Audit first, build the centralized design engine, establish the System Administrator workspace, apply the role-specific styles across all actual screens, and validate every role end to end. Preserve working functionality and the existing authorization architecture. Deliver a fully implemented application rather than a visual mockup or a partial redesign.

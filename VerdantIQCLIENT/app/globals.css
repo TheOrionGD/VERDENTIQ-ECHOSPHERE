@@ -2,197 +2,118 @@
 
 @layer base {
   :root {
-    --mac-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --mac-bg-light: rgba(246, 246, 248, 0.75);
-    --mac-bg-dark: rgba(22, 22, 26, 0.78);
+    --win-font-sans: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
     
-    /* Default Emerald HIG Accent */
-    --mac-accent-primary: #064e3b;
-    --mac-accent-hover: #065f46;
-    --mac-accent-light: rgba(6, 78, 59, 0.12);
-    --mac-accent-ring: #10b981;
-    --mac-glass-opacity: 0.65;
+    /* Windows 11 Fluent System Tokens */
+    --win-accent-primary: #10b981;
+    --win-accent-hover: #059669;
+    --win-accent-light: rgba(16, 185, 129, 0.12);
+    --win-accent-border: rgba(16, 185, 129, 0.35);
+    --win-accent-ring: #34d399;
+    --win-acrylic-opacity: 0.82;
+
+    /* Legacy compatibility CSS variables */
+    --mac-font-sans: var(--win-font-sans);
+    --mac-accent-primary: var(--win-accent-primary);
+    --mac-accent-hover: var(--win-accent-hover);
+    --mac-accent-light: var(--win-accent-light);
+    --mac-accent-ring: var(--win-accent-ring);
+    --mac-glass-opacity: var(--win-acrylic-opacity);
   }
 
   body {
-    font-family: var(--mac-font-sans);
+    font-family: var(--win-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     user-select: none;
-    background-image: url('/bg.png');
+    background-color: #090d16;
+    background-image: 
+      radial-gradient(120% 80% at 50% -10%, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.7) 45%, rgba(6, 9, 16, 0.98) 100%),
+      url('/bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-color: #0c0a09;
-    color: #f5f5f4;
+    color: #f8fafc;
   }
 }
 
 /* System Typography */
-.font-sf {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+.font-segoe {
+  font-family: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI", sans-serif;
 }
 
 .font-editorial {
-  font-family: Georgia, "SF Pro Display", Cambria, serif;
+  font-family: "Segoe UI Variable Display", "Segoe UI", sans-serif;
 }
 
-/* Liquid Glass Backdrop Materials (VerdantIQ Visual Effect Views) - Dark Theme Locked */
-.macos-liquid-glass {
-  background: rgba(18, 18, 22, var(--mac-glass-opacity, 0.75));
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+/* Windows 11 Fluent Mica Material Surfaces */
+.win11-mica-surface {
+  background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.85));
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    0 16px 40px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Windows 11 Acrylic Material Overlays & Dialogs */
+.win11-acrylic-surface {
+  background: rgba(18, 24, 38, 0.92);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Legacy macos-liquid-glass mapped directly to Windows Fluent Mica */
+.macos-liquid-glass {
+  background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.85));
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 16px 40px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .dark .macos-liquid-glass {
-  background: rgba(18, 18, 22, var(--mac-glass-opacity, 0.75));
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, var(--win-acrylic-opacity, 0.85));
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    0 16px 40px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
-.macos-menubar {
-  background: rgba(20, 20, 26, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
-}
-
-.dark .macos-menubar {
-  background: rgba(20, 20, 26, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
-}
-
-/* System Window Shell */
-.macos-window-frame {
-  border-radius: 18px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 
-    0 25px 60px -15px rgba(0, 0, 0, 0.35),
-    0 0 0 0.5px rgba(255, 255, 255, 0.3);
-}
-
-.dark .macos-window-frame {
-  box-shadow: 
-    0 30px 80px -20px rgba(0, 0, 0, 0.7),
-    0 0 0 0.5px rgba(255, 255, 255, 0.15);
-}
-
-/* Control Buttons (Close, Minimize, Expand) */
-.macos-traffic-light {
-  width: 12px;
-  height: 12px;
-  border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
-  position: relative;
-  cursor: pointer;
-}
-
-.macos-traffic-light-red {
-  background-color: #FF5F57;
-  border: 0.5px solid #E0443E;
-}
-
-.macos-traffic-light-yellow {
-  background-color: #FEBC2E;
-  border: 0.5px solid #DEA123;
-}
-
-.macos-traffic-light-green {
-  background-color: #28C840;
-  border: 0.5px solid #1AAB29;
-}
-
-/* Sidebar Item Selection Pill */
-.macos-sidebar-pill {
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.macos-sidebar-pill.active {
-  background-color: var(--mac-accent-primary, #064e3b);
-  color: #ffffff;
-  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.25);
-}
-
-/* Segmented Picker Control */
-.macos-segmented-picker {
-  background: rgba(0, 0, 0, 0.06);
-  padding: 2px;
+/* Windows 11 Fluent Native Window Frame */
+.win11-window-frame {
   border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  border: 0.5px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  box-shadow: 
+    0 24px 64px -12px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-.dark .macos-segmented-picker {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.1);
+.macos-window-frame {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 
+    0 24px 64px -12px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-.macos-segmented-option {
-  padding: 4px 12px;
-  font-size: 11px;
-  font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.18s ease;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.dark .macos-segmented-option {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.macos-segmented-option.active {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.08);
-  font-weight: 600;
-}
-
-.dark .macos-segmented-option.active {
-  background: rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-}
-
-/* Glass Card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 0.5px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
-}
-
-.dark .glass-card {
-  background: rgba(24, 24, 30, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.4);
-}
-
-/* Custom Scrollbars */
+/* Windows 11 Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -200,312 +121,71 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.18);
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.22);
-  border: 2px solid transparent;
-  background-clip: content-box;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.35);
-  background-clip: content-box;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+/* Windows 11 Controls Focus Rect */
+:focus-visible {
+  outline: 2px solid var(--win-accent-primary, #10b981);
+  outline-offset: 1px;
 }
 
 /* Soft Animations */
-@keyframes macosPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.96); }
+@keyframes winFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.animate-macos-pulse {
-  animation: macosPulse 2.5s ease-in-out infinite;
+.animate-win-fade-in {
+  animation: winFadeIn 0.15s cubic-bezier(0, 0, 0, 1) forwards;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
-}
-
-.animate-shake {
-  animation: shake 0.4s ease-in-out;
-}
-
-/* Marquee Infinite Scrolling Ticker */
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* ==========================================================================
-   UI/UX PRO MAX — ACCESSIBILITY & CONTRAST ENGINE (DARK THEME WCAG AAA)
-   Rectifies dark text visibility against dark background wallpaper
-   ========================================================================== */
-
-/* 1. Global Typography Contrast Overrides for Dark Backgrounds */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6 {
+/* WCAG AAA Accessible Dark Contrast */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
   color: #f8fafc;
 }
 
-.dark .text-stone-900,
-.text-stone-900 {
+.dark .text-stone-900, .text-stone-900 {
   color: #f8fafc !important;
 }
 
-.dark .text-stone-800,
-.text-stone-800 {
+.dark .text-stone-800, .text-stone-800 {
   color: #f1f5f9 !important;
 }
 
-.dark .text-stone-700,
-.text-stone-700 {
+.dark .text-stone-700, .text-stone-700 {
   color: #e2e8f0 !important;
 }
 
-.dark .text-stone-600,
-.text-stone-600 {
+.dark .text-stone-600, .text-stone-600 {
   color: #cbd5e1 !important;
 }
 
-.dark .text-stone-500,
-.text-stone-500 {
+.dark .text-stone-500, .text-stone-500 {
   color: #94a3b8 !important;
 }
 
-.dark .text-stone-400,
-.text-stone-400 {
+.dark .text-stone-400, .text-stone-400 {
   color: #94a3b8 !important;
 }
 
-.dark .text-gray-900,
-.text-gray-900,
-.dark .text-slate-900,
-.text-slate-900,
-.dark .text-zinc-900,
-.text-zinc-900 {
-  color: #f8fafc !important;
-}
-
-.dark .text-gray-800,
-.text-gray-800,
-.dark .text-slate-800,
-.text-slate-800 {
-  color: #f1f5f9 !important;
-}
-
-.dark .text-gray-700,
-.text-gray-700,
-.dark .text-slate-700,
-.text-slate-700 {
-  color: #e2e8f0 !important;
-}
-
-.dark .text-gray-600,
-.text-gray-600,
-.dark .text-slate-600,
-.text-slate-600 {
-  color: #cbd5e1 !important;
-}
-
-/* 2. Brand & Accent Visibility (Prevent dark emerald #064E3B from vanishing on dark) */
-.dark .text-\[\#064E3B\],
-.text-\[\#064E3B\],
-[class*="text-[#064E3B]"] {
-  color: #34d399 !important;
-}
-
-.dark .text-emerald-950,
-.text-emerald-950,
-.dark .text-emerald-900,
-.text-emerald-900,
-.dark .text-emerald-800,
-.text-emerald-800 {
-  color: #34d399 !important;
-}
-
-/* 3. Surface & Card Contrast: Transform light patches into frosted obsidian glass */
 .dark .bg-white:not([data-keep-light="true"]),
 .bg-white:not([data-keep-light="true"]) {
-  background-color: rgba(18, 22, 34, 0.82) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(18, 24, 38, 0.88) !important;
+  backdrop-filter: blur(20px);
   border-color: rgba(255, 255, 255, 0.12) !important;
   color: #f8fafc !important;
 }
 
-.dark .bg-white\/95,
-.bg-white\/95,
-.dark .bg-white\/90,
-.bg-white\/90,
-.dark .bg-white\/85,
-.bg-white\/85,
-.dark .bg-white\/80,
-.bg-white\/80,
-.dark .bg-white\/75,
-.bg-white\/75,
-.dark .bg-white\/70,
-.bg-white\/70,
-.dark .bg-white\/60,
-.bg-white\/60,
-.dark .bg-white\/50,
-.bg-white\/50,
-.dark .bg-white\/40,
-.bg-white\/40,
-.dark .bg-white\/30,
-.bg-white\/30,
-.dark .bg-white\/20,
-.bg-white\/20,
-.dark .bg-white\/10,
-.bg-white\/10 {
-  background-color: rgba(18, 22, 34, 0.78) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #f8fafc !important;
-}
-
-.dark .bg-stone-50\/50,
-.bg-stone-50\/50,
-.dark .bg-stone-50\/70,
-.bg-stone-50\/70,
-.dark .bg-stone-50\/80,
-.bg-stone-50\/80,
-.dark .bg-stone-50,
-.bg-stone-50,
-.dark .bg-stone-100\/60,
-.bg-stone-100\/60,
-.dark .bg-stone-100\/80,
-.bg-stone-100\/80,
-.dark .bg-stone-100,
-.bg-stone-100,
-.dark .bg-stone-200\/40,
-.bg-stone-200\/40,
-.dark .bg-stone-200\/50,
-.bg-stone-200\/50,
-.dark .bg-stone-200\/60,
-.bg-stone-200\/60,
-.dark .bg-stone-200\/80,
-.bg-stone-200\/80,
-.dark .bg-stone-200,
-.bg-stone-200 {
-  background-color: rgba(28, 34, 52, 0.65) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  color: #f8fafc !important;
-}
-
-/* Light color-tinted containers (amber, emerald, blue, rose) transformed into dark frosted glass */
-[class*="bg-amber-50"],
-[class*="bg-amber-100"],
-[class*="bg-amber-200"] {
-  background-color: rgba(69, 26, 3, 0.6) !important;
-  border-color: rgba(245, 158, 11, 0.3) !important;
-  color: #fef3c7 !important;
-}
-
-[class*="bg-amber-50"] *,
-[class*="bg-amber-100"] *,
-[class*="bg-amber-200"] * {
-  color: #fef3c7 !important;
-}
-
-[class*="bg-emerald-50"],
-[class*="bg-emerald-100"],
-[class*="bg-emerald-200"] {
-  background-color: rgba(6, 78, 59, 0.55) !important;
-  border-color: rgba(16, 185, 129, 0.3) !important;
-  color: #d1fae5 !important;
-}
-
-[class*="bg-emerald-50"] *,
-[class*="bg-emerald-100"] *,
-[class*="bg-emerald-200"] * {
-  color: #d1fae5 !important;
-}
-
-[class*="bg-blue-50"],
-[class*="bg-blue-100"],
-[class*="bg-blue-200"] {
-  background-color: rgba(30, 58, 138, 0.55) !important;
-  border-color: rgba(59, 130, 246, 0.3) !important;
-  color: #dbeafe !important;
-}
-
-[class*="bg-blue-50"] *,
-[class*="bg-blue-100"] *,
-[class*="bg-blue-200"] * {
-  color: #dbeafe !important;
-}
-
-[class*="bg-rose-50"],
-[class*="bg-rose-100"],
-[class*="bg-rose-200"],
-[class*="bg-red-50"],
-[class*="bg-red-100"] {
-  background-color: rgba(136, 19, 55, 0.55) !important;
-  border-color: rgba(244, 63, 94, 0.3) !important;
-  color: #ffe4e6 !important;
-}
-
-[class*="bg-rose-50"] *,
-[class*="bg-rose-100"] *,
-[class*="bg-rose-200"] *,
-[class*="bg-red-50"] *,
-[class*="bg-red-100"] * {
-  color: #ffe4e6 !important;
-}
-
-/* Fallback for any designated light background surface: ensure dark crisp text */
-[data-keep-light="true"],
-.light-surface,
-.bg-light-surface {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-}
-
-[data-keep-light="true"] *,
-.light-surface *,
-.bg-light-surface * {
-  color: #0f172a !important;
-}
-
-/* 4. Elegant Borders on Dark Background */
-.dark .border-stone-200,
-.border-stone-200,
-.dark .border-stone-200\/80,
-.border-stone-200\/80,
-.dark .border-stone-200\/90,
-.border-stone-200\/90,
-.dark .border-stone-100,
-.border-stone-100,
-.dark .border-stone-300,
-.border-stone-300 {
-  border-color: rgba(255, 255, 255, 0.12) !important;
-}
-
-/* 5. Inputs & Textareas Accessible Contrast */
 input:not([type="checkbox"]):not([type="radio"]),
 textarea {
   color: #f8fafc !important;
-  background-color: rgba(16, 20, 32, 0.85) !important;
+  background-color: rgba(15, 23, 42, 0.85) !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
 }
 
@@ -514,44 +194,13 @@ textarea::placeholder {
   color: #64748b !important;
 }
 
-/* 6. High-Contrast Dropdowns, Selects & Menus (Rectifies previous pitch-black text bug) */
 select {
   color: #f8fafc !important;
   background-color: rgba(18, 24, 38, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
 }
 
-select option,
-select optgroup,
-option,
-optgroup {
+select option {
   color: #f8fafc !important;
   background-color: #0f172a !important;
-}
-
-.dark select option,
-.dark option,
-.dark optgroup {
-  color: #f8fafc !important;
-  background-color: #0f172a !important;
-}
-
-[role="listbox"],
-[role="option"],
-[role="menu"],
-[role="menuitem"],
-.dropdown-menu,
-.dropdown-content,
-.dropdown-item,
-.select-dropdown {
-  color: #f8fafc !important;
-  background-color: rgba(15, 23, 42, 0.96) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-}
-
-[role="option"]:hover,
-[role="menuitem"]:hover,
-.dropdown-item:hover {
-  background-color: rgba(16, 185, 129, 0.18) !important;
-  color: #34d399 !important;
 }

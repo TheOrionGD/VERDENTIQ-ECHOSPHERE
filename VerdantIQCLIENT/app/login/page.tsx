@@ -172,17 +172,9 @@ function LoginContent() {
   ];
 
   return (
-    <div
-      className="min-h-screen text-stone-100 font-sans flex flex-col items-center justify-center p-4 relative bg-no-repeat bg-cover bg-center bg-fixed"
-      style={{
-        backgroundImage: "url('/bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <div className="min-h-screen text-stone-100 font-sans flex flex-col items-center justify-center p-4 relative">
       {/* Background dark blur overlay */}
-      <div className="absolute inset-0 bg-stone-950/75 backdrop-blur-[4px] pointer-events-none" />
+      <div className="absolute inset-0 bg-stone-950/60 backdrop-blur-[2px] pointer-events-none" />
 
       {/* Main Container Card */}
       <div className="relative z-10 w-full max-w-lg bg-stone-900/95 border border-emerald-800/40 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl my-8">
