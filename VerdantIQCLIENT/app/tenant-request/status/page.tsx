@@ -200,7 +200,7 @@ function TenantStatusContent() {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="font-mono text-xs text-emerald-400 font-bold">{appData.refId}</span>
-                <span className="text-stone-500">•</span>
+                <span className="text-stone-400">•</span>
                 <span className="text-xs text-stone-400">
                   Submitted {new Date(appData.submittedAt).toLocaleDateString()}
                 </span>
@@ -298,7 +298,7 @@ function TenantStatusContent() {
 
           {/* Dev Test Switcher: Toggle Review Decision */}
           <div className="pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-            <span className="text-stone-500 text-[11px] flex items-center gap-1">
+            <span className="text-stone-400 text-[11px] flex items-center gap-1">
               <RefreshCw className="h-3.5 w-3.5 text-amber-400" /> Dev Simulation Control:
             </span>
             <div className="flex items-center gap-2">

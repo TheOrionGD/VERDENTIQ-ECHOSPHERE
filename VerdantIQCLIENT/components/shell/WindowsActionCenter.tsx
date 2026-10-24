@@ -181,7 +181,7 @@ export const WindowsActionCenter: React.FC = () => {
               </div>
             ))
           ) : (
-            <div className="p-6 text-center text-xs text-slate-500">
+            <div className="p-6 text-center text-xs text-slate-400">
               No new notifications.
             </div>
           )}

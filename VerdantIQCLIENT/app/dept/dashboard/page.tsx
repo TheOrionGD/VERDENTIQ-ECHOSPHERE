@@ -161,7 +161,7 @@ export default function DeptDashboardPage() {
               <span className="text-stone-300 font-bold uppercase">SSE Push Event:</span>
               <span className="truncate text-emerald-200">{sseLogs[0]}</span>
             </div>
-            <span className="text-[10px] text-stone-500 shrink-0 ml-2">{sseLogs.length} events buffered</span>
+            <span className="text-[10px] text-stone-400 shrink-0 ml-2">{sseLogs.length} events buffered</span>
           </div>
         )}
 
@@ -289,7 +289,7 @@ export default function DeptDashboardPage() {
                   <div className="space-y-3 flex flex-col justify-between">
                     <div>
                       <span className="text-[11px] font-semibold text-stone-600 flex items-center gap-1 mb-1">
-                        <FileCheck className="h-3.5 w-3.5 text-stone-500" /> OCR Meter Output
+                        <FileCheck className="h-3.5 w-3.5 text-stone-600" /> OCR Meter Output
                       </span>
                       <div className="bg-stone-900 text-emerald-400 font-mono text-[11px] p-2.5 rounded-lg border border-stone-800 leading-relaxed max-h-24 overflow-y-auto">
                         {selectedItem.ocrText}
@@ -299,7 +299,7 @@ export default function DeptDashboardPage() {
                     <div>
                       <span className="text-[11px] font-semibold text-stone-600 flex items-center justify-between mb-1">
                         <span className="flex items-center gap-1">
-                          <MapPin className="h-3.5 w-3.5 text-stone-500" /> Geofence Match
+                          <MapPin className="h-3.5 w-3.5 text-stone-600" /> Geofence Match
                         </span>
                         <span className={`text-[10px] font-bold uppercase font-mono ${
                           selectedItem.geofenceStatus === 'inside' ? 'text-emerald-700' : 'text-amber-700'
@@ -309,7 +309,7 @@ export default function DeptDashboardPage() {
                       </span>
                       <div className="bg-emerald-950/10 border border-emerald-200/80 p-2 rounded-lg text-[11px] text-stone-700 space-y-1 font-mono">
                         <div>GPS: {selectedItem.lat.toFixed(4)}° N, {selectedItem.lng.toFixed(4)}° W</div>
-                        <div className="text-[10px] text-stone-500">Department Building Perimeter Match: VALID</div>
+                        <div className="text-[10px] text-stone-600">Department Building Perimeter Match: VALID</div>
                       </div>
                     </div>
                   </div>

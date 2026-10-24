@@ -272,7 +272,7 @@ export default function InstitutionSettingsAndAuditPage() {
                     Endpoint: {meter.endpointUrl}
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-stone-500 font-mono pt-2 border-t border-stone-100">
+                  <div className="flex items-center justify-between text-[11px] text-stone-600 font-mono pt-2 border-t border-stone-100">
                     <span>Packets: {meter.packetsPerMinute} / min</span>
                     <span>Latency: {meter.latencyMs} ms</span>
                   </div>

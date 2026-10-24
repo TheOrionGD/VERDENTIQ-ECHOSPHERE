@@ -511,7 +511,7 @@ export const QuickSummaryWidget: React.FC<{ className?: string }> = ({ className
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>Real-time metric telemetry bound to email ID: <strong className="text-stone-200 font-mono">{user.email}</strong></span>
         </div>
-        <span className="font-mono text-[10px] text-stone-500">Last Synced: {lastRefreshed}</span>
+        <span className="font-mono text-[10px] text-stone-400">Last Synced: {lastRefreshed}</span>
       </div>
     </Card>
   );

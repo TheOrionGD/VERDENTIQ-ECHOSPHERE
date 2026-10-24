@@ -1,7 +1,38 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, ipcMain, Notification } = require('electron');
 const path = require('path');
+const os = require('os');
+const { spawn } = require('child_process');
 
 let mainWindow;
+
+function getSystemMetrics() {
+  const cpus = os.cpus();
+  let totalIdle = 0;
+  let totalTick = 0;
+  cpus.forEach((cpu) => {
+    for (const type in cpu.times) {
+      totalTick += cpu.times[type];
+    }
+    totalIdle += cpu.times.idle;
+  });
+  const cpuLoad = totalTick > 0 ? ((1 - totalIdle / totalTick) * 100) : 12.5;
+
+  const totalMemMb = Math.round(os.totalmem() / (1024 * 1024));
+  const freeMemMb = Math.round(os.freemem() / (1024 * 1024));
+  const usedMemMb = totalMemMb - freeMemMb;
+  const memoryPercentage = Math.round((usedMemMb / totalMemMb) * 100 * 10) / 10;
+
+  return {
+    cpu_usage: Math.round(cpuLoad * 10) / 10,
+    total_memory_mb: totalMemMb,
+    used_memory_mb: usedMemMb,
+    free_memory_mb: freeMemMb,
+    memory_percentage: memoryPercentage,
+    os_name: `${os.type()} ${os.release()}`,
+    os_version: os.release(),
+    host_name: os.hostname(),
+  };
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -9,6 +40,8 @@ function createWindow() {
     height: 900,
     minWidth: 1024,
     minHeight: 700,
+    frame: false,
+    titleBarStyle: 'hidden',
     title: 'VerdantIQ Ecosphere Desktop',
     icon: path.join(__dirname, 'icon.png'),
     backgroundColor: '#0a0f1d',
@@ -17,7 +50,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      sandbox: true,
+      sandbox: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
@@ -159,6 +192,61 @@ function createWindow() {
   });
 }
 
+// IPC Handlers for native Windows desktop features
+ipcMain.handle('window-minimize', () => {
+  if (mainWindow) mainWindow.minimize();
+  return true;
+});
+
+ipcMain.handle('window-maximize', () => {
+  if (!mainWindow) return false;
+  if (mainWindow.isMaximized()) {
+    mainWindow.unmaximize();
+    return false;
+  } else {
+    mainWindow.maximize();
+    return true;
+  }
+});
+
+ipcMain.handle('window-is-maximized', () => {
+  return mainWindow ? mainWindow.isMaximized() : false;
+});
+
+ipcMain.handle('window-close', () => {
+  if (mainWindow) mainWindow.close();
+  return true;
+});
+
+ipcMain.handle('get-system-metrics', async () => {
+  return getSystemMetrics();
+});
+
+ipcMain.handle('send-notification', async (event, { title, body }) => {
+  if (Notification.isSupported()) {
+    new Notification({
+      title: title || 'VerdantIQ Desktop',
+      body: body || '',
+      icon: path.join(__dirname, 'icon.png'),
+    }).show();
+    return true;
+  }
+  return false;
+});
+
+ipcMain.handle('launch-service-stack', async () => {
+  try {
+    const scriptPath = path.resolve(__dirname, '..', '..', 'script', 'run_services.bat');
+    spawn('cmd.exe', ['/c', 'start', '', scriptPath], {
+      detached: true,
+      stdio: 'ignore',
+    }).unref();
+    return 'Services launch initiated successfully';
+  } catch (err) {
+    return `Failed to launch services: ${err.message}`;
+  }
+});
+
 app.whenReady().then(() => {
   createWindow();
 
@@ -174,3 +262,4 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+

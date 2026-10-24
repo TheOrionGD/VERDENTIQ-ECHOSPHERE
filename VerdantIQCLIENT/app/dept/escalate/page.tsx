@@ -81,7 +81,7 @@ export default function DeptEscalatePage() {
 
           <div className="space-y-1 max-h-28 overflow-y-auto pr-1 text-[11px]">
             {sseFeed.length === 0 ? (
-              <div className="text-stone-500 italic">No recent SSE escalation events. Listening for push triggers...</div>
+              <div className="text-stone-400 italic">No recent SSE escalation events. Listening for push triggers...</div>
             ) : (
               sseFeed.map((msg, i) => (
                 <div key={i} className="text-emerald-300">
@@ -96,7 +96,7 @@ export default function DeptEscalatePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* List */}
           <div className="lg:col-span-5 space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-500">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-600">
               Escalation Records ({escalations.length})
             </h2>
 

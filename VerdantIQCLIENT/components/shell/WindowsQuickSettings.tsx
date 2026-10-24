@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useWindowsTheme, WINDOWS_ACCENTS, WindowsAccentColor, MICA_SURFACE_STYLES, WindowsMicaSurface } from '@/context/WindowsThemeContext';
 import {
   Sliders,
@@ -39,20 +40,26 @@ export const WindowsQuickSettings: React.FC = () => {
   if (!isQuickSettingsOpen) return null;
 
   return (
-    <div className="fixed top-12 right-3 z-50 w-84 max-h-[85vh] overflow-y-auto rounded-xl win11-acrylic-surface p-4 shadow-2xl border border-slate-700/80 text-slate-100 animate-in slide-in-from-top-2 duration-150 select-none font-segoe">
-      {/* Header */}
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <Sliders className="h-4 w-4 text-emerald-400" />
-          <span className="font-semibold text-xs tracking-wide">Quick Settings</span>
+    <>
+      {/* Invisible backdrop to dismiss when clicking anywhere outside */}
+      <div
+        className="fixed inset-0 z-50 bg-transparent"
+        onClick={() => setIsQuickSettingsOpen(false)}
+      />
+      <div className="fixed top-12 right-3 z-[60] w-84 max-h-[85vh] overflow-y-auto rounded-xl win11-acrylic-surface p-4 shadow-2xl border border-slate-700/80 text-slate-100 animate-in slide-in-from-top-2 duration-150 select-none font-segoe">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
+          <div className="flex items-center gap-2">
+            <Sliders className="h-4 w-4 text-emerald-400" />
+            <span className="font-semibold text-xs tracking-wide">Quick Settings</span>
+          </div>
+          <button
+            onClick={() => setIsQuickSettingsOpen(false)}
+            className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors cursor-pointer"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
-        <button
-          onClick={() => setIsQuickSettingsOpen(false)}
-          className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
 
       <div className="space-y-3.5 text-xs">
         {/* Connectivity Quick Action Tiles (Windows 11 Tile Grid) */}
@@ -196,7 +203,20 @@ export const WindowsQuickSettings: React.FC = () => {
           </div>
         </div>
 
+        {/* Footer: Privacy Policy */}
+        <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px]">
+          <Link
+            href="/privacy"
+            onClick={() => setIsQuickSettingsOpen(false)}
+            className="flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Privacy Policy & Ethics</span>
+          </Link>
+          <span className="text-[10px] text-slate-400 font-mono">v1.0.5</span>
+        </div>
       </div>
     </div>
+  </>
   );
 };

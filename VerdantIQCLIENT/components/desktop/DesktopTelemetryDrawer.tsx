@@ -93,7 +93,7 @@ export function DesktopTelemetryDrawer() {
 
             <div className="text-[11px] text-slate-400 pt-1 flex items-center justify-between">
               <span>Operating System: <strong className="text-slate-200">{systemMetrics?.os_name || 'Windows 11'} ({systemMetrics?.os_version || 'Build 2026'})</strong></span>
-              <span>Tauri Runtime: <strong className="text-emerald-400">Active v2.1</strong></span>
+              <span>Host Architecture: <strong className="text-emerald-400">Windows x64 Native</strong></span>
             </div>
           </div>
 

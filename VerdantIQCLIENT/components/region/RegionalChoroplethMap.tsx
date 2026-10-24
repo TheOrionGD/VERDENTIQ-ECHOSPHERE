@@ -251,7 +251,7 @@ export const RegionalChoroplethMap: React.FC<Props> = ({ institutions, onSelectI
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Needs Support
               </span>
             </div>
-            <span className="text-stone-500 italic">5 Registered Regional Campuses</span>
+            <span className="text-stone-400 italic">5 Registered Regional Campuses</span>
           </div>
         </div>
 
@@ -291,7 +291,7 @@ export const RegionalChoroplethMap: React.FC<Props> = ({ institutions, onSelectI
 
           <div className="p-3 bg-emerald-950 text-emerald-100 rounded-xl text-xs space-y-1.5 border border-emerald-800">
             <div className="flex items-center gap-1.5 font-bold text-emerald-200">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+              <ShieldCheck className="h-4 w-4 text-emerald-300" />
               <span>Aggregation Privacy Boundary Active</span>
             </div>
             <p className="text-[11px] text-emerald-300/80 leading-relaxed">

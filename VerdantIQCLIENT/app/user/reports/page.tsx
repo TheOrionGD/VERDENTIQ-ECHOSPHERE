@@ -76,19 +76,19 @@ export default function UserReportsPage() {
               <div className="p-4 rounded-xl bg-stone-900/80 border border-emerald-900/50 space-y-1">
                 <span className="text-[10px] text-stone-400">Total Carbon Avoided</span>
                 <div className="text-2xl font-bold text-emerald-400">1,280 kg CO2e</div>
-                <span className="text-[10px] text-stone-500">Jul 2025 - Jul 2026</span>
+                <span className="text-[10px] text-stone-400">Jul 2025 - Jul 2026</span>
               </div>
 
               <div className="p-4 rounded-xl bg-stone-900/80 border border-emerald-900/50 space-y-1">
                 <span className="text-[10px] text-stone-400">Solar PV Self-Generation</span>
                 <div className="text-2xl font-bold text-amber-400">2,450 kWh</div>
-                <span className="text-[10px] text-stone-500">42% total energy offset</span>
+                <span className="text-[10px] text-stone-400">42% total energy offset</span>
               </div>
 
               <div className="p-4 rounded-xl bg-stone-900/80 border border-emerald-900/50 space-y-1">
                 <span className="text-[10px] text-stone-400">District EcoScore Rank</span>
                 <div className="text-2xl font-bold text-sky-400">Top 12%</div>
-                <span className="text-[10px] text-stone-500">Green Valley Sector 4</span>
+                <span className="text-[10px] text-stone-400">Green Valley Sector 4</span>
               </div>
             </div>
 

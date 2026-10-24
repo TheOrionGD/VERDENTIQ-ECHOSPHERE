@@ -231,12 +231,12 @@ export default function DeptVerifyPage() {
 
                       <div className="mt-2">
                         <h4 className="text-xs font-bold text-stone-900 leading-tight">{item.title}</h4>
-                        <p className="text-[11px] text-stone-500 mt-0.5">
+                        <p className="text-[11px] text-stone-600 mt-0.5">
                           {item.submitterName} ({item.subCohort})
                         </p>
                       </div>
 
-                      <div className="mt-2 pt-2 border-t border-stone-100 flex items-center justify-between text-[10px] text-stone-500 font-mono">
+                      <div className="mt-2 pt-2 border-t border-stone-100 flex items-center justify-between text-[10px] text-stone-600 font-mono">
                         <span className="flex items-center gap-1">
                           <MapPin className="h-3 w-3 text-stone-400" />
                           Geofence: <strong className={item.geofenceStatus === 'inside' ? 'text-emerald-700' : 'text-amber-700'}>{item.geofenceStatus}</strong>
@@ -336,7 +336,7 @@ export default function DeptVerifyPage() {
                     <div>
                       <div className="flex items-center justify-between text-xs font-semibold text-stone-700 mb-1">
                         <span className="flex items-center gap-1">
-                          <FileCheck className="h-3.5 w-3.5 text-stone-500" /> OCR Engine Output
+                          <FileCheck className="h-3.5 w-3.5 text-stone-600" /> OCR Engine Output
                         </span>
                         <span className="text-[10px] font-mono text-emerald-700 font-bold">Accuracy 94.8%</span>
                       </div>
@@ -371,7 +371,7 @@ export default function DeptVerifyPage() {
                         </div>
                       </div>
 
-                      <div className="text-[10px] text-stone-500 font-mono flex justify-between">
+                      <div className="text-[10px] text-stone-600 font-mono flex justify-between">
                         <span>Lat: {selectedItem.lat}° N</span>
                         <span>Lng: {selectedItem.lng}° W</span>
                       </div>

@@ -1,6 +1,6 @@
 {
   "name": "verdantiq-ecosphere",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "VerdantIQ Ecosphere Desktop Software",
   "author": {
     "name": "theoriongd"
@@ -13,6 +13,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "audit:contrast": "node scripts/contrast_audit.js",
     "clean": "next clean",
     "seed": "node scripts/seed_database.js",
     "electron": "electron .",

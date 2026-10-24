@@ -70,7 +70,7 @@ export function useApiLoading(): ApiProgressState {
     return subscribeToApiProgress((newState) => {
       setState(newState);
     });
-  });
+  }, []);
 
   return state;
 }

@@ -80,7 +80,7 @@ export const InstitutionOnboardingModal: React.FC<Props> = ({ isOpen, onClose, o
         {/* Modal Header */}
         <div className="px-6 py-4 bg-emerald-950 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <Building className="h-5 w-5 text-emerald-400" />
+            <Building className="h-5 w-5 text-emerald-300" />
             <div>
               <h3 className="font-editorial text-lg font-bold">Institution Onboarding Wizard</h3>
               <p className="text-xs text-emerald-300/80">Spring Boot Microservice Tenant Provisioning Workflow</p>

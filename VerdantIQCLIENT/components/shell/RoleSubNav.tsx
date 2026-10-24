@@ -255,7 +255,7 @@ export const RoleSubNav: React.FC = () => {
                     : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                 )}
               >
-                <Icon className={cn('h-3.5 w-3.5', isActive ? 'text-emerald-400' : 'text-slate-500')} />
+                <Icon className={cn('h-3.5 w-3.5', isActive ? 'text-emerald-400' : 'text-slate-400')} />
                 <span>{tab.label}</span>
               </Link>
             );

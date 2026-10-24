@@ -226,6 +226,15 @@ export const WindowsCommandPalette: React.FC = () => {
       keywords: ['tariff', 'pricing', 'forecast', 'rates'],
     },
     {
+      id: 'page_privacy_policy',
+      title: 'Privacy Policy & Data Ethics Charter',
+      subtitle: 'Zero surveillance telemetry, AES-256 encryption & FERPA/GDPR compliance',
+      path: '/privacy',
+      category: 'Pages',
+      icon: ShieldCheck,
+      keywords: ['privacy', 'policy', 'ethics', 'terms', 'security', 'gdpr'],
+    },
+    {
       id: 'page_user_optimization',
       title: 'MILP Energy Optimizer',
       subtitle: 'Mixed-Integer Linear Programming appliance scheduler',
@@ -548,7 +557,7 @@ export const WindowsCommandPalette: React.FC = () => {
             <div className="p-8 text-center text-xs text-slate-400 space-y-2">
               <Sparkles className="h-6 w-6 text-emerald-400 mx-auto animate-pulse" />
               <p className="font-semibold text-slate-200">No matching command found</p>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-400">
                 Press Enter to ask Gemini AI Copilot directly, or check for typos.
               </p>
               <button

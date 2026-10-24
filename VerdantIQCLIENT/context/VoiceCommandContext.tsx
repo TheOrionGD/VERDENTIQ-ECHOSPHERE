@@ -163,34 +163,34 @@ export const VoiceCommandProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return true;
       }
 
-      // 3. System Utility Overlays
-      if (text.includes('open siri') || text.includes('open ai') || text.includes('launch ai') || text.includes('ai assistant')) {
+      // 3. System Utility Overlays (Windows 11 Fluent Commands)
+      if (text.includes('open copilot') || text.includes('open ai') || text.includes('launch ai') || text.includes('ai assistant') || text.includes('open siri')) {
         setIsSiriOpen(true);
-        const msg = 'Opening AI Assistant';
+        const msg = 'Opening Windows Copilot AI Assistant';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);
         return true;
       }
-      if (text.includes('open spotlight') || text.includes('spotlight search') || text.includes('search command')) {
+      if (text.includes('open command palette') || text.includes('command palette') || text.includes('open spotlight') || text.includes('spotlight search') || text.includes('search command') || text.includes('open search')) {
         setIsSpotlightOpen(true);
-        const msg = 'Opening Spotlight Search';
+        const msg = 'Opening Windows Command Palette';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);
         return true;
       }
-      if (text.includes('open control center') || text.includes('control center') || text.includes('system settings')) {
+      if (text.includes('open quick settings') || text.includes('quick settings') || text.includes('open control center') || text.includes('control center') || text.includes('system settings')) {
         setIsControlCenterOpen(true);
-        const msg = 'Opening Control Center';
+        const msg = 'Opening Windows Quick Settings';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);
         return true;
       }
-      if (text.includes('open notifications') || text.includes('show notifications')) {
+      if (text.includes('open action center') || text.includes('action center') || text.includes('open notifications') || text.includes('show notifications')) {
         setIsNotificationCenterOpen(true);
-        const msg = 'Opening Notification Center';
+        const msg = 'Opening Windows Action Center';
         setFeedbackMessage(msg);
         speak(msg);
         addVoiceLog(cmdRaw, msg);

@@ -88,7 +88,7 @@ export default function NotFoundPage() {
           </Link>
         </div>
 
-        <div className="pt-4 border-t border-slate-800 text-[10px] font-mono text-slate-500">
+        <div className="pt-4 border-t border-slate-800 text-[10px] font-mono text-slate-400">
           VerdantIQ Resilient Router • Automated 404 Recovery Handler
         </div>
       </div>

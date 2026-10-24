@@ -796,7 +796,7 @@ function AlertHotspotsWidgetInner() {
               </span>
               <table className="w-full text-[10px] text-left border-collapse">
                 <thead>
-                  <tr className="text-stone-500 border-b border-stone-800/80 font-mono">
+                  <tr className="text-stone-400 border-b border-stone-800/80 font-mono">
                     <th className="pb-0.5 font-normal">Anomaly Type</th>
                     <th className="pb-0.5 text-right font-normal">Count</th>
                   </tr>
@@ -813,13 +813,13 @@ function AlertHotspotsWidgetInner() {
                 </tbody>
               </table>
               {hoveredCellTypeBreakdown.length > 5 && (
-                <div className="text-[9px] text-stone-500 italic text-right pt-0.5">
+                <div className="text-[9px] text-stone-400 italic text-right pt-0.5">
                   +{hoveredCellTypeBreakdown.length - 5} additional alert types
                 </div>
               )}
             </div>
           ) : (
-            <div className="text-[10px] text-stone-500 italic">No alerts in this matrix cell.</div>
+            <div className="text-[10px] text-stone-400 italic">No alerts in this matrix cell.</div>
           )}
         </div>
       )}

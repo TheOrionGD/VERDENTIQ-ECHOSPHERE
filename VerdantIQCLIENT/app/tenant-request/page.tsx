@@ -245,7 +245,7 @@ export default function TenantRequestPage() {
                 <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
                   <Building2 className="h-4 w-4" /> 1. Organization Identity
                 </span>
-                <span className="text-[10px] text-stone-500">Tier Selection</span>
+                <span className="text-[10px] text-stone-400">Tier Selection</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -323,7 +323,7 @@ export default function TenantRequestPage() {
                 <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
                   <Globe className="h-4 w-4" /> 2. Student Verification Domains
                 </span>
-                <span className="text-[10px] text-stone-500">Automatic Custom Claims</span>
+                <span className="text-[10px] text-stone-400">Automatic Custom Claims</span>
               </div>
 
               <div className="space-y-1">
@@ -347,7 +347,7 @@ export default function TenantRequestPage() {
                 <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
                   <UserCheck className="h-4 w-4" /> 3. Primary Admin Contact
                 </span>
-                <span className="text-[10px] text-stone-500">Tenant Admin</span>
+                <span className="text-[10px] text-stone-400">Tenant Admin</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -409,7 +409,7 @@ export default function TenantRequestPage() {
                 <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
                   <MapPin className="h-4 w-4" /> 4. Real-time GPS Geofence Acquisition
                 </span>
-                <span className="text-[10px] font-mono text-stone-500">2dsphere GeoJSON Boundary</span>
+                <span className="text-[10px] font-mono text-stone-400">2dsphere GeoJSON Boundary</span>
               </div>
 
               {/* GPS Button */}

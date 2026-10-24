@@ -21,6 +21,8 @@ export interface ServiceHealthStatus {
 }
 
 interface DesktopContextType {
+  isDesktop: boolean;
+  isElectron: boolean;
   isTauri: boolean;
   isMaximized: boolean;
   systemMetrics: SystemMetrics | null;
@@ -39,6 +41,7 @@ interface DesktopContextType {
 const DesktopContext = createContext<DesktopContextType | undefined>(undefined);
 
 export function DesktopProvider({ children }: { children: React.ReactNode }) {
+  const [isElectron, setIsElectron] = useState<boolean>(false);
   const [isTauri, setIsTauri] = useState<boolean>(false);
   const [isMaximized, setIsMaximized] = useState<boolean>(false);
   const [isTelemetryOpen, setIsTelemetryOpen] = useState<boolean>(false);
@@ -50,25 +53,32 @@ export function DesktopProvider({ children }: { children: React.ReactNode }) {
     timestamp: new Date().toISOString(),
   });
 
-  useEffect(() => {
-    // Check if running inside Tauri environment
-    const inTauri =
-      typeof window !== 'undefined' &&
-      (('__TAURI_INTERNALS__' in window) || ('__TAURI__' in window) || (window as any).__TAURI_METADATA__);
-    
-    setIsTauri(Boolean(inTauri));
+  const isDesktop = isElectron || isTauri;
 
-    if (inTauri) {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Detect Electron environment
+    const electron = (window as any).electronAPI;
+    const inElectron = Boolean(electron && electron.isElectron);
+    setIsElectron(inElectron);
+
+    // Detect Tauri environment
+    const inTauri = Boolean(
+      ('__TAURI_INTERNALS__' in window) || ('__TAURI__' in window) || (window as any).__TAURI_METADATA__
+    );
+    setIsTauri(inTauri);
+
+    // Initial metrics & health
+    refreshMetrics();
+    refreshHealth();
+
+    const interval = setInterval(() => {
       refreshMetrics();
       refreshHealth();
+    }, 5000);
 
-      const interval = setInterval(() => {
-        refreshMetrics();
-        refreshHealth();
-      }, 5000);
-
-      return () => clearInterval(interval);
-    }
+    return () => clearInterval(interval);
   }, []);
 
   const invokeTauriCommand = async (command: string, args: Record<string, any> = {}) => {
@@ -86,56 +96,116 @@ export function DesktopProvider({ children }: { children: React.ReactNode }) {
       }
       return null;
     } catch (e) {
-      console.warn(`[Tauri fallback] Command ${command} execution simulated/failed:`, e);
+      console.warn(`[Desktop fallback] Command ${command} execution simulated/failed:`, e);
       return null;
     }
   };
 
   const minimizeWindow = async () => {
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.minimizeWindow) {
+      await electron.minimizeWindow();
+      return;
+    }
     if (isTauri) {
       await invokeTauriCommand('minimize_window');
+      return;
     }
+    // Browser fallback: toggle telemetry drawer or notification
+    setIsTelemetryOpen(false);
   };
 
   const toggleMaximizeWindow = async () => {
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.maximizeWindow) {
+      const maximized = await electron.maximizeWindow();
+      setIsMaximized(Boolean(maximized));
+      return;
+    }
     if (isTauri) {
       await invokeTauriCommand('toggle_maximize_window');
       setIsMaximized(!isMaximized);
+      return;
+    }
+    // Browser fallback: toggle browser document fullscreen
+    if (typeof document !== 'undefined') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.().catch(() => {});
+        setIsMaximized(true);
+      } else {
+        document.exitFullscreen?.().catch(() => {});
+        setIsMaximized(false);
+      }
     }
   };
 
   const closeWindow = async () => {
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.closeWindow) {
+      await electron.closeWindow();
+      return;
+    }
     if (isTauri) {
       await invokeTauriCommand('close_window');
+      return;
+    }
+    // Browser fallback: attempt window close or navigate to landing
+    if (typeof window !== 'undefined') {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/landing';
+      }
     }
   };
 
   const refreshMetrics = async () => {
-    if (!isTauri) {
-      // Simulated metrics for web preview
-      setSystemMetrics({
-        cpu_usage: 14.2,
-        total_memory_mb: 16384,
-        used_memory_mb: 6144,
-        free_memory_mb: 10240,
-        memory_percentage: 37.5,
-        os_name: 'Windows 11 Enterprise (2026)',
-        os_version: '10.0.26100',
-        host_name: 'VERDANT-STATION-01',
-      });
-      return;
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.getSystemMetrics) {
+      try {
+        const metrics = await electron.getSystemMetrics();
+        if (metrics) {
+          setSystemMetrics(metrics as SystemMetrics);
+          return;
+        }
+      } catch (e) {
+        console.warn('Failed to fetch Electron system metrics:', e);
+      }
     }
-    const res = await invokeTauriCommand('get_system_metrics');
-    if (res) setSystemMetrics(res as SystemMetrics);
+
+    if (isTauri) {
+      const res = await invokeTauriCommand('get_system_metrics');
+      if (res) {
+        setSystemMetrics(res as SystemMetrics);
+        return;
+      }
+    }
+
+    // Default simulated metrics for browser view
+    setSystemMetrics({
+      cpu_usage: 14.2,
+      total_memory_mb: 16384,
+      used_memory_mb: 6144,
+      free_memory_mb: 10240,
+      memory_percentage: 37.5,
+      os_name: 'Windows 11 Pro (Desktop Runtime)',
+      os_version: '10.0.26100',
+      host_name: 'VERDANT-DESKTOP-01',
+    });
   };
 
   const refreshHealth = async () => {
-    if (!isTauri) return;
-    const res = await invokeTauriCommand('check_service_health');
-    if (res) setServiceHealth(res as ServiceHealthStatus);
+    if (isTauri) {
+      const res = await invokeTauriCommand('check_service_health');
+      if (res) setServiceHealth(res as ServiceHealthStatus);
+    }
   };
 
   const launchServiceStack = async (): Promise<string> => {
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.launchServiceStack) {
+      return await electron.launchServiceStack();
+    }
     if (isTauri) {
       const res = await invokeTauriCommand('launch_service_stack');
       return (res as string) || 'Services launched';
@@ -144,14 +214,25 @@ export function DesktopProvider({ children }: { children: React.ReactNode }) {
   };
 
   const sendNotification = async (title: string, body: string) => {
+    const electron = typeof window !== 'undefined' ? (window as any).electronAPI : null;
+    if (electron?.sendNotification) {
+      await electron.sendNotification(title, body);
+      return;
+    }
     if (isTauri) {
       await invokeTauriCommand('send_native_notification', { title, body });
+      return;
+    }
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      new Notification(title, { body });
     }
   };
 
   return (
     <DesktopContext.Provider
       value={{
+        isDesktop,
+        isElectron,
         isTauri,
         isMaximized,
         systemMetrics,

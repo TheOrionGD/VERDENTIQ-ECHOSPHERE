@@ -63,7 +63,7 @@ Timestamp: ${new Date().toISOString()}`;
         {/* Header */}
         <div className="px-6 py-4 bg-emerald-950 text-white flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
-            <FileText className="h-5 w-5 text-emerald-400" />
+            <FileText className="h-5 w-5 text-emerald-300" />
             <div>
               <h3 className="font-editorial text-lg font-bold">Rolled-Up Regional PDFBox Report Engine</h3>
               <p className="text-xs text-emerald-300/80">Apache PDFBox Compliance Document Generator & Custom Parameters</p>

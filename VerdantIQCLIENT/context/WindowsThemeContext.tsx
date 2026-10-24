@@ -194,6 +194,37 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [volume, setVolume] = useState<number>(80);
   const [brightness, setBrightness] = useState<number>(95);
 
+  // Initialize from localStorage once mounted on client to prevent SSR hydration mismatch
+  useEffect(() => {
+    try {
+      const savedAccent = localStorage.getItem('verdantiq_win_accent');
+      if (savedAccent && savedAccent in WINDOWS_ACCENTS) {
+        setAccentColor(savedAccent as WindowsAccentColor);
+      }
+      const savedMica = localStorage.getItem('verdantiq_win_mica');
+      if (savedMica && savedMica in MICA_SURFACE_STYLES) {
+        setMicaSurface(savedMica as WindowsMicaSurface);
+      }
+      const savedOpacity = localStorage.getItem('verdantiq_win_acrylic_opacity');
+      if (savedOpacity) {
+        const val = parseFloat(savedOpacity);
+        if (!isNaN(val)) setAcrylicOpacity(val);
+      }
+      const savedVol = localStorage.getItem('verdantiq_win_volume');
+      if (savedVol) {
+        const val = parseInt(savedVol, 10);
+        if (!isNaN(val)) setVolume(val);
+      }
+      const savedBri = localStorage.getItem('verdantiq_win_brightness');
+      if (savedBri) {
+        const val = parseInt(savedBri, 10);
+        if (!isNaN(val)) setBrightness(val);
+      }
+    } catch {
+      // Ignore localStorage errors
+    }
+  }, []);
+
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isQuickSettingsOpen, setIsQuickSettingsOpen] = useState(false);
   const [isActionCenterOpen, setIsActionCenterOpen] = useState(false);
@@ -225,7 +256,7 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const accent = WINDOWS_ACCENTS[accentColor] || WINDOWS_ACCENTS.emerald;
   const mica = MICA_SURFACE_STYLES[micaSurface] || MICA_SURFACE_STYLES.mica_default;
 
-  // Reactively apply CSS custom properties to document root for instant live updates
+  // Reactively apply CSS custom properties to document root for instant live updates and persist to localStorage
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const root = document.documentElement;
@@ -237,13 +268,22 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
     root.style.setProperty('--win-acrylic-opacity', String(acrylicOpacity));
     root.style.setProperty('--win-mica-gradient', mica.gradient);
 
+    // Save active Windows settings to localStorage
+    try {
+      localStorage.setItem('verdantiq_win_accent', accentColor);
+      localStorage.setItem('verdantiq_win_mica', micaSurface);
+      localStorage.setItem('verdantiq_win_acrylic_opacity', String(acrylicOpacity));
+      localStorage.setItem('verdantiq_win_volume', String(volume));
+      localStorage.setItem('verdantiq_win_brightness', String(brightness));
+    } catch {}
+
     // Legacy compatibility variables
     root.style.setProperty('--mac-accent-primary', accent.primary);
     root.style.setProperty('--mac-accent-hover', accent.hover);
     root.style.setProperty('--mac-accent-light', accent.lightBg);
     root.style.setProperty('--mac-accent-ring', accent.ring);
     root.style.setProperty('--mac-glass-opacity', String(acrylicOpacity));
-  }, [accent, acrylicOpacity, mica]);
+  }, [accent, accentColor, acrylicOpacity, mica, micaSurface, volume, brightness]);
 
   return (
     <WindowsThemeContext.Provider
@@ -298,6 +338,7 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }}
     >
       <div
+        suppressHydrationWarning
         className="dark min-h-screen font-segoe text-slate-100 bg-transparent"
         style={
           {

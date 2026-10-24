@@ -20,7 +20,10 @@ import {
 
 export function DesktopTitlebar() {
   const {
+    isDesktop,
+    isElectron,
     isTauri,
+    isMaximized,
     systemMetrics,
     serviceHealth,
     isTelemetryOpen,
@@ -39,6 +42,7 @@ export function DesktopTitlebar() {
   return (
     <div
       data-tauri-drag-region
+      style={{ WebkitAppRegion: 'drag' } as any}
       className="sticky top-0 z-50 flex h-8 w-full select-none items-center justify-between border-b border-slate-800 bg-slate-950/95 px-2.5 text-xs text-slate-300 font-segoe transition-colors"
     >
       {/* Left: Windows Application Icon & Name */}
@@ -49,7 +53,7 @@ export function DesktopTitlebar() {
         <span className="font-normal text-[11px] tracking-normal text-slate-200">
           VerdantIQ Ecosphere Desktop
         </span>
-        <span className="text-[10px] text-slate-500 hidden sm:inline">—</span>
+        <span className="text-[10px] text-slate-400 hidden sm:inline">—</span>
         <span className="text-[10px] text-emerald-400/90 font-mono hidden sm:inline">
           Connected
         </span>
@@ -70,12 +74,42 @@ export function DesktopTitlebar() {
         </div>
       </div>
 
-      {/* Right: Quick Telemetry & Native Windows Titlebar Control Buttons */}
-      <div className="flex items-center gap-1">
+      {/* Right: Quick Telemetry, System Overlays & Native Windows Titlebar Control Buttons */}
+      <div style={{ WebkitAppRegion: 'no-drag' } as any} className="flex items-center gap-1">
+        {/* Windows Command Palette Trigger */}
+        <button
+          onClick={() => setIsCommandPaletteOpen(true)}
+          className="flex items-center gap-1 rounded px-2 py-0.5 text-[10px] text-slate-400 hover:text-emerald-300 hover:bg-slate-800 transition-colors cursor-pointer"
+          title="Command Palette (Ctrl+K)"
+        >
+          <Search className="h-3 w-3 text-emerald-400" />
+          <span className="hidden lg:inline">Commands</span>
+        </button>
+
+        {/* Windows Quick Settings Trigger */}
+        <button
+          onClick={() => setIsQuickSettingsOpen((prev) => !prev)}
+          className="flex items-center gap-1 rounded px-2 py-0.5 text-[10px] text-slate-400 hover:text-emerald-300 hover:bg-slate-800 transition-colors cursor-pointer"
+          title="Windows Quick Settings"
+        >
+          <Sliders className="h-3 w-3 text-teal-400" />
+          <span className="hidden lg:inline">Settings</span>
+        </button>
+
+        {/* Windows Action Center Trigger */}
+        <button
+          onClick={() => setIsActionCenterOpen((prev) => !prev)}
+          className="flex items-center gap-1 rounded px-2 py-0.5 text-[10px] text-slate-400 hover:text-emerald-300 hover:bg-slate-800 transition-colors cursor-pointer"
+          title="Notifications & Action Center"
+        >
+          <Bell className="h-3 w-3 text-amber-400" />
+          <span className="hidden lg:inline">Alerts</span>
+        </button>
+
         {/* Telemetry Indicator Button */}
         <button
           onClick={() => setIsTelemetryOpen(!isTelemetryOpen)}
-          className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-[10px] transition-colors ${
+          className={`flex items-center gap-1.5 rounded px-2 py-0.5 text-[10px] transition-colors cursor-pointer ${
             isTelemetryOpen
               ? 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/40'
               : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
@@ -96,21 +130,21 @@ export function DesktopTitlebar() {
         <div className="flex items-center -mr-2.5">
           <button
             onClick={minimizeWindow}
-            className="flex h-8 w-11 items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-slate-100 transition-colors"
+            className="flex h-8 w-11 items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-slate-100 transition-colors cursor-pointer"
             title="Minimize"
           >
             <Minus className="h-3.5 w-3.5" />
           </button>
           <button
             onClick={toggleMaximizeWindow}
-            className="flex h-8 w-11 items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-slate-100 transition-colors"
-            title="Maximize"
+            className="flex h-8 w-11 items-center justify-center hover:bg-slate-800 text-slate-400 hover:text-slate-100 transition-colors cursor-pointer"
+            title={isMaximized ? "Restore Down" : "Maximize"}
           >
             <Square className="h-3 w-3" />
           </button>
           <button
             onClick={closeWindow}
-            className="flex h-8 w-11 items-center justify-center hover:bg-red-600 text-slate-400 hover:text-white transition-colors"
+            className="flex h-8 w-11 items-center justify-center hover:bg-red-600 text-slate-400 hover:text-white transition-colors cursor-pointer"
             title="Close"
           >
             <X className="h-3.5 w-3.5" />

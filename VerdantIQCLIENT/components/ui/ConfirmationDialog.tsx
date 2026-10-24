@@ -183,7 +183,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
                 <label className="font-semibold text-stone-700 dark:text-stone-300 block">
                   Confirmation Keyword Required:
                 </label>
-                <p className="text-[11px] text-stone-500 dark:text-stone-400">
+                <p className="text-[11px] text-stone-600 dark:text-stone-400">
                   To prevent accidental execution, type <strong className="font-mono text-stone-900 dark:text-stone-100 bg-stone-200 dark:bg-stone-800 px-1 py-0.5 rounded">{requireTypedConfirmation}</strong> below:
                 </p>
                 <input

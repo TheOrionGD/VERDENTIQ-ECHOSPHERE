@@ -47,15 +47,15 @@ export const VoiceCommandWidget: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-16 sm:bottom-6 inset-x-2 sm:inset-x-auto sm:right-6 z-50 w-auto sm:w-96 max-w-[calc(100vw-1rem)] max-h-[80vh] overflow-y-auto rounded-2xl macos-liquid-glass p-3.5 sm:p-4 shadow-2xl border border-white/60 dark:border-white/10 text-stone-900 dark:text-stone-100 animate-in slide-in-from-bottom-5 duration-300 font-sf select-none">
+    <div className="fixed bottom-16 sm:bottom-6 inset-x-2 sm:inset-x-auto sm:right-6 z-50 w-auto sm:w-96 max-w-[calc(100vw-1rem)] max-h-[80vh] overflow-y-auto rounded-2xl win11-acrylic-surface p-3.5 sm:p-4 shadow-2xl border border-slate-700/80 text-slate-100 animate-in slide-in-from-bottom-5 duration-300 font-segoe select-none">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-stone-200/50 dark:border-stone-800/50">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
         <div className="flex items-center gap-2.5">
           <div
             className={`relative p-2 rounded-xl transition-all duration-300 ${
               isListening
                 ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 ring-4 ring-rose-500/20 animate-pulse'
-                : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
             }`}
           >
             <Mic className="h-4 w-4" />
@@ -63,11 +63,11 @@ export const VoiceCommandWidget: React.FC = () => {
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-bold text-xs">System Voice Intelligence</span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-semibold border border-emerald-500/20">
-                Option+V
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono font-semibold border border-emerald-500/20">
+                Alt+V
               </span>
             </div>
-            <p className="text-[10px] text-stone-500 dark:text-stone-400">
+            <p className="text-[10px] text-slate-400">
               {isListening ? 'Listening active • Speak your command' : 'Voice command listener standby'}
             </p>
           </div>
@@ -91,33 +91,33 @@ export const VoiceCommandWidget: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 my-3 bg-stone-200/50 dark:bg-stone-800/50 p-1 rounded-xl text-[11px] font-medium">
+      <div className="flex items-center gap-1 my-3 bg-slate-900/80 p-1 rounded-xl text-[11px] font-medium border border-slate-800">
         <button
           onClick={() => setActiveTab('control')}
-          className={`flex-1 py-1 rounded-lg transition-all ${
+          className={`flex-1 py-1 rounded-lg transition-all cursor-pointer ${
             activeTab === 'control'
-              ? 'bg-white dark:bg-stone-900 shadow-xs font-semibold text-stone-900 dark:text-stone-100'
-              : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+              ? 'bg-slate-800 shadow-xs font-semibold text-emerald-400 border border-slate-700'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           Mic & Live Wave
         </button>
         <button
           onClick={() => setActiveTab('cheatsheet')}
-          className={`flex-1 py-1 rounded-lg transition-all ${
+          className={`flex-1 py-1 rounded-lg transition-all cursor-pointer ${
             activeTab === 'cheatsheet'
-              ? 'bg-white dark:bg-stone-900 shadow-xs font-semibold text-stone-900 dark:text-stone-100'
-              : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+              ? 'bg-slate-800 shadow-xs font-semibold text-emerald-400 border border-slate-700'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           Commands
         </button>
         <button
           onClick={() => setActiveTab('logs')}
-          className={`flex-1 py-1 rounded-lg transition-all ${
+          className={`flex-1 py-1 rounded-lg transition-all cursor-pointer ${
             activeTab === 'logs'
-              ? 'bg-white dark:bg-stone-900 shadow-xs font-semibold text-stone-900 dark:text-stone-100'
-              : 'text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+              ? 'bg-slate-800 shadow-xs font-semibold text-emerald-400 border border-slate-700'
+              : 'text-slate-400 hover:text-slate-200'
           }`}
         >
           History ({voiceLogs.length})
@@ -143,7 +143,7 @@ export const VoiceCommandWidget: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center gap-1 my-2 text-stone-500">
+              <div className="flex flex-col items-center gap-1 my-2 text-stone-400">
                 <Activity className="h-6 w-6 opacity-40" />
                 <span className="text-[11px] font-mono">Microphone Standby</span>
               </div>
@@ -160,7 +160,7 @@ export const VoiceCommandWidget: React.FC = () => {
                   {feedbackMessage}
                 </p>
               ) : (
-                <p className="text-[11px] text-stone-500">
+                <p className="text-[11px] text-stone-400">
                   Click the toggle button or speak aloud
                 </p>
               )}
@@ -211,7 +211,7 @@ export const VoiceCommandWidget: React.FC = () => {
       {/* Tab Content 2: Cheatsheet */}
       {activeTab === 'cheatsheet' && (
         <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
-          <p className="text-[11px] text-stone-500">Click any voice preset to execute immediately:</p>
+          <p className="text-[11px] text-stone-400">Click any voice preset to execute immediately:</p>
           <div className="grid grid-cols-1 gap-1.5">
             {SAMPLE_COMMANDS.map((item, idx) => {
               const IconComp = item.icon;
@@ -230,7 +230,7 @@ export const VoiceCommandWidget: React.FC = () => {
                       <div className="text-[10px] font-mono text-stone-400">&quot;{item.cmd}&quot;</div>
                     </div>
                   </div>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-stone-200/40 dark:bg-stone-800/40 text-stone-500 font-mono">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-stone-200/40 dark:bg-stone-800/40 text-stone-400 font-mono">
                     {item.category}
                   </span>
                 </button>

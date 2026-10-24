@@ -28,19 +28,19 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          'transition-all duration-200 select-none',
+          'transition-all duration-200 select-none text-slate-100',
           morphismClasses || 'rounded-xl',
           glassClass,
           variant === 'default' &&
-            !morphismClasses && 'glass-card text-stone-900 dark:text-stone-100 hover:shadow-md rounded-2xl',
+            !morphismClasses && 'win11-acrylic-surface text-slate-100 hover:shadow-md rounded-2xl border border-slate-800',
           variant === 'glass' &&
-            !morphismClasses && 'win11-mica-surface text-stone-900 dark:text-stone-100 rounded-2xl',
+            !morphismClasses && 'win11-mica-surface text-slate-100 rounded-2xl border border-slate-800',
           variant === 'flat' &&
-            !morphismClasses && 'morphism-flat-panel rounded-lg',
+            !morphismClasses && 'morphism-flat-panel rounded-lg text-slate-100 border border-slate-800',
           variant === 'glow' &&
-            'shadow-[0_0_25px_rgba(16,185,129,0.22)]',
+            'shadow-[0_0_25px_rgba(16,185,129,0.22)] border border-emerald-500/30 text-slate-100',
           variant === 'dark' &&
-            'border-white/10 bg-slate-900 text-white shadow-xl',
+            'border-slate-800 bg-slate-900/90 text-white shadow-xl',
           className
         )}
         {...props}
@@ -69,7 +69,7 @@ export const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      'font-bold text-base tracking-tight text-stone-900 dark:text-stone-100 font-sf',
+      'font-bold text-base tracking-tight text-slate-100 font-segoe',
       className
     )}
     {...props}
@@ -83,7 +83,7 @@ export const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn('text-xs text-stone-500 dark:text-stone-400 leading-relaxed font-sf', className)}
+    className={cn('text-xs text-slate-400 leading-relaxed font-segoe', className)}
     {...props}
   />
 ));
@@ -93,7 +93,7 @@ export const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('p-5 pt-0 font-sf', className)} {...props} />
+  <div ref={ref} className={cn('p-5 pt-0 font-segoe', className)} {...props} />
 ));
 CardContent.displayName = 'CardContent';
 
@@ -103,7 +103,7 @@ export const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn('flex items-center p-5 pt-0 border-t border-stone-200/50 dark:border-stone-800/50 mt-3 pt-3 font-sf', className)}
+    className={cn('flex items-center p-5 pt-0 border-t border-slate-800/80 mt-3 pt-3 font-segoe', className)}
     {...props}
   />
 ));

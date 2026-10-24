@@ -127,7 +127,7 @@ export default function DeptChallengeTemplatesPage() {
                     <span className="flex items-center gap-1.5 font-bold text-emerald-300">
                       <Sparkles className="h-4 w-4" /> Department XGBoost Baseline Model
                     </span>
-                    <span className="text-[10px] text-emerald-400">Confidence: {xgboostData.modelConfidencePercent}%</span>
+                    <span className="text-[10px] text-emerald-300">Confidence: {xgboostData.modelConfidencePercent}%</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-[11px]">

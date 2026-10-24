@@ -12,6 +12,30 @@
     --win-accent-ring: #34d399;
     --win-acrylic-opacity: 0.82;
 
+    /* Semantic Design Tokens (WCAG 2.1 AA/AAA Compliant Pairs) */
+    --color-background: #030712;
+    --color-foreground: #f8fafc;
+    --color-card: #0f172a;
+    --color-card-foreground: #f1f5f9;
+    --color-popover: #0f172a;
+    --color-popover-foreground: #f1f5f9;
+    --color-primary: #10b981;
+    --color-primary-foreground: #022c22;
+    --color-secondary: #1e293b;
+    --color-secondary-foreground: #f8fafc;
+    --color-muted: #1e293b;
+    --color-muted-foreground: #94a3b8;
+    --color-border: #334155;
+    --color-input: #0f172a;
+    --color-ring: #34d399;
+    --color-success: #10b981;
+    --color-success-foreground: #022c22;
+    --color-warning: #f59e0b;
+    --color-warning-foreground: #451a03;
+    --color-danger: #f43f5e;
+    --color-danger-foreground: #ffffff;
+    --color-link: #34d399;
+
     /* Legacy compatibility CSS variables */
     --mac-font-sans: var(--win-font-sans);
     --mac-accent-primary: var(--win-accent-primary);
@@ -19,6 +43,32 @@
     --mac-accent-light: var(--win-accent-light);
     --mac-accent-ring: var(--win-accent-ring);
     --mac-glass-opacity: var(--win-acrylic-opacity);
+  }
+
+  .theme-light,
+  [data-theme='light'] {
+    --color-background: #f8fafc;
+    --color-foreground: #0f172a;
+    --color-card: #ffffff;
+    --color-card-foreground: #0f172a;
+    --color-popover: #ffffff;
+    --color-popover-foreground: #0f172a;
+    --color-primary: #059669;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #f1f5f9;
+    --color-secondary-foreground: #0f172a;
+    --color-muted: #f1f5f9;
+    --color-muted-foreground: #475569;
+    --color-border: #cbd5e1;
+    --color-input: #ffffff;
+    --color-ring: #059669;
+    --color-success: #059669;
+    --color-success-foreground: #ffffff;
+    --color-warning: #b45309;
+    --color-warning-foreground: #ffffff;
+    --color-danger: #e11d48;
+    --color-danger-foreground: #ffffff;
+    --color-link: #047857;
   }
 
   body {
@@ -297,13 +347,17 @@
    ========================================================================== */
 
 .win11-acrylic-surface {
-  background: rgba(18, 24, 38, 0.94);
+  background: rgba(18, 24, 38, var(--win-acrylic-opacity, 0.88));
   backdrop-filter: blur(36px) saturate(190%);
   -webkit-backdrop-filter: blur(36px) saturate(190%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 
     0 24px 60px -12px rgba(0, 0, 0, 0.8),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.font-sf {
+  font-family: var(--win-font-sans);
 }
 
 .macos-liquid-glass {
@@ -343,15 +397,14 @@
   outline-offset: 1px;
 }
 
-/* Contrast Engine Overrides */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+/* Contrast Engine Overrides - Universal Dark Theme Enforcer */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+h1, h2, h3, h4, h5, h6 {
   color: #f8fafc;
 }
-.dark .text-stone-900, .text-stone-900 {
-  color: #f8fafc !important;
-}
+.dark .text-stone-900, .text-stone-900,
 .dark .text-stone-800, .text-stone-800 {
-  color: #f1f5f9 !important;
+  color: #f8fafc !important;
 }
 .dark .text-stone-700, .text-stone-700 {
   color: #e2e8f0 !important;
@@ -359,37 +412,69 @@
 .dark .text-stone-600, .text-stone-600 {
   color: #cbd5e1 !important;
 }
-.dark .text-stone-500, .text-stone-500 {
-  color: #94a3b8 !important;
-}
+.dark .text-stone-500, .text-stone-500,
 .dark .text-stone-400, .text-stone-400 {
   color: #94a3b8 !important;
 }
 
-.dark .bg-white:not([data-keep-light="true"]),
-.bg-white:not([data-keep-light="true"]) {
-  background-color: rgba(18, 24, 38, 0.75) !important;
+/* Transform all light background surfaces into dark translucent acrylic panels */
+.dark .bg-white,
+.bg-white,
+[class*="bg-white/"],
+.bg-stone-50,
+.bg-stone-100,
+.bg-stone-200,
+[class*="bg-stone-50/"],
+[class*="bg-stone-100/"],
+[class*="bg-stone-200/"],
+.bg-slate-50,
+.bg-slate-100,
+.bg-slate-200,
+[class*="bg-slate-50/"],
+[class*="bg-slate-100/"],
+[class*="bg-slate-200/"],
+.bg-emerald-50,
+[class*="bg-emerald-50/"] {
+  background-color: rgba(18, 24, 38, 0.88) !important;
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-color: rgba(255, 255, 255, 0.12) !important;
   color: #f8fafc !important;
 }
 
-/* Fix light badges or containers that accidentally retain white text on white backgrounds */
-[data-keep-light="true"],
-.light-surface {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
+/* Force light borders into sleek dark borders */
+.border-stone-100,
+.border-stone-200,
+.border-stone-300,
+[class*="border-stone-200/"],
+[class*="border-stone-300/"],
+.border-slate-100,
+.border-slate-200,
+.border-slate-300,
+[class*="border-slate-200/"],
+[class*="border-slate-300/"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
-[data-keep-light="true"] *,
-.light-surface * {
-  color: #0f172a !important;
+
+/* Force hover states on lists and table rows */
+.hover\:bg-stone-50:hover,
+.hover\:bg-stone-100:hover,
+.hover\:bg-slate-50:hover,
+.hover\:bg-slate-100:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 input:not([type="checkbox"]):not([type="radio"]),
+select,
 textarea {
   color: #f8fafc !important;
-  background-color: rgba(15, 23, 42, 0.85) !important;
+  background-color: rgba(15, 23, 42, 0.88) !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
 }
 
 input::placeholder,
@@ -470,3 +555,97 @@ svg.system-icon {
   height: 32px;
   stroke-width: 1.75px;
 }
+
+/* ==========================================================================
+   ANIMATED SPLIT-PANEL AUTH CARD (System Color Palette: Emerald / Mint / Obsidian)
+   ========================================================================== */
+.animated-auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  min-height: 520px;
+  background-color: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1.5px solid rgba(16, 185, 129, 0.45);
+  border-radius: 24px;
+  box-shadow: 0 0 40px -5px rgba(16, 185, 129, 0.28), 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+}
+
+/* System Emerald/Mint gradient panel */
+.welcome-panel-gradient {
+  background: linear-gradient(135deg, #064E3B 0%, #065F46 45%, #059669 80%, #10B981 100%);
+}
+
+.auth-input-underline-box {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  margin-top: 20px;
+}
+
+.auth-input-underline {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+  padding-right: 32px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-input-underline:focus {
+  border-bottom: 2px solid #34D399;
+  box-shadow: 0 2px 0 0 rgba(52, 211, 153, 0.5);
+}
+
+.auth-input-floating-label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.auth-input-underline:focus ~ .auth-input-floating-label,
+.auth-input-underline:not(:placeholder-shown) ~ .auth-input-floating-label {
+  top: -4px;
+  font-size: 11px;
+  color: #34D399;
+  font-weight: 600;
+}
+
+.auth-primary-btn {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(90deg, #059669 0%, #10B981 60%, #34D399 100%);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.45);
+  cursor: pointer;
+  font-size: 15px;
+  color: #022c22;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.auth-primary-btn:hover {
+  background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+  box-shadow: 0 6px 26px rgba(52, 211, 153, 0.65);
+  transform: translateY(-1px);
+}
+
+.auth-primary-btn:active {
+  transform: translateY(1px);
+}
+
+
+

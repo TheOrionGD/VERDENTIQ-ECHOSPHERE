@@ -49,7 +49,7 @@ export const WindowsAppHeader: React.FC = () => {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div className="w-full flex items-center justify-between px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md select-none font-segoe">
+    <div className="relative z-40 w-full flex items-center justify-between px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md select-none font-segoe">
       {/* Left: Application Identity & Contextual Role Breadcrumb */}
       <div className="flex items-center gap-3">
         {/* App Icon */}
@@ -164,48 +164,63 @@ export const WindowsAppHeader: React.FC = () => {
           </button>
 
           {isAccountMenuOpen && (
-            <div className="absolute top-9 right-0 w-56 rounded-xl win11-acrylic-surface border border-slate-700 p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-2 border-b border-slate-800">
-                <div className="text-xs font-semibold text-slate-100 truncate">{user.name}</div>
-                <div className="text-[10px] text-slate-400 font-mono truncate">{user.email}</div>
-              </div>
+            <>
+              {/* Invisible backdrop to dismiss when clicking anywhere outside */}
+              <div
+                className="fixed inset-0 z-50 bg-transparent"
+                onClick={() => setIsAccountMenuOpen(false)}
+              />
+              <div className="absolute top-9 right-0 w-56 rounded-xl win11-acrylic-surface border border-slate-700/80 p-1.5 shadow-2xl z-[60] animate-in fade-in zoom-in-95 duration-100">
+                <div className="px-3 py-2 border-b border-slate-800">
+                  <div className="text-xs font-semibold text-slate-100 truncate">{user.name}</div>
+                  <div className="text-[10px] text-slate-400 font-mono truncate">{user.email}</div>
+                </div>
 
-              <div className="mt-1 space-y-0.5">
-                <Link
-                  href="/profile"
-                  onClick={() => setIsAccountMenuOpen(false)}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
-                >
-                  <User className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Profile & Security</span>
-                </Link>
-                <Link
-                  href="/settings"
-                  onClick={() => setIsAccountMenuOpen(false)}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
-                >
-                  <Settings className="h-3.5 w-3.5 text-teal-400" />
-                  <span>Settings & Preferences</span>
-                </Link>
-                <Link
-                  href="/help"
-                  onClick={() => setIsAccountMenuOpen(false)}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
-                >
-                  <HelpCircle className="h-3.5 w-3.5 text-slate-400" />
-                  <span>Help & Documentation</span>
-                </Link>
-                <div className="my-1 border-t border-slate-800" />
-                <Link
-                  href="/logout"
-                  onClick={() => setIsAccountMenuOpen(false)}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-rose-400 hover:bg-rose-950/40 hover:text-rose-300"
-                >
-                  <LogOut className="h-3.5 w-3.5" />
-                  <span>Sign Out</span>
-                </Link>
+                <div className="mt-1 space-y-0.5">
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <User className="h-3.5 w-3.5 text-emerald-400" />
+                    <span>Profile & Security</span>
+                  </Link>
+                  <Link
+                    href="/settings"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <Settings className="h-3.5 w-3.5 text-teal-400" />
+                    <span>Settings & Preferences</span>
+                  </Link>
+                  <Link
+                    href="/help"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <HelpCircle className="h-3.5 w-3.5 text-slate-400" />
+                    <span>Help & Documentation</span>
+                  </Link>
+                  <Link
+                    href="/privacy"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                    <span>Privacy Policy & Ethics</span>
+                  </Link>
+                  <div className="my-1 border-t border-slate-800" />
+                  <Link
+                    href="/logout"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                    className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-rose-400 hover:bg-rose-950/40 hover:text-rose-300"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    <span>Sign Out</span>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>

@@ -24,6 +24,8 @@ import {
   Building2,
   MapPin,
   UserCheck,
+  User,
+  Sparkles,
   Mail,
   Phone,
   Compass,
@@ -35,24 +37,78 @@ import {
   Clock,
   LocateFixed,
   Navigation,
-  Sparkles,
   AlertCircle,
   X,
   Search,
+  Sliders,
+  Bell,
+  Mic,
+  Maximize2,
+  Terminal,
+  Activity,
+  Workflow,
+  Radio,
+  Server,
+  Play,
+  TrendingUp,
+  BarChart3,
+  Flame,
+  Layout,
+  Palette,
+  Eye,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/components/ui/Toast';
 import { getRegionalDistricts } from '@/lib/data/regionalDistricts';
 import { isInstitutionalEmail } from '@/lib/utils';
+import { useWindowsTheme, WINDOWS_ACCENTS, MICA_SURFACE_STYLES, WindowsAccentColor, WindowsMicaSurface } from '@/context/WindowsThemeContext';
+import { useDesktop } from '@/context/DesktopContext';
+import { useVoiceCommand } from '@/context/VoiceCommandContext';
 
 export const ScrollytellingLanding: React.FC = () => {
   const router = useRouter();
   const toast = useToast();
 
+  // Windows Theme, Telemetry & Desktop Integration Hooks
+  const {
+    accentColor,
+    setAccentColor,
+    micaSurface,
+    setMicaSurface,
+    acrylicOpacity,
+    setAcrylicOpacity,
+    setIsCommandPaletteOpen,
+    setIsQuickSettingsOpen,
+    setIsActionCenterOpen,
+  } = useWindowsTheme();
+
+  const {
+    systemMetrics,
+    serviceHealth,
+    isTelemetryOpen,
+    setIsTelemetryOpen,
+    refreshMetrics,
+  } = useDesktop();
+
+  const {
+    isListening,
+    toggleListening,
+    setIsVoiceOverlayOpen,
+  } = useVoiceCommand();
+
   // Modals
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+
+  // Diagonal Split Neon Auth Box State (Reference Design)
+  const [authCardMode, setAuthCardMode] = useState<'register' | 'signin'>('register');
+  const [authUsername, setAuthUsername] = useState('');
+  const [authEmail, setAuthEmail] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authSuccessMsg, setAuthSuccessMsg] = useState<string | null>(null);
 
   // =========================================================================
   // TENANT REQUEST FORM STATE (EMBEDDED DIRECTLY ON LANDING PAGE)
@@ -251,24 +307,9 @@ export const ScrollytellingLanding: React.FC = () => {
   };
 
   return (
-    <div
-      className="relative min-h-screen font-sans text-stone-900 selection:bg-emerald-200 selection:text-emerald-950 overflow-x-hidden bg-no-repeat bg-cover bg-center bg-fixed"
-      style={{
-        backgroundImage: "url('/bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-      }}
-    >
-      {/* FIXED LANDING PAGE BACKGROUND WITH 10% TRANSPARENCY OVERLAY */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-90"
-        style={{
-          backgroundImage: "url('/login-bg.png')",
-        }}
-      />
-      <div className="fixed inset-0 bg-stone-950/10 backdrop-blur-[0.5px] pointer-events-none z-0" />
+    <div className="relative min-h-screen font-sans text-slate-100 selection:bg-emerald-500 selection:text-white overflow-x-hidden bg-transparent">
+      {/* Light subtle tint allowing BackgroundVideo to show through with high contrast for text */}
+      <div className="fixed inset-0 bg-stone-950/20 backdrop-blur-[0.5px] pointer-events-none z-0" />
 
       {/* MAIN CONTENT WRAPPER (NO HEADER / NO NAVBAR / NO ROLE SWITCHER) */}
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 space-y-16 pb-20 pt-10">
@@ -344,21 +385,29 @@ export const ScrollytellingLanding: React.FC = () => {
                 Register your institution, regional board, or corporate campus to provision isolated Spring Boot microservices, real-time GPS geofenced IoT telemetry, and domain-based student/staff verification.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <a
                   href="#tenant-request-section"
-                  className="bg-emerald-800 hover:bg-emerald-700 text-white font-bold px-8 h-14 rounded-full text-sm shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
+                  className="bg-emerald-800 hover:bg-emerald-700 text-white font-bold px-7 h-14 rounded-full text-sm shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
                 >
-                  <span>Register Organization Tenant</span>
-                  <ArrowRight className="h-5 w-5" />
+                  <span>Register Tenant</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+
+                <a
+                  href="#windows-features-section"
+                  className="bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 font-bold px-6 h-14 rounded-full text-sm shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
+                >
+                  <Sliders className="h-4 w-4 text-emerald-400" />
+                  <span>Windows 11 Studio</span>
                 </a>
 
                 <Link
                   href="/login"
-                  className="bg-stone-900 hover:bg-stone-800 text-white font-bold px-8 h-14 rounded-full text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
+                  className="bg-stone-900 hover:bg-stone-800 text-white font-bold px-7 h-14 rounded-full text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 min-h-[48px]"
                 >
                   <span>Access Auth Portal</span>
-                  <ShieldCheck className="h-5 w-5" />
+                  <ShieldCheck className="h-4 w-4 text-emerald-400" />
                 </Link>
               </div>
 
@@ -366,6 +415,7 @@ export const ScrollytellingLanding: React.FC = () => {
 
           </div>
         </section>
+
 
         {/* ========================================================================= */}
         {/* MAIN TENANT REQUEST ONBOARDING SECTION (MOVED DIRECTLY TO LANDING PAGE) */}
@@ -394,7 +444,7 @@ export const ScrollytellingLanding: React.FC = () => {
             {submittedRefId && (
               <div className="p-6 rounded-2xl bg-emerald-900 text-white space-y-4 shadow-xl border border-emerald-600">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-8 w-8 text-emerald-400 flex-shrink-0" />
+                  <CheckCircle2 className="h-8 w-8 text-emerald-300 flex-shrink-0" />
                   <div>
                     <h3 className="font-editorial text-xl font-bold">Tenant Request Submitted Successfully!</h3>
                     <p className="text-xs text-emerald-200">
@@ -455,7 +505,9 @@ export const ScrollytellingLanding: React.FC = () => {
                         <div className="font-bold text-xs mb-1">{tier.label}</div>
                         <p className="text-[10px] opacity-80">{tier.desc}</p>
                       </div>
-                      <div className="mt-3 text-[10px] font-mono text-emerald-400 font-bold">
+                      <div className={`mt-3 text-[10px] font-mono font-bold ${
+                        orgType === tier.key ? 'text-emerald-300' : 'text-emerald-800'
+                      }`}>
                         {orgType === tier.key ? '✓ Selected' : 'Select'}
                       </div>
                     </button>
@@ -840,7 +892,7 @@ export const ScrollytellingLanding: React.FC = () => {
                   <span className="text-xs font-mono font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-2">
                     <Zap className="h-4 w-4" /> 5. Operational Scale & Campus Energy Baseline
                   </span>
-                  <span className="text-[11px] font-mono text-stone-500">Resource Sizing</span>
+                  <span className="text-[11px] font-mono text-stone-600">Resource Sizing</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1069,6 +1121,575 @@ export const ScrollytellingLanding: React.FC = () => {
               </div>
 
             </form>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* NEW SEGMENT 1: WINDOWS 11 FLUENT OS DESKTOP INTEGRATION & SYSTEM OVERLAYS */}
+        {/* ========================================================================= */}
+        <section id="windows-features-section" className="relative pt-6 space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="emerald" dot className="bg-emerald-950/70 border-emerald-500/40 text-emerald-300">
+                  Native Windows 11 Fluent Engine
+                </Badge>
+                <span className="text-[11px] font-mono text-slate-400">System Desktop Studio</span>
+              </div>
+              <h2 className="font-segoe text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Live Windows Desktop Features & Mica Studio
+              </h2>
+              <p className="text-sm text-slate-400 max-w-3xl mt-1">
+                VerdantIQ features a deeply integrated Windows 11 Fluent experience. Customize your real-time Mica material backdrops, accent color palette, and trigger active system drawers.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsQuickSettingsOpen(true)}
+                className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-2 transition-all cursor-pointer shadow-lg"
+              >
+                <Sliders className="h-3.5 w-3.5 text-teal-400" />
+                <span>Quick Settings</span>
+              </button>
+              <button
+                onClick={() => setIsCommandPaletteOpen(true)}
+                className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-emerald-950/50"
+              >
+                <Search className="h-3.5 w-3.5 text-slate-950" />
+                <span>Command Palette (Ctrl+K)</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* CARD 1: Accent Color Customizer */}
+            <div className="rounded-2xl win11-acrylic-surface border border-slate-700/80 p-5 space-y-4 shadow-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                    <Palette className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Windows Accent Color</h3>
+                    <p className="text-[11px] text-slate-400">Live system color token enforcer</p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-emerald-400 font-bold uppercase">
+                  {WINDOWS_ACCENTS[accentColor]?.label || accentColor}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Choose an accent theme. The application will instantly re-bind all buttons, focus rings, status badges, and glows across every module.
+              </p>
+
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 pt-1">
+                {(Object.keys(WINDOWS_ACCENTS) as WindowsAccentColor[]).map((col) => {
+                  const info = WINDOWS_ACCENTS[col];
+                  const isSelected = accentColor === col;
+                  return (
+                    <button
+                      key={col}
+                      onClick={() => setAccentColor(col)}
+                      className={`h-11 rounded-xl flex flex-col items-center justify-center gap-1 border transition-all cursor-pointer ${
+                        isSelected
+                          ? 'ring-2 ring-white scale-105 shadow-lg border-white/40'
+                          : 'border-slate-800 hover:scale-102 opacity-80 hover:opacity-100'
+                      }`}
+                      style={{ backgroundColor: info.lightBg }}
+                      title={info.label}
+                    >
+                      <div className="h-4 w-4 rounded-full flex items-center justify-center" style={{ backgroundColor: info.primary }}>
+                        {isSelected && <Check className="h-2.5 w-2.5 text-white font-bold" />}
+                      </div>
+                      <span className="text-[9px] font-mono text-slate-200 truncate max-w-[45px]">{col}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-[11px] space-y-1">
+                <div className="flex justify-between text-slate-400 font-mono">
+                  <span>Current Primary Token:</span>
+                  <span className="text-white font-bold">{WINDOWS_ACCENTS[accentColor]?.primary}</span>
+                </div>
+                <div className="flex justify-between text-slate-400 font-mono">
+                  <span>Persistence:</span>
+                  <span className="text-emerald-400">localStorage synced</span>
+                </div>
+              </div>
+            </div>
+
+            {/* CARD 2: Mica Backdrop Selector */}
+            <div className="rounded-2xl win11-acrylic-surface border border-slate-700/80 p-5 space-y-4 shadow-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-8 w-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center border border-teal-500/30">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Mica Material Backdrop</h3>
+                    <p className="text-[11px] text-slate-400">Windows 11 optical refraction engine</p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-teal-400 font-bold uppercase">
+                  {MICA_SURFACE_STYLES[micaSurface]?.name.split(' ')[0] || 'Active'}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Mica and Acrylic surfaces adapt dynamically to desktop wallpaper and system theme depth with blur refraction.
+              </p>
+
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                {(Object.keys(MICA_SURFACE_STYLES) as WindowsMicaSurface[]).map((key) => {
+                  const item = MICA_SURFACE_STYLES[key];
+                  const isSelected = micaSurface === key;
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => setMicaSurface(key)}
+                      className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-emerald-600/30 text-emerald-200 border-emerald-400 shadow-md font-semibold'
+                          : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-800'
+                      }`}
+                    >
+                      <div className="truncate">{item.name}</div>
+                      <div className="text-[9px] font-mono opacity-70 mt-0.5">
+                        {isSelected ? '● Active Surface' : 'Apply'}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Opacity slider */}
+              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-2">
+                <div className="flex justify-between text-[11px]">
+                  <span className="text-slate-400">Acrylic Surface Opacity:</span>
+                  <span className="font-mono text-emerald-400 font-bold">{Math.round(acrylicOpacity * 100)}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="0.4"
+                  max="0.98"
+                  step="0.02"
+                  value={acrylicOpacity}
+                  onChange={(e) => setAcrylicOpacity(parseFloat(e.target.value))}
+                  className="w-full accent-emerald-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* CARD 3: Windows Shell Overlays & Voice Control */}
+            <div className="rounded-2xl win11-acrylic-surface border border-slate-700/80 p-5 space-y-4 shadow-xl flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-8 w-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                      <Layout className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white">System Drawer Overlays</h3>
+                      <p className="text-[11px] text-slate-400">Instant shortcuts & global trays</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-amber-400 font-bold">
+                    Ctrl+K / Alt+V
+                  </span>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed mt-3">
+                  Click any trigger below to preview the responsive Windows 11 Fluent drawers mounted across the entire platform:
+                </p>
+
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                  <button
+                    onClick={() => setIsCommandPaletteOpen(true)}
+                    className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 text-left transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 group-hover:text-emerald-300">
+                      <Search className="h-3.5 w-3.5 text-emerald-400" />
+                      <span>Command Strip</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">Press Ctrl+K</span>
+                  </button>
+
+                  <button
+                    onClick={() => setIsActionCenterOpen(true)}
+                    className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-left transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 group-hover:text-amber-300">
+                      <Bell className="h-3.5 w-3.5 text-amber-400" />
+                      <span>Action Center</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">Real-time alerts</span>
+                  </button>
+
+                  <button
+                    onClick={() => setIsQuickSettingsOpen(true)}
+                    className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-teal-500/40 text-left transition-all cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200 group-hover:text-teal-300">
+                      <Sliders className="h-3.5 w-3.5 text-teal-400" />
+                      <span>Quick Settings</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">Audio & displays</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setIsVoiceOverlayOpen(true);
+                      toggleListening();
+                    }}
+                    className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer group ${
+                      isListening
+                        ? 'bg-rose-950/60 border-rose-500 text-rose-300 animate-pulse'
+                        : 'bg-slate-900 hover:bg-slate-800 border-slate-800 hover:border-emerald-500/40 text-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center gap-1.5 text-xs font-semibold">
+                      <Mic className="h-3.5 w-3.5 text-emerald-400" />
+                      <span>Voice Assistant</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-mono">{isListening ? 'Listening...' : 'Alt+V Dictation'}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between text-xs mt-3">
+                <span className="text-slate-400">Voice Recognition Status:</span>
+                <span className="font-mono text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  Ready (English US/IN)
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* NEW SEGMENT 2: 8-TIER MULTI-MORPHISM DESIGN SYSTEM INTERACTIVE SHOWCASE */}
+        {/* ========================================================================= */}
+        <section id="morphism-architecture-section" className="relative pt-8 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="emerald" dot className="bg-emerald-950/70 border-emerald-500/40 text-emerald-300">
+                  Adaptive Design Architecture
+                </Badge>
+                <span className="text-[11px] font-mono text-slate-400">Section 6 Master Specification</span>
+              </div>
+              <h2 className="font-segoe text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Role-Tailored Multi-Morphism Engine
+              </h2>
+              <p className="text-sm text-slate-400 max-w-3xl mt-1">
+                Each institutional role receives an ergonomic visual profile engineered for its cognitive requirements—from high-density flat compliance grids to tactile dorm twin claymorphism.
+              </p>
+            </div>
+
+            <Link
+              href="/design-system"
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap"
+            >
+              <Palette className="h-4 w-4 text-emerald-400" />
+              <span>Open Design System Kit</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                role: 'System Administrator',
+                style: 'Obsidian Glassmorphism',
+                tier: 'Tier 1 • Admin Mesh',
+                color: 'emerald',
+                desc: 'Smoked charcoal glass with directional silver edge lighting and deep shadows.',
+                path: '/admin/telemetry',
+                sampleClass: 'morphism-obsidian-panel',
+                badge: 'Obsidian Glass',
+              },
+              {
+                role: 'MLOps Architect',
+                style: 'Material Design Elevation',
+                tier: 'Tier 2 • AI Engine',
+                color: 'amber',
+                desc: 'Layered cards with predictable elevation shadows and high-contrast model registries.',
+                path: '/mlops/models',
+                sampleClass: 'morphism-material-panel',
+                badge: 'Material Surface',
+              },
+              {
+                role: 'Auditor & Compliance',
+                style: 'Flat Design Clarity',
+                tier: 'Tier 3 • ESG Ledger',
+                color: 'slate',
+                desc: 'Zero-distraction flat boundaries, high data density, and SEC-ready audit trails.',
+                path: '/audit/overview',
+                sampleClass: 'morphism-flat-panel',
+                badge: 'Flat Precision',
+              },
+              {
+                role: 'Department Moderator',
+                style: 'Soft Neumorphism',
+                tier: 'Tier 4 • Operations',
+                color: 'violet',
+                desc: 'Tactile recessed switches and dual-shadow bevels for member & device verification.',
+                path: '/dept/dashboard',
+                sampleClass: 'morphism-neumorphic-panel',
+                badge: 'Neumorphic',
+              },
+              {
+                role: 'Campus Executive',
+                style: 'Layered Glassmorphism',
+                tier: 'Tier 5 • Institutional',
+                color: 'cobalt',
+                desc: 'Frosted acrylic panels with campus geofence maps and multi-facility reports.',
+                path: '/institution/dashboard',
+                sampleClass: 'win11-acrylic-surface',
+                badge: 'Fluent Acrylic',
+              },
+              {
+                role: 'District Authority',
+                style: 'Flat + Material Dual Grid',
+                tier: 'Tier 6 • Regional',
+                color: 'emerald',
+                desc: 'Choropleth district heatmaps with institutional carbon benchmark tables.',
+                path: '/region/dashboard',
+                sampleClass: 'morphism-material-panel',
+                badge: 'Regional Mesh',
+              },
+              {
+                role: 'Student Eco-League',
+                style: 'Tactile Claymorphism',
+                tier: 'Tier 7 • Campus Portal',
+                color: 'crimson',
+                desc: 'Soft rounded puffy surfaces with gamified challenges and dorm twin rewards.',
+                path: '/student/dashboard',
+                sampleClass: 'morphism-clay-panel',
+                badge: 'Claymorphism',
+              },
+              {
+                role: 'Household Citizen',
+                style: 'Fluent Mica Glass',
+                tier: 'Tier 8 • Residential',
+                color: 'emerald',
+                desc: 'Digital twin energy simulator with HVAC setpoint sliders and hourly tariffs.',
+                path: '/user/dashboard',
+                sampleClass: 'win11-mica-surface',
+                badge: 'Fluent Mica',
+              },
+            ].map((card, idx) => (
+              <div
+                key={idx}
+                className={`p-4 rounded-xl border border-slate-700/80 bg-slate-900/60 backdrop-blur-md flex flex-col justify-between space-y-3 hover:border-emerald-500/50 transition-all group`}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-emerald-400 font-semibold">{card.tier}</span>
+                    <span className="text-[9px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono border border-slate-700">
+                      {card.badge}
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">
+                    {card.role}
+                  </h4>
+                  <div className="text-[11px] font-medium text-emerald-400/90 font-mono">
+                    {card.style}
+                  </div>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    {card.desc}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
+                  <Link
+                    href={card.path}
+                    className="text-xs text-emerald-400 font-semibold flex items-center gap-1 hover:text-emerald-300 transition-colors"
+                  >
+                    <span>Launch Portal</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                  <span className="text-[10px] font-mono text-slate-400">Live Workspace</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* NEW SEGMENT 3: LIVE HARDWARE TELEMETRY & MICROSERVICES INFRASTRUCTURE */}
+        {/* ========================================================================= */}
+        <section id="telemetry-mesh-section" className="relative pt-8 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="emerald" dot className="bg-emerald-950/70 border-emerald-500/40 text-emerald-300">
+                  Distributed Telemetry Engine
+                </Badge>
+                <span className="text-[11px] font-mono text-slate-400">Real-Time Host Diagnostics</span>
+              </div>
+              <h2 className="font-segoe text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Desktop Telemetry & Backend Mesh
+              </h2>
+              <p className="text-sm text-slate-400 max-w-3xl mt-1">
+                Monitor live host resources, CPU load, Spring Boot microservices gateway, and FastAPI XGBoost inferencing nodes in real time.
+              </p>
+            </div>
+
+            <button
+              onClick={() => setIsTelemetryOpen(true)}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-emerald-950/60"
+            >
+              <Cpu className="h-4 w-4" />
+              <span>Open Desktop Telemetry Drawer</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Host Resource Monitor */}
+            <div className="p-5 rounded-2xl win11-acrylic-surface border border-slate-700/80 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-emerald-400" />
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">Host Node Telemetry</span>
+                </div>
+                <button
+                  onClick={() => refreshMetrics()}
+                  className="p-1 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-800 text-[10px] font-mono flex items-center gap-1 transition-colors cursor-pointer"
+                >
+                  <Clock className="h-3 w-3" /> Refresh
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-xs text-slate-400 mb-1">
+                    <span>Host CPU Utilization:</span>
+                    <span className="font-mono text-emerald-400 font-bold">
+                      {systemMetrics ? `${systemMetrics.cpu_usage.toFixed(1)}%` : '14.2%'}
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"
+                      style={{ width: `${Math.min(100, systemMetrics ? systemMetrics.cpu_usage : 14.2)}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs text-slate-400 mb-1">
+                    <span>Host Memory Allocation:</span>
+                    <span className="font-mono text-teal-400 font-bold">
+                      {systemMetrics
+                        ? `${(systemMetrics.used_memory_mb / 1024).toFixed(1)} / ${(systemMetrics.total_memory_mb / 1024).toFixed(0)} GB`
+                        : '6.1 / 16.0 GB'}
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-teal-500 to-cyan-400 transition-all duration-500"
+                      style={{ width: `${Math.min(100, systemMetrics ? systemMetrics.memory_percentage : 37.5)}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 space-y-1">
+                  <div className="flex justify-between">
+                    <span>Node Hostname:</span>
+                    <span className="font-mono text-slate-200">{systemMetrics?.host_name || 'VERDANT-STATION-01'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>OS Platform:</span>
+                    <span className="font-mono text-emerald-400">{systemMetrics?.os_name || 'Windows 11 Native'}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Microservices Gateway Grid */}
+            <div className="p-5 rounded-2xl win11-acrylic-surface border border-slate-700/80 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <Server className="h-4 w-4 text-teal-400" />
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">Service Health Mesh</span>
+                </div>
+                <span className="text-[10px] font-mono text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30">
+                  All Systems Optimal
+                </span>
+              </div>
+
+              <div className="space-y-2.5">
+                {[
+                  { name: 'Spring Boot Gateway (Port 8080)', role: 'Multi-Tenant Provisioner & RBAC', status: 'ONLINE', ping: '12ms' },
+                  { name: 'FastAPI ML Service (Port 8000)', role: 'XGBoost & Isolation Forest Engine', status: 'ONLINE', ping: '24ms' },
+                  { name: 'MongoDB Database Cluster', role: 'Telemetry Timeseries & Mirror Claims', status: 'ONLINE', ping: '8ms' },
+                  { name: 'Native SSE Broadcast Daemon', role: 'Real-Time Anomaly Alert Stream', status: 'ONLINE', ping: 'Live' },
+                ].map((svc, sIdx) => (
+                  <div key={sIdx} className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="font-bold text-slate-200">{svc.name}</div>
+                      <div className="text-[10px] text-slate-400 font-mono">{svc.role}</div>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-mono font-bold text-emerald-400 text-[11px] flex items-center gap-1">
+                        <CheckCircle2 className="h-3 w-3" /> {svc.status}
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-400">{svc.ping}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Microservice Launcher & Tools */}
+            <div className="p-5 rounded-2xl win11-acrylic-surface border border-slate-700/80 space-y-4 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <Terminal className="h-4 w-4 text-emerald-400" />
+                    <span className="text-xs font-bold text-white uppercase tracking-wider">Production Launchers</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-400">Desktop Runtime</span>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed mt-3">
+                  VerdantIQ includes native scripts to launch the complete distributed stack in one click:
+                </p>
+
+                <div className="space-y-2 mt-3 font-mono text-[11px]">
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 flex items-center justify-between">
+                    <span>run_all.bat</span>
+                    <span className="text-emerald-400 font-bold">Spring Boot + Python + Next.js</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 flex items-center justify-between">
+                    <span>npm run electron</span>
+                    <span className="text-teal-400 font-bold">Native Desktop App</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                <Link
+                  href="/admin/telemetry"
+                  className="text-xs text-emerald-400 font-bold flex items-center gap-1 hover:text-emerald-300 transition-colors"
+                >
+                  <span>Open Full Telemetry Grid</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <Link
+                  href="/mlops/models"
+                  className="text-xs text-teal-400 font-bold flex items-center gap-1 hover:text-teal-300 transition-colors"
+                >
+                  <span>Model Registry</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 

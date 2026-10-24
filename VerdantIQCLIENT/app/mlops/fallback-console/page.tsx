@@ -183,7 +183,7 @@ export default function MlopsFallbackConsolePage() {
 
             <div className="space-y-1 text-[11px] min-h-[160px]">
               {traceLogs.length === 0 ? (
-                <p className="text-stone-500 italic">Click &quot;Execute Fallback Simulation&quot; to see real-time execution trace logs...</p>
+                <p className="text-stone-400 italic">Click &quot;Execute Fallback Simulation&quot; to see real-time execution trace logs...</p>
               ) : (
                 traceLogs.map((log, idx) => (
                   <p key={idx} className={log.includes('SUCCESS') ? 'text-emerald-400 font-bold' : log.includes('CIRCUIT') || log.includes('503') ? 'text-amber-400 font-bold' : 'text-stone-300'}>

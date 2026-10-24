@@ -33,10 +33,10 @@ export default function RootLoaderPage() {
   }, [redirectCountdown, isInitializing, isLoggedIn, roleConfig, router]);
 
   return (
-    <div className="min-h-screen text-stone-100 font-sans flex items-center justify-center p-4 relative">
-      <div className="fixed inset-0 bg-stone-950/65 backdrop-blur-sm pointer-events-none z-0" />
+    <div className="min-h-screen text-slate-100 font-sans flex items-center justify-center p-4 relative bg-transparent">
+      <div className="fixed inset-0 bg-stone-950/20 backdrop-blur-[0.5px] pointer-events-none z-0" />
 
-      <div className="relative z-10 max-w-md w-full bg-stone-900/90 border border-emerald-800/50 rounded-3xl p-8 shadow-2xl backdrop-blur-xl text-center space-y-6">
+      <div className="relative z-10 max-w-md w-full bg-slate-900/90 border border-emerald-800/50 rounded-3xl p-8 shadow-2xl backdrop-blur-xl text-center space-y-6">
         {/* Animated Brand Header */}
         <div className="flex flex-col items-center space-y-3">
           <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-950 border border-emerald-700/60 text-emerald-400 shadow-xl shadow-emerald-900/40">
@@ -115,7 +115,7 @@ export default function RootLoaderPage() {
           </div>
         )}
 
-        <div className="text-[10px] font-mono text-stone-500 pt-2 border-t border-stone-800">
+        <div className="text-[10px] font-mono text-stone-400 pt-2 border-t border-stone-800">
           VerdantIQ Foundation Gateway • Spring Boot ID Token Verification Mirror
         </div>
       </div>
