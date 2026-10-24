@@ -22,7 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <MorphismProvider>
               <VoiceCommandProvider>
                 <ToastProvider>
-                  <div className="relative min-h-screen flex flex-col text-slate-100 bg-stone-950">
+                  <div className="relative min-h-screen flex flex-col text-slate-100 bg-transparent">
                     <BackgroundVideo />
                     <DesktopTitlebar />
                     <DesktopTelemetryDrawer />

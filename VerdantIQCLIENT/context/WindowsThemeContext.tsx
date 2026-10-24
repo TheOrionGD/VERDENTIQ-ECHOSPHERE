@@ -222,7 +222,28 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
     setWindowState({ isMaximized: false, isMinimized: false });
   };
 
-  const accent = WINDOWS_ACCENTS[accentColor];
+  const accent = WINDOWS_ACCENTS[accentColor] || WINDOWS_ACCENTS.emerald;
+  const mica = MICA_SURFACE_STYLES[micaSurface] || MICA_SURFACE_STYLES.mica_default;
+
+  // Reactively apply CSS custom properties to document root for instant live updates
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const root = document.documentElement;
+    root.style.setProperty('--win-accent-primary', accent.primary);
+    root.style.setProperty('--win-accent-hover', accent.hover);
+    root.style.setProperty('--win-accent-light', accent.lightBg);
+    root.style.setProperty('--win-accent-border', accent.border);
+    root.style.setProperty('--win-accent-ring', accent.ring);
+    root.style.setProperty('--win-acrylic-opacity', String(acrylicOpacity));
+    root.style.setProperty('--win-mica-gradient', mica.gradient);
+
+    // Legacy compatibility variables
+    root.style.setProperty('--mac-accent-primary', accent.primary);
+    root.style.setProperty('--mac-accent-hover', accent.hover);
+    root.style.setProperty('--mac-accent-light', accent.lightBg);
+    root.style.setProperty('--mac-accent-ring', accent.ring);
+    root.style.setProperty('--mac-glass-opacity', String(acrylicOpacity));
+  }, [accent, acrylicOpacity, mica]);
 
   return (
     <WindowsThemeContext.Provider
@@ -277,7 +298,7 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }}
     >
       <div
-        className="dark min-h-screen font-segoe text-slate-100 bg-stone-950"
+        className="dark min-h-screen font-segoe text-slate-100 bg-transparent"
         style={
           {
             '--win-accent-primary': accent.primary,
@@ -286,6 +307,7 @@ export const WindowsThemeProvider: React.FC<{ children: React.ReactNode }> = ({ 
             '--win-accent-border': accent.border,
             '--win-accent-ring': accent.ring,
             '--win-acrylic-opacity': acrylicOpacity,
+            backgroundImage: mica.gradient,
             // Legacy fallbacks for any lingering CSS vars
             '--mac-accent-primary': accent.primary,
             '--mac-accent-hover': accent.hover,

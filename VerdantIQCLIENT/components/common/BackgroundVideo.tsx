@@ -15,7 +15,7 @@ interface BackgroundVideoProps {
  * with an elegant dark vignette / backdrop overlay and poster fallback.
  */
 export function BackgroundVideo({
-  overlayClassName = 'bg-stone-950/65 backdrop-blur-[1px]',
+  overlayClassName = 'bg-stone-950/30 backdrop-blur-[0.5px]',
   poster = '/bg.png',
   opacity = 'opacity-100',
   playbackRate = 1.0,

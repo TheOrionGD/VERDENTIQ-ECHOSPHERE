@@ -7,33 +7,35 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=nextdotjs)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-6DB33F?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.x-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com/cloud/atlas)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.7-6DB33F?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas_/_v7.5-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com/cloud/atlas)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python)](https://www.python.org/)
 [![Java](https://img.shields.io/badge/Java-17-007396?style=flat-square&logo=openjdk)](https://openjdk.java.net/)
-[![Tauri](https://img.shields.io/badge/Tauri-v2.1-FFC131?style=flat-square&logo=tauri)](https://v2.tauri.app/)
+[![Electron](https://img.shields.io/badge/Electron-v44.5-47848F?style=flat-square&logo=electron)](https://www.electronjs.org/)
+[![Capacitor Android](https://img.shields.io/badge/Capacitor-Android_v8.5-119EFF?style=flat-square&logo=capacitor)](https://capacitorjs.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
 </div>
 
 ## Tagline
 
-AI-powered governance, operations, and decision intelligence platform for institutions, departments, and students.
+AI-powered governance, operations, digital twin ecosystems, and decision intelligence platform for institutions, departments, students, households, and regional authorities.
 
 ## Overview
 
-VerdantIQ Ecosphere is a multi-service platform designed to unify institutional oversight, operations management, student engagement, ML-driven insights, security controls, and domain-specific reporting into a single software ecosystem. The system combines a modern Next.js user experience, a Java-based gateway for enterprise-scale orchestration, and a Python-based ML service for forecasting, optimization, anomaly detection, OCR, and model-driven decision support.
+VerdantIQ Ecosphere is an enterprise-grade multi-service platform engineered to unify institutional oversight, operations management, student engagement, residential digital twin tracking, ML-driven forecasting, security controls, and ESG compliance into a single software ecosystem. The system features a Windows 11-inspired multi-morphism user experience with desktop (Electron) and mobile (Capacitor Android) cross-platform distributions, an enterprise Java Spring Boot API Gateway for secure orchestration and RBAC, and a high-performance Python FastAPI ML Gateway for XGBoost forecasting, IsolationForest anomaly detection, MILP SCIP optimization, OCR pipeline execution, and LLM gateway routing.
 
-The repository contains a full-stack architecture with clear separation of concerns:
+The repository contains a full-stack, tri-service architecture with strict separation of concerns:
 
-- Frontend application for user interaction, dashboarding, and workflows
-- API gateway for secure routing, security, authentication, and policy enforcement
-- Python ML service for predictive analytics, optimization, LLM integration, and model management
-- MongoDB-backed persistence for institutional data, access control, user state, and operational records
-- System support scripts to simplify local development and operational startup
+- **Frontend & Cross-Platform Client ([`VerdantIQCLIENT`](VerdantIQCLIENT))**: Next.js 15, React 19, TypeScript, Tailwind CSS v4, Lucide icons, Three.js 3D visualizations, and an 8-style Morphism Engine (Obsidian Glassmorphism, Neumorphism, Claymorphism, etc.) deployed across Web, Desktop (Electron v44), and Android (Capacitor v8.5).
+- **Enterprise API Gateway ([`VerdantIQServices/sb-gateway`](VerdantIQServices/sb-gateway))**: Java 17 + Spring Boot 4.0.7 coordinating 15 domain subpackages (RBAC, Rate Limiting, Audit trails, Actuator health, MongoDB Atlas persistence, and internal service proxying).
+- **ML Intelligence Gateway ([`VerdantIQServices/ml-gateway`](VerdantIQServices/ml-gateway))**: Python 3.11 + FastAPI delivering microsecond inference for energy & resource forecasting (`forecast_v1.0.0` / `forecast_v1.1.0`), OCR document intake, MILP optimization, and AI Omnibar LLM routing (Gemini 2.4 & Groq SDK).
+- **Multi-Tenant MongoDB Data Layer**: 46 distinct collections spanning 8 authenticated personas with cryptographic SHA-256 audit chaining and granular tenant isolation.
+- **Automated Operations Scripts ([`script/`](script/))**: One-click orchestration batch scripts for development, production multi-service launches, Electron Windows installer packaging, and Android APK builds.
 
-This project is intended for institutional settings, educational operations, regional governance, and AI-assisted decision environments where security, observability, and data quality matter.
+This platform is architected for institutional campuses, regional governance directorates, ESG compliance auditors, facility managers, student cohorts, and modern eco-conscious households.
 
 ---
 
@@ -111,34 +113,37 @@ This project is designed for developers who care about maintainability, clarity,
 ---
 
 ## Table of Contents
-
+ 
 - [1. Project Overview](#project-overview)
 - [2. Product Vision and Goals](#product-vision-and-goals)
-- [3. Platform Capabilities](#platform-capabilities)
-- [4. Solution Architecture](#solution-architecture)
+- [3. Platform Capabilities & 8 Stakeholder Personas](#platform-capabilities)
+- [4. Solution Architecture & Microservice Topology](#solution-architecture)
 - [5. Services and Components](#services-and-components)
-- [6. Repository Layout](#repository-layout)
-- [7. Technology Stack](#technology-stack)
-- [8. Local Development Setup](#local-development-setup)
-- [9. Configuration and Environment Variables](#configuration-and-environment-variables)
-- [10. Running the Full System](#running-the-full-system)
-- [11. Frontend Application](#frontend-application)
-- [12. API Gateway](#api-gateway)
-- [13. ML Gateway](#ml-gateway)
-- [14. Data and Persistence](#data-and-persistence)
-- [15. Authentication and Authorization](#authentication-and-authorization)
-- [16. Security and Privacy](#security-and-privacy)
-- [17. API Contract and Integration Model](#api-contract-and-integration-model)
-- [18. Workflow Documentation](#workflow-documentation)
-- [19. Testing Strategy](#testing-strategy)
-- [20. Deployment and Operations](#deployment-and-operations)
-- [21. Monitoring and Observability](#monitoring-and-observability)
-- [22. Troubleshooting](#troubleshooting)
-- [23. Community and Contribution](#community-and-contribution)
-- [24. GitHub CLI Workflow](#github-cli-workflow)
-- [25. Roadmap](#roadmap)
-- [26. FAQ](#faq)
-- [27. License](#license)
+- [6. Windows 11 Multi-Morphism Design System](#windows-11-multi-morphism-design-system)
+- [7. Repository Layout](#repository-layout)
+- [8. Technology Stack](#technology-stack)
+- [9. Seed Data & Performed Actions Guide](#seed-data--performed-actions-guide)
+- [10. Desktop (Electron) & Mobile (Android) Distributions](#desktop-electron--mobile-android-distributions)
+- [11. Local Development Setup](#local-development-setup)
+- [12. Configuration and Environment Variables](#configuration-and-environment-variables)
+- [13. Running the Full System (Local & Cloud Render)](#running-the-full-system)
+- [14. Frontend Application & UI Shell](#frontend-application)
+- [15. API Gateway (Spring Boot 4)](#api-gateway)
+- [16. ML Gateway (FastAPI & MLOps)](#ml-gateway)
+- [17. Data, Persistence & 46 MongoDB Collections](#data-and-persistence)
+- [18. Authentication, RBAC and Security](#authentication-and-authorization)
+- [19. Security and Privacy](#security-and-privacy)
+- [20. API Contract and Integration Model](#api-contract-and-integration-model)
+- [21. Workflow Documentation](#workflow-documentation)
+- [22. Testing Strategy](#testing-strategy)
+- [23. Deployment and Operations](#deployment-and-operations)
+- [24. Monitoring and Observability](#monitoring-and-observability)
+- [25. Troubleshooting](#troubleshooting)
+- [26. Community and Contribution](#community-and-contribution)
+- [27. GitHub CLI Workflow](#github-cli-workflow)
+- [28. Roadmap](#roadmap)
+- [29. FAQ](#faq)
+- [30. License](#license)
 
 ---
 
@@ -213,16 +218,18 @@ Build a platform that combines operational intelligence, governance, AI support,
 | Auditability | Capture traceable operational records | Compliance and review processes |
 | Notification flows | Keep stakeholders informed | Alerts, updates, and escalation events |
 
-### Stakeholder View
-
-| Audience | Primary Need | Platform Response |
-| --- | --- | --- |
-| Administrators | Oversight and policy | Dashboarding, access controls, AI insights |
-| Department leads | Team performance and approvals | Department analytics and workflows |
-| Institution leaders | Governance and strategic overview | Reporting, benchmarks, and trend analysis |
-| Students | Personalized experience | Student dashboard and academic-related workflows |
-| Support teams | Incident awareness | Monitoring, alerts, and operational records |
-| Platform operators | Reliability and health | Service monitoring, logs, and health routes |
+### Stakeholder View & 8 Core Personas
+ 
+| Persona / Role | Target Tenant | Primary Needs & Focus | Codebase Workspace & Route | Visual Identity Profile |
+|---|---|---|---|---|
+| **System Administrator** (`ADMIN`) | `tenant_verdantiq_core` | System-wide RBAC, rate-limiting, feature flags, emergency broadcasts, audit oversight | `/admin`, `/admin-dashboard` | Obsidian Glassmorphism + Flat Design |
+| **Regional Authority** (`REGION`) | `tenant_tn_district_board` | Inter-campus benchmarks, EUI net-zero baselines, regional policy enforcement, campus support tickets | `/region`, `/region-dashboard` | Flat Design + Material Design |
+| **Institution Executive** (`INSTITUTION`) | `tenant_institution_org` | Campus geofence polygons, cross-dept analytics, ISO 50001 PDF reports, chiller bypass escalations | `/institution`, `/institution-dashboard` | Material Design + Layered Glassmorphism |
+| **Department Lead** (`DEPT`) | `tenant_institution_org` | Sub-cohort labs (HPC/Robotics), student proof photo verification, EcoPoints awards, facility cases | `/dept`, `/dept-dashboard` | Neumorphism + Flat Design |
+| **ESG Auditor** (`AUDIT`) | `tenant_institution_org` | Data lineage graph (Meter $\to$ OCR $\to$ GRI), immutable SHA-256 hash chains, PII-scrubbed logs | `/audit`, `/audit-dashboard` | Flat Design + Frosted Glassmorphism |
+| **MLOps Architect** (`MLOPS`) | `tenant_verdantiq_core` | XGBoost v2.4 forecasters, IsolationForest models, canary traffic splits (90/10), AI Omnibar routing | `/mlops`, `/mlops-dashboard` | Material Design + Glassmorphism |
+| **Student** (`STUDENT`) | `tenant_institution_org` | West Village Dorm digital twin (142W), campus green challenges, EcoPoints streaks, academic projects | `/student`, `/student-dashboard` | Claymorphism + Soft Neumorphism |
+| **Household Resident** (`HOUSEHOLD`/`USER`) | `tenant_res_user` | Eco-Residence digital twin, smart meter & EV charger telemetry, vampire load reduction, green marketplace | `/dashboard`, `/household-dashboard` | Polymorphic Glassmorphism + Material |
 
 ---
 
@@ -374,175 +381,231 @@ These domain modules are intentionally separated to improve maintainability and 
 
 ---
 
-## Repository Layout
-
-```text
-Ecosphere/
-├── .gitignore
-├── LICENSE
-├── README.md
-├── start up
-├── VerdantIQ_System_Tracker_and_Roadmap.xlsx
-├── VerdantIQCLIENT/
-│   ├── .env
-│   ├── .eslintrc.json
-│   ├── eslint.config.mjs
-│   ├── middleware.ts
-│   ├── next.config.ts
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── app/
-│   │   ├── error.tsx
-│   │   ├── global-error.tsx
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   ├── providers.tsx
-│   │   ├── 403/
-│   │   ├── admin/
-│   │   ├── admin-dashboard/
-│   │   ├── api/
-│   │   ├── assistant/
-│   │   ├── audit/
-│   │   ├── audit-dashboard/
-│   │   ├── dept/
-│   │   ├── dept-dashboard/
-│   │   ├── design-system/
-│   │   ├── help/
-│   │   ├── household-dashboard/
-│   │   ├── institution/
-│   │   ├── institution-dashboard/
-│   │   ├── landing/
-│   │   ├── login/
-│   │   ├── logout/
-│   │   ├── mlops/
-│   │   ├── mlops-dashboard/
-│   │   ├── my-activity/
-│   │   ├── notifications/
-│   │   ├── onboarding/
-│   │   ├── profile/
-│   │   ├── region/
-│   │   ├── security/
-│   │   ├── settings/
-│   │   ├── student/
-│   │   ├── student-dashboard/
-│   │   ├── tenant-request/
-│   │   ├── user/
-│   │   └── ...
-│   ├── components/
-│   │   ├── auth/
-│   │   ├── dashboard/
-│   │   ├── dev/
-│   │   ├── landing/
-│   │   ├── mlops/
-│   │   ├── region/
-│   │   ├── shared/
-│   │   ├── shell/
-│   │   └── ui/
-│   ├── context/
-│   │   ├── AuthContext.tsx
-│   │   ├── MacThemeContext.tsx
-│   │   └── VoiceCommandContext.tsx
-│   ├── docs/
-│   │   ├── API_CONTRACT.md
-│   │   └── metadata.json
-│   ├── hooks/
-│   │   └── use-mobile.ts
-│   ├── lib/
-│   │   ├── firebase.ts
-│   │   ├── mongodb.ts
-│   │   ├── utils.ts
-│   │   ├── api/
-│   │   ├── auth/
-│   │   ├── data/
-│   │   ├── hooks/
-│   │   └── services/
-│   ├── public/
-│   └── scripts/
-│       └── refactor_endpoints.js
-│
-├── VerdantIQServices/
-│   ├── ml-gateway/
-│   │   ├── .env
-│   │   ├── .env.example
-│   │   ├── pyproject.toml
-│   │   ├── README.md
-│   │   ├── test_fastapi_routes.py
-│   │   ├── test_middleware.py
-│   │   └── app/
-│   │       ├── __init__.py
-│   │       ├── main.py
-│   │       ├── api/
-│   │       ├── core/
-│   │       ├── model_store/
-│   │       └── schemas/
-│   └── sb-gateway/
-│       ├── .gitattributes
-│       ├── .gitignore
-│       ├── HELP.md
-│       ├── mvnw
-│       ├── pom.xml
-│       ├── report.md
-│       ├── src/
-│       ├── target/
-│       └── ...
-└── ...
-```
+---
+ 
++## Windows 11 Multi-Morphism Design System
++
++VerdantIQ Ecosphere implements a native Windows 11-inspired desktop computing experience with an **8-Style Multi-Morphism Design Engine** that dynamically adapts its visual and tactile language based on the authenticated user's role, task, and security context:
++
++### 1. The 8 Morphism Styles
++
++- **Obsidian Glassmorphism (`admin`)**: Premium dark smoked-glass backgrounds, semi-transparent obsidian/graphite surfaces, backdrop blur, inner reflections, and crisp silver-white borders for high-security administrative command.
++- **Material Design (`mlops`, `institution`)**: Structured elevation, surface depth, clear motion choreography, and tactile cards for complex operations and metrics.
++- **Neumorphism (`dept`)**: Soft debossed/embossed surfaces and tactile toggle switches for department lab controllers and approval workflows.
++- **Claymorphism (`student`)**: Soft, rounded, friendly inflated surfaces and vivid accents for student challenges, badges, and streaks.
++- **Flat Design (`audit`, `region`)**: High-contrast, two-dimensional, maximum-density tables and data grids for ESG verification and legal data lineage.
++- **Skeuomorphism**: Realistic physical metaphors, dials, and hardware meter displays utilized in digital twin telemetry widgets.
++- **Neubrutalism**: High-contrast, bold borders, and stark warning shadows for emergency system broadcasts and critical incident overrides.
++- **Polymorphism (`user`)**: Adaptive UI blending glassmorphism, responsive density, and material surfaces for residential digital twin dashboards.
++
++### 2. Desktop Shell Architecture
++
++- **Windows 11 App Header & Action Center**: Native title bar with minimize/maximize/close actions, Mica material backdrop, system notifications flyout, and quick settings toggles (`WindowsQuickSettings.tsx`, `WindowsActionCenter.tsx`).
++- **Global Command Palette (`Ctrl + K`)**: Universal keyboard-first search, role action triggering, system routing, and Omnibar execution (`WindowsCommandPalette.tsx`).
++- **Mobile Rotary Navigation (`WindowsMobileWheelNav.tsx`)**: Touch-optimized radial wheel navigation for Android and mobile web interfaces.
++- **Voice Command Engine**: Integrated voice recognition widget supporting spoken navigation and operational telemetry queries (`VoiceCommandWidget.tsx`).
++
++---
++
+ ## Repository Layout
+ 
+ ```text
+ Ecosphere/
+ ├── .env                                  # Root environment variables
+ ├── .env.example                          # Root environment template
+ ├── .gitignore                            # Workspace git ignore rules
+ ├── LICENSE                               # MIT License
+ ├── README.md                             # Comprehensive system architecture & developer guide
+ ├── VerdantIQ_System_Tracker_and_Roadmap.xlsx # Detailed system tracker & delivery roadmap
+ ├── DESIGN                                # Windows 11 Multi-Morphism master design spec
+ ├── ICON                                  # Lucide & iconography mapping specifications
+ ├── script/                               # Automated multi-service operational scripts
+ │   ├── build_android_app.bat             # Compiles Capacitor Android debug & release APKs
+ │   ├── build_release.bat                 # Packages Electron desktop Windows installers (NSIS/ZIP)
+ │   ├── run_production_app.bat            # Quick prod runner for local testing
+ │   ├── start_all.bat                     # Interactive Dev/Prod tri-service microservice launcher
+ │   └── start_electron_desktop.bat        # Launches native Electron desktop connected to live services
+ ├── Software/                             # Packaged distribution artifacts & seed guides
+ │   ├── SEED_DATA_GUIDE.md                # 8 Persona logins, 46 collections, 206+ seed docs
+ │   ├── VerdantIQ 1.0.3.exe               # Windows desktop installer
+ │   ├── VerdantIQ-1.0.3-win.zip           # Windows portable desktop release bundle
+ │   └── VerdantIQ-1.0.3-android-release-signed.apk # Android mobile application release package
+ ├── VerdantIQCLIENT/                      # Next.js 15 + Electron + Capacitor Frontend Client
+ │   ├── .env                              # Client API connection & environment config
+ │   ├── capacitor.config.ts               # Capacitor Android bridge configuration
+ │   ├── electron/                         # Native Electron desktop process
+ │   │   ├── main.js                       # Electron window lifecycle & IPC handler
+ │   │   ├── preload.js                    # Secure desktop context bridge
+ │   │   └── icon.ico                      # Application icon asset
+ │   ├── android/                          # Native Android Gradle workspace
+ │   ├── app/                              # Next.js App Router (33 role-based route directories)
+ │   │   ├── admin/ & admin-dashboard/     # System Administrator Obsidian workspace
+ │   │   ├── region/ & region-dashboard/   # Regional Authority Net-Zero workspace
+ │   │   ├── institution/ & institution-dashboard/ # Institutional Executive analytics
+ │   │   ├── dept/ & dept-dashboard/       # Department Lead & lab verification
+ │   │   ├── audit/ & audit-dashboard/     # ESG Auditor data lineage & GRI exports
+ │   │   ├── mlops/ & mlops-dashboard/     # MLOps Model Registry, Canaries & SCIP
+ │   │   ├── student/ & student-dashboard/ # Student Dorm digital twin & green quests
+ │   │   ├── dashboard/ & household-dashboard/ # Residential Eco-Home digital twin
+ │   │   ├── api/                          # Next.js serverless API routes (db/seed, etc.)
+ │   │   ├── globals.css                   # Tailwind CSS v4 + Multi-Morphism engine styles
+ │   │   └── providers.tsx                 # Auth, Theme, Morphism, & Desktop contexts
+ │   ├── components/                       # Modular UI Component Library
+ │   │   ├── auth/                         # Multi-role authentication & onboarding
+ │   │   ├── dashboard/                    # Role-specific dashboard layouts & analytics
+ │   │   ├── dev/                          # Seed data & dev tool modals
+ │   │   ├── landing/                      # High-converting glassmorphic landing surface
+ │   │   ├── mlops/                        # Model registry, inference monitors, SCIP sliders
+ │   │   ├── region/                       # GIS map layers & inter-campus leaderboards
+ │   │   ├── shared/                       # Data tables, KPI cards, PDF export buttons
+ │   │   ├── shell/                        # Windows 11 AppHeader, Command Palette, WheelNav
+ │   │   └── ui/                           # Reusable morphism primitives (buttons, dialogs)
+ │   ├── context/                          # Global React context providers
+ │   │   ├── AuthContext.tsx               # 8-Persona state, tenant switching & token storage
+ │   │   ├── MorphismContext.tsx           # 8-Style Morphism Engine state & class resolver
+ │   │   ├── DesktopContext.tsx            # Electron window management & native controls
+ │   │   └── VoiceCommandContext.tsx       # Spoken voice command routing engine
+ │   ├── docs/API_CONTRACT.md              # Client-to-Gateway API contract definitions
+ │   └── scripts/seed_database.js          # MongoDB seed automation script
+ │
+ ├── VerdantIQServices/                    # Backend Microservices
+ │   ├── ml-gateway/                       # Python 3.11 + FastAPI ML Gateway (Port 8000)
+ │   │   ├── pyproject.toml                # Dependencies (XGBoost, OR-Tools, Tesseract, etc.)
+ │   │   ├── app/
+ │   │   │   ├── main.py                   # FastAPI initialization & CORS middleware
+ │   │   │   ├── api/endpoints/            # Forecast, Anomaly, MLOps, OCR, Optimization, LLM
+ │   │   │   ├── core/                     # Internal service key auth & logging config
+ │   │   │   ├── model_store/              # Versioned XGBoost forecast models (v1.0.0, v1.1.0)
+ │   │   │   └── schemas/                  # Pydantic request & response validation schemas
+ │   │   └── test_fastapi_routes.py        # Automated test suite
+ │   │
+ │   └── sb-gateway/                       # Java 17 + Spring Boot 4.0.7 API Gateway (Port 8080)
+ │       ├── pom.xml                       # Maven POM (Spring Data MongoDB, Security, Actuator)
+ │       ├── src/main/java/com/verdantiq/gateway/
+ │       │   ├── GatewayApplication.java   # Spring Boot bootstrap
+ │       │   ├── activity/                 # Performed action tracking & student activity logs
+ │       │   ├── admin/                    # System RBAC schemas, rate limits, broadcasts
+ │       │   ├── audit/ & auditor/         # Cryptographic SHA-256 audit chaining & data lineage
+ │       │   ├── auth/                     # JWT authentication, token validation & security
+ │       │   ├── config/                   # CORS, Security filter chain, MongoDB Atlas config
+ │       │   ├── dept/                     # Sub-cohorts, verification items & escalations
+ │       │   ├── institution/              # Geofence polygons, department records & reports
+ │       │   ├── mlops/                    # ML model records, canary deployments & alert rules
+ │       │   ├── notifications/            # SSE and system notification dispatch
+ │       │   ├── region/                   # Regional policy configs, benchmarks & tenant requests
+ │       │   ├── student/                  # Digital twin dorms, challenges & academic projects
+ │       │   ├── tenantprivacy/            # Tenant isolation & PII sanitization filters
+ │       │   └── user/                     # Household digital twins, linked smart meters & goals
+ │       └── src/main/resources/
+ │           └── application.yaml          # Port 8080, MongoDB URI, ML service URL & JWT secret
+ └── ...
+ ```
 
 ---
 
 ## Technology Stack
-
-### Frontend
-
-| Component | Technology |
-| --- | --- |
-| UI framework | Next.js 15 |
-| Rendering | React 19 |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Motion/visualization | Framer Motion / CSS animation / Three.js |
-| Data access | Fetch APIs / service modules |
-
-### Backend
-
-| Component | Technology |
-| --- | --- |
-| API gateway | Spring Boot 4 |
-| Python ML service | FastAPI |
-| Language | Java 17 / Python 3.11 |
-| HTTP layer | REST APIs, controllers, route handlers |
-| Runtime | Uvicorn, Maven, Spring Boot runtime |
-
-### Data and Persistence
-
-| Component | Technology |
-| --- | --- |
-| Primary database | MongoDB |
-| Cloud deployment | MongoDB Atlas |
-| Document modeling | Spring Data MongoDB |
-| Data serialization | JSON |
-
-### Authentication and Security
-
-| Component | Technology |
-| --- | --- |
-| Identity and access | Firebase Auth patterns |
-| Token validation | custom middleware and security filters |
-| Policy enforcement | route-level checks and service guards |
-| Secret handling | environment variables |
-| Application security | Spring Security, API checks |
-
-### AI Services
-
-| Component | Technology |
-| --- | --- |
-| Model hosting | FastAPI endpoints |
-| Forecasting | scikit-learn, XGBoost |
-| Optimization | OR-Tools |
-| OCR | Tesseract / PIL / Python image pipeline |
-| LLM gateway | Service adapters and gateway routing |
-| Model artifacts | local model store with metadata |
+ 
+ ### Frontend & Cross-Platform
+ 
+ | Component | Technology | Version | Purpose in Codebase |
+ | --- | --- | --- | --- |
+ | Web Framework | Next.js App Router | `15.1.7` (Turbopack) | Server & client routing across 33 role directories |
+ | UI Library | React | `19.0.0` | React 19 concurrent features & server components |
+ | Language | TypeScript | `5.7.3` | End-to-end typed contracts, DTOs & state interfaces |
+ | Styling Engine | Tailwind CSS | `v4.0.0` | Modern CSS `@theme` tokens, glassmorphism utilities |
+ | Desktop Runtime | Electron & Electron Builder | `44.5.1` / `26.15.3` | Native Windows desktop installer (`.exe`) & portable bundle |
+ | Mobile Bridge | Capacitor Android | `8.5.3` | Native Android build integration, Gradle packaging |
+ | 3D Visualization | Three.js | `0.174.0` | Digital twin campus and interactive energy visualizers |
+ | Animation | Motion (`motion/react`) | `12.4.7` | Fluid micro-interactions, spring transitions |
+ | Iconography | Lucide React | `0.475.0` | 100+ Windows 11-inspired iconography mappings |
+ | AI Omnibar SDKs | `@google/genai` & `groq-sdk` | `2.4.0` / `1.5.0` | Client-side intelligent assistant & voice command processing |
+ 
+ ### Backend Microservices
+ 
+ | Component | Technology | Version | Purpose in Codebase |
+ | --- | --- | --- | --- |
+ | Core API Gateway | Spring Boot (Java) | `4.0.7` (Java 17) | Enterprise orchestration, Actuator metrics, RBAC, proxying |
+ | Gateway Build Tool | Apache Maven | `3.9+` (`mvnw.cmd`) | Multi-dependency Java lifecycle management |
+ | ML Gateway | FastAPI (Python) | `0.100+` (Python 3.11) | High-speed async REST endpoints for inference & OCR |
+ | ML ASGI Server | Uvicorn | `0.23+` | Asynchronous worker process management on port 8000 |
+ | Database Driver | Spring Data MongoDB / `mongodb` | `Spring Data` / `v7.5` | Reactive document mapping & seed data execution |
+ 
+ ### AI, Optimization & ML Services
+ 
+ | Component | Technology | Version | Usage in ML Gateway |
+ | --- | --- | --- | --- |
+ | Forecasting | XGBoost & Scikit-learn | `xgboost>=2.0`, `scikit-learn>=1.3` | Energy load, demand forecasting (`forecast_v1.0.0`, `v1.1.0`) |
+ | Anomaly Detection | IsolationForest | `scikit-learn` | Real-time outlier detection in sub-meter readings |
+ | Optimization | Google OR-Tools | `ortools>=9.7.0` | Mixed Integer Linear Programming (MILP SCIP) resource solver |
+ | Document OCR | Tesseract OCR & Pillow | `pytesseract>=0.3.10`, `PIL>=10.0` | Digitization and intake of utility receipts & ESG audit forms |
+ | LLM Orchestration | Groq & Gemini Gateway | Custom REST Adapters | Multi-provider AI Omnibar prompt routing and assistant responses |
+ 
+ ### Persistence & Security
+ 
+ | Component | Technology | Purpose in System |
+ | --- | --- | --- |
+ | Primary Database | MongoDB Atlas / Local MongoDB (`VerdantIQ`) | 46 specialized domain collections, GeoJSON polygons |
+ | Authentication | JWT + Custom Spring Security Filters | HMAC-SHA256 signed stateless tokens (`JWT_SECRET`) |
+ | Internal Auth | `INTERNAL_SERVICE_KEY` | Header-based secure communication between Gateway and ML Service |
+ | Audit Chaining | SHA-256 Cryptographic Hash Chaining | Immutable audit trails preventing historical log tampering |
+ 
+ ---
+ 
+ ## Seed Data & Performed Actions Guide
+ 
+ The codebase includes a comprehensive seed architecture creating **8 fully-realized user roles**, **46 collections**, and **206+ real-world documents with pre-performed operational actions** across institutional campuses, research labs, student dorms, and residential homes.
+ 
+ ### The 8 User Personas & Test Credentials
+ 
+ | Role | Login Email | Default Password | Tenant Context | Seeded Name & Organization | Primary Performed Actions Seeded |
+ |---|---|---|---|---|---|
+ | **`ADMIN`** | `admin@verdantiq.io` | `AdminPassword2026!` | `tenant_verdantiq_core` | **Alexander Vance**<br/>Core System Authority | Defined 8 RBAC schemas, 6 rate-limit rules, published 4 system broadcasts, approved elevated grants, logged 6 unredacted audit trails |
+ | **`REGION`** | `region@tn.gov.in` | `RegionPassword2026!` | `tenant_tn_district_board` | **Dr. K. Senthil Nathan**<br/>State District Board 1 | Monitored 4 campus domains, established Net-Zero 2026 EUI baselines ($110\text{ kWh/m}^2$), created Spring Cup Challenge, approved tenants |
+ | **`INSTITUTION`** | `admin@institution.org` | `InstitutionPassword2026!` | `tenant_institution_org` | **Dr. Eleanor Vance**<br/>Pacific State University | Mapped GPS geofence boundary polygons, aggregated 4 department metrics, scheduled automated ISO 50001 PDF delivery |
+ | **`DEPT`** | `dept@institution.org` | `DeptPassword2026!` | `tenant_institution_org` | **Prof. Marcus Sterling**<br/>Facility Science & CS Labs | Formed 3 sub-cohorts (CS HPC Lab), verified student action proof photos (36 kWh saved), awarded 460+ EcoPoints, resolved equipment cases |
+ | **`AUDIT`** | `auditor@esg-verify.org` | `AuditorPassword2026!` | `tenant_institution_org` | **Elena Rostova**<br/>ESG Verification Directorate | Requested sub-meter logs, verified data lineage nodes (Meter $\to$ OCR $\to$ GRI), checked SHA-256 hash chains, signed annual ESG statements |
+ | **`MLOPS`** | `mlops@verdantiq.io` | `MlopsPassword2026!` | `tenant_verdantiq_core` | **Tariq Al-Mansoor**<br/>Applied AI Systems | Registered XGBoost v2.4 forecasters, set 90/10 canary deployments, tuned MILP SCIP optimization weights ($w_{\text{carbon}}=0.5, w_{\text{cost}}=0.3$) |
+ | **`STUDENT`** | `student@institution.org` | `StudentPassword2026!` | `tenant_institution_org` | **Maya Lin**<br/>West Village Dorm 304B | Monitored digital twin dorm room (142W, 22.1°C), joined 3 campus challenges, published PV research paper, logged 30 daily eco-actions |
+ | **`HOUSEHOLD`** | `user@verdantiq.org` | `UserPassword2026!` | `tenant_res_user` | **David & Sarah Chen**<br/>Eco-Residence hh-101 | Configured 2,400 sq ft smart home, linked Emporia Vue meter & Tesla EV charger, reduced vampire load by 25%, earned 2,800 EcoPoints |
+ 
+ ### How to Seed the Database
+ 
+ ```bash
+ # Option 1: Using the Frontend Seed Script
+ cd VerdantIQCLIENT
+ npm run seed
+ 
+ # Option 2: Using the REST API
+ curl -X POST http://localhost:3000/api/db/seed -H "Content-Type: application/json" -d "{\"reset\": true}"
+ ```
+ 
+ ---
+ 
+ ## Desktop (Electron) & Mobile (Android) Distributions
+ 
+ The platform is fully packaged for desktop and mobile environments beyond standard browser deployment:
+ 
+ ### Windows Desktop Application (Electron v44)
+ - **Pre-built Installers**: Located in [`Software/`](Software/):
+   - [`VerdantIQ 1.0.3.exe`](Software/VerdantIQ%201.0.3.exe) (NSIS Windows Installer)
+   - [`VerdantIQ-1.0.3-win.zip`](Software/VerdantIQ-1.0.3-win.zip) (Portable distribution)
+ - **Desktop Launcher**: Double-click [`script/start_electron_desktop.bat`](script/start_electron_desktop.bat) to launch the native desktop window connected to live cloud services.
+ - **Build from Source**:
+   ```bash
+   cd VerdantIQCLIENT
+   npm run desktop:build
+   ```
+ 
+ ### Android Mobile Application (Capacitor v8.5)
+ - **Pre-built APK**: [`Software/VerdantIQ-1.0.3-android-release-signed.apk`](Software/VerdantIQ-1.0.3-android-release-signed.apk)
+ - **Build from Source**: Run [`script/build_android_app.bat`](script/build_android_app.bat) to auto-detect the Android SDK, sync Capacitor web assets, and compile debug and release APKs via Gradle:
+   ```bash
+   script\build_android_app.bat
+   ```
+   Install on a connected device via ADB:
+   ```bash
+   adb install VerdantIQCLIENT\android\app\build\outputs\apk\debug\app-debug.apk
+   ```
 
 ---
 
@@ -650,13 +713,31 @@ spring:
 
 ## Running the Full System
 
-A startup helper document exists in the root of the repository:
+The repository provides automated startup scripts inside the [`script/`](script/) directory for both development and production operations.
 
-- [start up](start%20up)
+### Quick Start: Automated Multi-Service Launcher
 
-### Service Launch Commands
+To launch all 3 microservices simultaneously in separate console windows:
 
-Refer to the [`start up`](start%20up) document for complete instructions. Here are the core service commands:
+```cmd
+script\start_all.bat
+```
+
+This interactive launcher prompts for execution mode:
+- **`[1] Production Mode`**: Builds Next.js frontend, runs Spring Boot with `-Dspring.profiles.active=prod`, and starts Uvicorn production server.
+- **`[2] Development Mode`**: Launches Next.js dev server with Turbopack, Spring Boot with `local` profile, and Uvicorn with auto-reload.
+
+### Service Port Allocation & Live Cloud Deployments
+
+| Service | Architecture | Local Port | Live Cloud Deployment (Render) | Swagger / Health |
+| --- | --- | --- | --- | --- |
+| **Frontend Client** | Next.js 15 / React 19 | `http://localhost:3000` | [https://verdantiq-client.onrender.com](https://verdantiq-client.onrender.com) | `/api/health` |
+| **API Gateway** | Java 17 / Spring Boot 4.0.7 | `http://localhost:8080` | [https://verdantiq-sb-gateway.onrender.com](https://verdantiq-sb-gateway.onrender.com) | `/actuator/health` |
+| **ML Gateway** | Python 3.11 / FastAPI | `http://localhost:8000` | [https://verdantiq-ml-gateway.onrender.com](https://verdantiq-ml-gateway.onrender.com) | `/docs`, `/health` |
+
+### Manual Startup Sequence (Individual Services)
+
+If you prefer launching each microservice manually in separate terminals:
 
 ```powershell
 # 1. ML Gateway (FastAPI — Port 8000)
@@ -670,15 +751,6 @@ cd VerdantIQServices/sb-gateway
 # 3. Next.js Client (Port 3000)
 cd VerdantIQCLIENT
 npm run dev
-```
-
-### Manual Startup Sequence
-
-#### 1. Start ML Service
-
-```bash
-cd VerdantIQServices/ml-gateway
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 #### 2. Start Spring Boot Gateway
@@ -803,45 +875,56 @@ The ML service provides model-based intelligence to the broader system. It is in
 - support OCR and document workflows,
 - provide health and diagnostics endpoints.
 
-### Model Store
+### ML Gateway Endpoints
+
+| Endpoint Route | HTTP Method | Handler Module | Description & Capability |
+| --- | --- | --- | --- |
+| `/api/v1/forecast/predict` | `POST` | `endpoints/forecast.py` | Generates multi-horizon resource consumption forecasts using XGBoost |
+| `/api/v1/anomaly/detect` | `POST` | `endpoints/anomaly.py` | Detects outliers and consumption anomalies via IsolationForest |
+| `/api/v1/optimization/solve` | `POST` | `endpoints/optimization.py` | Solves Mixed-Integer Linear Programs (MILP SCIP) for carbon/cost weighting |
+| `/api/v1/ocr/extract` | `POST` | `endpoints/ocr.py` | Extracts text and tables from utility bills & documents using Tesseract OCR |
+| `/api/v1/llm/query` | `POST` | `endpoints/llm_gateway.py` | Multi-provider AI Omnibar query orchestrator (Gemini 2.4 & Groq) |
+| `/api/v1/mlops/models` | `GET`, `POST` | `endpoints/mlops.py` | Model registry management, retraining schedules, and canary deployments |
+| `/api/v1/audit/verify` | `POST` | `endpoints/audit.py` | Cryptographic data lineage node & proof validation |
+| `/health` | `GET` | `endpoints/health.py` | High-speed health diagnostic check |
+
+### Model Store Hierarchy
 
 ```text
 VerdantIQServices/ml-gateway/app/model_store/
 ├── forecast_v1.0.0/
-│   └── metadata.json
-├── forecast_v1.1.0/
-│   └── metadata.json
-```
-
-### Example ML Route Usage
-
-```bash
-curl -X GET "http://localhost:8000/health"
-```
-
-### FastAPI Docs
-
-Open the Swagger UI at:
-
-```text
-http://localhost:8000/docs
+│   ├── metadata.json       # Version, training metrics (MAE/RMSE), feature schema
+│   └── model.pkl           # Trained Scikit-Learn/XGBoost estimator
+└── forecast_v1.1.0/
+    ├── metadata.json       # Updated hyperparameter weights & seasonal features
+    └── model.pkl           # Retrained production candidate model
 ```
 
 ---
 
 ## Data and Persistence
 
-### Database Strategy
+### Database Strategy & 46 MongoDB Collections
 
-The project uses MongoDB as the core operational data store. This supports flexible document models for operational records, user data, institutional metadata, alerts, access rules, and workflow state.
+The system utilizes MongoDB Atlas (and local MongoDB) with database name `VerdantIQ` across **46 domain-separated collections**, organized by persona and operational governance:
+
+| Domain / Category | Collections | Key Entity Models (`com.verdantiq.gateway`) |
+| --- | --- | --- |
+| **System Governance & RBAC** | `users`, `rbacschemaroles`, `ratelimitrules`, `featureflags`, `accessgrants` | `User.java`, `RBACSchemaRole.java`, `RateLimitRule.java`, `FeatureFlag.java` |
+| **Regional Administration** | `institutions`, `domainoversightrecords`, `regionalpolicyconfigs`, `regionalbenchmarks`, `growthtrenddatapoints`, `sharedchallengetemplates`, `tenantrequests`, `supporttickets` | `InstitutionRecord.java`, `DomainOversightRecord.java`, `RegionalPolicyConfig.java`, `RegionalBenchmark.java` |
+| **Institutional Campus** | `geofencepolygons`, `institutiondepartmentrecords`, `executivereportschedules`, `accepteddomains`, `challengeapprovalitems`, `escalationresolutions` | `GeofencePolygon.java`, `InstitutionDepartmentRecord.java`, `ExecutiveReportSchedule.java` |
+| **Department Operations** | `subcohorts`, `studentregistryrecords`, `verificationitems`, `deptchallengetemplates`, `escalationcases` | `SubCohort.java`, `StudentRegistryRecord.java`, `VerificationItem.java`, `EscalationCase.java` |
+| **ESG Audit & Lineage** | `auditrequests`, `redactedauditlogs`, `dataflownodes`, `exportconfigs`, `AuditLogs`, `admin_audit_logs` | `AuditRequest.java`, `RedactedAuditLog.java`, `DataFlowNode.java`, `AuditLog.java` |
+| **MLOps & AI Tracking** | `ml_models`, `retrain_schedules`, `canary_deployments`, `ml_alert_rules`, `llm_routing_rules` | `MLModelRecord`, `RetrainSchedule`, `CanaryDeployment`, `AlertRule` |
+| **Student Ecosystem** | `digitaltwindorms`, `geofencedchallenges`, `academicprojects`, `communitydatas` | `DigitalTwinDorm.java`, `GeofencedChallenge.java`, `AcademicProject.java` |
+| **Residential Digital Twin** | `Households`, `linkeddevices`, `user_goals`, `user_reports`, `reward_items` | `DigitalTwinHouse.java`, `LinkedDevice.java`, `UserGoal.java`, `UserReport.java` |
+| **Activity Telemetry** | `activity_logs`, `systembroadcasts` | `ActivityLog.java`, `SystemBroadcast.java` |
 
 ### Persistence Principles
 
-- Domain-owned collections
-- document-oriented flexibility
-- scalable application data model
-- support for indexing and query optimization
-- explicit separation between operational and analytical state
+- **Tenant Isolation**: Strict tenant scoping (`tenant_id`) enforced across all documents to prevent cross-organization data leakage.
+- **Data Lineage Graphing**: Complete traceable path from hardware smart meter readings through OCR document intake to final ESG regulatory reports.
+- **Cryptographic Hash Chaining**: Immutable SHA-256 block hashing on audit entries to guarantee tamper-evident compliance.
 
 ### Data Flow Pattern
 
@@ -869,15 +952,18 @@ Authentication and authorization are critical for the system because different u
 - token validation in request processing,
 - role-aware access boundaries for dashboards and features.
 
-### Access Model
+### Access Model & RBAC Enforcement
 
-| Role | Typical Permissions |
-| --- | --- |
-| Admin | Full governance and operational oversight |
-| Department lead | Domain-level reporting and approval workflows |
-| Institution user | Institutional data and operations |
-| Student | Student-specific dashboard and workflows |
-| Support operator | Monitoring and incident response |
+| Role / Persona | Route Access | Typical Permissions & Security Context |
+| --- | --- | --- |
+| **`ADMIN`** | `/admin`, `/admin-dashboard` | Full system governance, RBAC schema manipulation, API gateway rate limiting, feature flag toggles, unredacted audit trails |
+| **`REGION`** | `/region`, `/region-dashboard` | Regional policy creation, net-zero EUI baseline management, inter-campus challenge templates, tenant onboarding approvals |
+| **`INSTITUTION`** | `/institution`, `/institution-dashboard` | Campus geofence polygon management, cross-department metric reviews, executive ISO 50001 PDF report deliveries, chiller bypass resolutions |
+| **`DEPT`** | `/dept`, `/dept-dashboard` | Department lab sub-cohort oversight, student proof photo inspections, EcoPoint allocations, equipment maintenance case escalation |
+| **`AUDIT`** | `/audit`, `/audit-dashboard` | Sub-meter data request audits, PII-scrubbed redacted log inspection, data lineage node validation, cryptographic SHA-256 hash checks |
+| **`MLOPS`** | `/mlops`, `/mlops-dashboard` | Model registry management, automated cron retraining, 90/10 canary traffic splitting, MILP SCIP optimization tuning |
+| **`STUDENT`** | `/student`, `/student-dashboard` | Dormitory digital twin monitoring, campus geofenced challenges, EcoAction logging with proof uploads, EcoPoint streak tracking |
+| **`HOUSEHOLD`** (`USER`) | `/dashboard`, `/household-dashboard` | Residential home digital twin, Emporia Vue smart meter & EV charger telemetry, vampire load reduction goals, reward marketplace |
 
 ### Recommended Best Practice
 
@@ -1429,13 +1515,13 @@ The architecture and documentation in this repository are intended to make it ea
 
 ## Repository Summary
 
-- Project: VerdantIQ Ecosphere
-- Type: AI-enabled web platform and operations system
-- Frontend: Next.js + React + TypeScript
-- Backend Gateway: Spring Boot + Java
-- ML Service: FastAPI + Python
-- Database: MongoDB
-- Auth Pattern: Firebase-style security and custom validation
-- Primary Purpose: institutional operations, governance, and AI-assisted decision support
+- **Project**: VerdantIQ Ecosphere
+- **Type**: Enterprise-grade AI operations, governance & digital twin multi-service ecosystem
+- **Frontend & Clients**: Next.js 15 (React 19, TypeScript, Tailwind CSS v4, Three.js) + Native Windows Desktop (Electron v44.5) + Native Mobile (Capacitor Android v8.5)
+- **UI Architecture**: Windows 11 Multi-Morphism Engine (Obsidian Glassmorphism, Neumorphism, Claymorphism, Material, Flat) + Command Palette (`Ctrl + K`) + Rotary Navigation
+- **Enterprise API Gateway**: Java 17 + Spring Boot 4.0.7 (15 domain subpackages, Actuator health, Spring Security JWT, Rate Limiting)
+- **ML Intelligence Gateway**: Python 3.11 + FastAPI (XGBoost forecasting, IsolationForest anomaly detection, MILP SCIP optimization, Tesseract OCR, Gemini/Groq LLM Gateway)
+- **Persistence Layer**: MongoDB Atlas / Local (`VerdantIQ`) spanning 46 collections with cryptographic SHA-256 audit chaining
+- **Pre-provisioned Personas**: 8 distinct roles (`ADMIN`, `REGION`, `INSTITUTION`, `DEPT`, `AUDIT`, `MLOPS`, `STUDENT`, `HOUSEHOLD`) with 206+ seeded real-world actions
 
-This README was prepared to meet a professional documentation standard for a modern software platform and to serve as a clear onboarding and operational reference for the repository.
+This README has been fully synchronized against the active codebase architecture, real package dependencies, and production deployment topologies.

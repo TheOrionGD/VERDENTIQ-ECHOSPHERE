@@ -44,21 +44,9 @@ export const WindowsAppHeader: React.FC = () => {
   } = useWindowsTheme();
   const { isListening, toggleListening, setIsVoiceOverlayOpen } = useVoiceCommand();
 
-  const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
-
-  const rolesList: { role: RoleType; label: string; icon: React.ElementType }[] = [
-    { role: 'user', label: 'Household Citizen', icon: Leaf },
-    { role: 'student', label: 'Campus Student', icon: GraduationCap },
-    { role: 'dept', label: 'Department Admin', icon: Layers },
-    { role: 'institution', label: 'Institution Admin', icon: Building2 },
-    { role: 'region', label: 'Regional District', icon: Globe },
-    { role: 'admin', label: 'Platform Executive', icon: ShieldCheck },
-    { role: 'mlops', label: 'MLOps Architect', icon: Cpu },
-    { role: 'audit', label: 'ESG Auditor', icon: ShieldCheck },
-  ];
 
   return (
     <div className="w-full flex items-center justify-between px-3 sm:px-6 py-2 border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md select-none font-segoe">
@@ -85,54 +73,10 @@ export const WindowsAppHeader: React.FC = () => {
         {/* Separator */}
         <div className="h-4 w-px bg-slate-800" />
 
-        {/* Windows Fluent Role Switcher Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => {
-              setIsRoleMenuOpen(!isRoleMenuOpen);
-              setIsAccountMenuOpen(false);
-            }}
-            className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-xs text-slate-200 transition-colors cursor-pointer"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-medium text-slate-100">{roleConfig.label}</span>
-            <ChevronDown className="h-3 w-3 text-slate-400" />
-          </button>
-
-          {isRoleMenuOpen && (
-            <div className="absolute top-9 left-0 w-64 rounded-xl win11-acrylic-surface border border-slate-700 p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-2.5 py-1.5 text-[10px] font-mono uppercase text-emerald-400 tracking-wider">
-                Select Active Workspace
-              </div>
-              <div className="space-y-0.5">
-                {rolesList.map((item) => {
-                  const Icon = item.icon;
-                  const isCurrent = user.role === item.role;
-                  return (
-                    <button
-                      key={item.role}
-                      onClick={() => {
-                        switchRole(item.role);
-                        setIsRoleMenuOpen(false);
-                        router.push(ROLE_CONFIGS[item.role].dashboardPath);
-                      }}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
-                        isCurrent
-                          ? 'bg-emerald-600/25 text-emerald-300 font-semibold border border-emerald-500/40'
-                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Icon className="h-3.5 w-3.5 text-emerald-400" />
-                        <span>{item.label}</span>
-                      </div>
-                      {isCurrent && <Check className="h-3.5 w-3.5 text-emerald-400" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+        {/* Current Authenticated Role Badge (Clean Production Display) */}
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-900/60 border border-slate-800 text-xs text-slate-200">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          <span className="font-medium text-slate-100">{roleConfig.label}</span>
         </div>
       </div>
 
@@ -207,7 +151,6 @@ export const WindowsAppHeader: React.FC = () => {
           <button
             onClick={() => {
               setIsAccountMenuOpen(!isAccountMenuOpen);
-              setIsRoleMenuOpen(false);
             }}
             className="flex items-center gap-1.5 pl-1.5 pr-2 py-1 rounded-md bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-colors cursor-pointer"
           >
