@@ -1,9 +1,10 @@
 {
   "name": "verdantiq-ecosphere",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "VerdantIQ Ecosphere Desktop Software",
   "author": {
-    "name": "theoriongd"
+    "name": "VerdantIQ Ecosphere",
+    "email": "support@verdantiq.org"
   },
   "private": true,
   "main": "electron/main.js",
@@ -18,7 +19,7 @@
     "seed": "node scripts/seed_database.js",
     "electron": "electron .",
     "electron:dev": "electron .",
-    "electron:build": "electron-builder --win",
+    "electron:build": "cross-env WIN_CSC_LINK=certs/verdantiq-signing.pfx WIN_CSC_KEY_PASSWORD=VerdantIQ2026! electron-builder --win",
     "desktop:dev": "npm run electron",
     "desktop:build": "npm run electron:build",
     "android:sync": "cap sync android",
@@ -29,7 +30,7 @@
   "build": {
     "appId": "com.verdantiq.ecosphere",
     "productName": "VerdantIQ",
-    "copyright": "Copyright © 2026 theoriongd",
+    "copyright": "Copyright © 2026 VerdantIQ Ecosphere",
     "icon": "build/icon.ico",
     "directories": {
       "output": "dist"
@@ -41,6 +42,12 @@
     ],
     "win": {
       "icon": "build/icon.ico",
+      "cscLink": "certs/verdantiq-signing.pfx",
+      "cscKeyPassword": "${env.WIN_CSC_KEY_PASSWORD:-VerdantIQ2026!}",
+      "signtoolOptions": {
+        "publisherName": "VerdantIQ"
+      },
+      "verifyUpdateCodeSignature": false,
       "target": [
         "nsis",
         "portable",
@@ -51,7 +58,7 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
-      "allowElevation": true,
+      "allowElevation": false,
       "multiLanguageInstaller": false,
       "license": "build/license.txt",
       "installerSidebar": "build/installerSidebar.bmp",
@@ -105,6 +112,7 @@
     "@next/eslint-plugin-next": "^16.3.8",
     "@types/canvas-confetti": "^1.9.0",
     "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
     "electron": "^44.5.1",
     "electron-builder": "^26.15.3",
     "wait-on": "^9.5.1"

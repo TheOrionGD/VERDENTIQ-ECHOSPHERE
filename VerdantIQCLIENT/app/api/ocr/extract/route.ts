@@ -132,14 +132,15 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Try Local FastAPI ML-Gateway OCR fallback (running on port 8000)
+    // Try Local FastAPI ML-Gateway OCR fallback
     try {
       const buffer = Buffer.from(base64Data, 'base64');
       const formData = new FormData();
       const blob = new Blob([buffer], { type: mimeType || 'image/jpeg' });
       formData.append('file', blob, 'upload.jpg');
 
-      const mlRes = await fetch('http://localhost:8000/api/v1/ocr/extract', {
+      const mlBaseUrl = process.env.ML_SERVICE_URL || 'https://verdantiq-ml-gateway.onrender.com';
+      const mlRes = await fetch(`${mlBaseUrl}/api/v1/ocr/extract`, {
         method: 'POST',
         body: formData,
       });

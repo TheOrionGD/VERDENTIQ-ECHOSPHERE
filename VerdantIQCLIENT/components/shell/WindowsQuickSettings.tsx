@@ -213,7 +213,7 @@ export const WindowsQuickSettings: React.FC = () => {
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
             <span>Privacy Policy & Ethics</span>
           </Link>
-          <span className="text-[10px] text-slate-400 font-mono">v1.0.5</span>
+          <span className="text-[10px] text-slate-400 font-mono">v1.0.6</span>
         </div>
       </div>
     </div>

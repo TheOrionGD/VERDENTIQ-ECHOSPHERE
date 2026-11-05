@@ -86,7 +86,8 @@ export async function GET(req: NextRequest) {
 
     // 1. Try to fetch live physical telemetry from FastAPI ML-gateway
     try {
-      const mlRes = await fetch(`http://localhost:8000/api/v1/dept/substation/telemetry?department_id=${departmentId}`, {
+      const mlBaseUrl = process.env.ML_SERVICE_URL || 'https://verdantiq-ml-gateway.onrender.com';
+      const mlRes = await fetch(`${mlBaseUrl}/api/v1/dept/substation/telemetry?department_id=${departmentId}`, {
         cache: 'no-store',
       });
       if (mlRes.ok) {
@@ -138,7 +139,8 @@ export async function POST(req: NextRequest) {
 
     // Forward IoT command to ML-Gateway
     try {
-      const mlRes = await fetch('http://localhost:8000/api/v1/dept/substation/iot-command', {
+      const mlBaseUrl = process.env.ML_SERVICE_URL || 'https://verdantiq-ml-gateway.onrender.com';
+      const mlRes = await fetch(`${mlBaseUrl}/api/v1/dept/substation/iot-command`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

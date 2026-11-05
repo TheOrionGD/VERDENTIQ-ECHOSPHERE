@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     JWT_EXPIRATION_MS: int = 86400000
     MONGODB_URI: str = ""
     MONGODB_DB_NAME: str = "VerdantIQ"
-    GATEWAY_URL: str = "http://localhost:8080"
-    ML_SERVICE_URL: str = "http://localhost:8000"
+    GATEWAY_URL: str = "https://verdantiq-sb-gateway.onrender.com"
+    ML_SERVICE_URL: str = "https://verdantiq-ml-gateway.onrender.com"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
