@@ -119,14 +119,15 @@ export default function DesignSystemPage() {
     },
   ];
 
-  const sampleData = [
-    { id: '1', name: 'Chiller Unit #3', building: 'Life Sciences B', co2: '48.2 kg/hr', status: 'Warning' },
-    { id: '2', name: 'Rooftop Solar Alpha', building: 'Engineering Quad', co2: '0.0 kg/hr', status: 'Optimal' },
-    { id: '3', name: 'Main Substation S1', building: 'Campus Grid', co2: '122.5 kg/hr', status: 'Optimal' },
-    { id: '4', name: 'Hydraulics Water Manifold', building: 'Central Plant', co2: '3.1 kg/hr', status: 'Maintenance' },
-  ];
+  interface AssetRecord {
+    id: string;
+    name: string;
+    building: string;
+    co2: string;
+    status: 'Optimal' | 'Warning' | 'Maintenance';
+  }
 
-  const tableColumns: Column<typeof sampleData[0]>[] = [
+  const tableColumns: Column<AssetRecord>[] = [
     { key: 'name', header: 'System Asset / Control', sortable: true },
     { key: 'building', header: 'Location Node', sortable: true },
     { key: 'co2', header: 'Emissions Metric', sortable: true },
@@ -381,9 +382,11 @@ export default function DesignSystemPage() {
 
             <DataTable
               columns={tableColumns}
-              data={sampleData}
+              data={[] as AssetRecord[]}
               searchKey="name"
               searchPlaceholder="Filter system assets..."
+              emptyTitle="No system assets configured"
+              emptyDescription="Asset telemetry streams will appear here once registered."
             />
           </div>
         </section>

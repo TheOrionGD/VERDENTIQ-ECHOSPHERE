@@ -14,7 +14,7 @@ import java.util.Enumeration;
 @Service
 public class ProxyService {
 
-    @Value("${verdantiq.ml-service-url:https://verdantiq-ml-gateway.onrender.com}")
+    @Value("${verdantiq.ml-service-url:http://localhost:8000}")
     private String mlServiceUrl;
 
     @Value("${verdantiq.internal-service-key:txXAWT1rwc43vCeDWTot36HRysaDHzrouNC7wGr2juW9oHWOH0Dfh6BUH9XaJlDH}")

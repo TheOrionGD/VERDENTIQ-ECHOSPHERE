@@ -46,40 +46,9 @@ function TenantStatusContent() {
           // ignore
         }
       }
-      return {
-        refId: targetRef,
-        orgType: 'institution',
-        orgName: 'Pacific Northwest Environmental Institute',
-        selectedRegion: 'West Coast District Board',
-        domains: ['pnei.edu', 'pne-institute.org'],
-        adminContact: {
-          name: 'Dr. Helena Vance',
-          email: 'h.vance@pnei.edu',
-          title: 'Chief Sustainability Officer',
-        },
-        geofence: { latitude: '47.6062', longitude: '-122.3321', radiusKm: '2.5' },
-        reviewRouter: 'Regional Admin (West Coast District Board)',
-        status: 'pending',
-        submittedAt: new Date().toISOString(),
-      };
     }
 
-    return {
-      refId: 'TR-849201',
-      orgType: 'institution',
-      orgName: 'Pacific Northwest Environmental Institute',
-      selectedRegion: 'West Coast District Board',
-      domains: ['pnei.edu', 'pne-institute.org'],
-      adminContact: {
-        name: 'Dr. Helena Vance',
-        email: 'h.vance@pnei.edu',
-        title: 'Chief Sustainability Officer',
-      },
-      geofence: { latitude: '47.6062', longitude: '-122.3321', radiusKm: '2.5' },
-      reviewRouter: 'Regional Admin (West Coast District Board)',
-      status: 'pending',
-      submittedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    };
+    return null;
   });
 
   const [currentStatus, setCurrentStatus] = useState<'pending' | 'approved' | 'rejected'>(
@@ -95,29 +64,13 @@ function TenantStatusContent() {
         setAppData(parsed);
         setCurrentStatus(parsed.status || 'pending');
       } catch (e) {
-        // Fallback
+        setAppData(null);
       }
     } else {
-      const fallback = {
-        refId,
-        orgType: 'institution',
-        orgName: 'Pacific Northwest Environmental Institute',
-        selectedRegion: 'West Coast District Board',
-        domains: ['pnei.edu', 'pne-institute.org'],
-        adminContact: {
-          name: 'Dr. Helena Vance',
-          email: 'h.vance@pnei.edu',
-          title: 'Chief Sustainability Officer',
-        },
-        geofence: { latitude: '47.6062', longitude: '-122.3321', radiusKm: '2.5' },
-        reviewRouter: 'Regional Admin (West Coast District Board)',
-        status: 'pending',
-        submittedAt: new Date().toISOString(),
-      };
-      setAppData(fallback);
-      setCurrentStatus('pending');
+      setAppData(null);
+      toast.error('Application Not Found', `No tenant onboarding record found for reference ${refId}`);
     }
-  }, []);
+  }, [toast]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,7 +146,14 @@ function TenantStatusContent() {
       </div>
 
       {/* Application Status Card */}
-      {appData && (
+      {!appData ? (
+        <div className="bg-stone-900/80 border border-stone-800 rounded-3xl p-8 text-center text-stone-400 space-y-2">
+          <p className="text-sm font-semibold text-stone-200">No application reference loaded</p>
+          <p className="text-xs text-stone-500">
+            Enter your Tenant Request Reference ID above or submit a new institutional onboarding application.
+          </p>
+        </div>
+      ) : (
         <div className="bg-stone-900/90 border border-emerald-800/40 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-6">
           {/* Header Status Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-800">

@@ -34,7 +34,7 @@ export const VoiceCommandWidget: React.FC = () => {
     setInputVal('');
   };
 
-  const SAMPLE_COMMANDS = [
+  const SUPPORTED_VOICE_COMMANDS = [
     { label: 'Go to Dashboard', cmd: 'go to dashboard', icon: Navigation, category: 'Navigation' },
     { label: 'Dark Mode', cmd: 'turn on dark mode', icon: Zap, category: 'Appearance' },
     { label: 'Switch to Admin View', cmd: 'switch role to admin', icon: Shield, category: 'System Role' },
@@ -213,7 +213,7 @@ export const VoiceCommandWidget: React.FC = () => {
         <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
           <p className="text-[11px] text-stone-400">Click any voice preset to execute immediately:</p>
           <div className="grid grid-cols-1 gap-1.5">
-            {SAMPLE_COMMANDS.map((item, idx) => {
+            {SUPPORTED_VOICE_COMMANDS.map((item, idx) => {
               const IconComp = item.icon;
               return (
                 <button

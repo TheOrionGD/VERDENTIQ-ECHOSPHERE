@@ -5,12 +5,24 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId');
+    const userEmail = searchParams.get('email');
+    const role = searchParams.get('role');
 
     const db = await getMongoDb();
     if (db) {
       const col = db.collection('activity_logs');
-      const query = userId ? { userId } : {};
-      const logs = await col.find(query).sort({ timestamp: -1 }).limit(50).toArray();
+      let query: any = {};
+      if (userEmail) {
+        query.userEmail = userEmail;
+      } else if (userId) {
+        query.$or = [{ userId }, { householdId: userId }];
+      } else if (role === 'student') {
+        query.userEmail = 'student@institution.org';
+      } else if (role === 'household' || role === 'user') {
+        query.userEmail = 'user@verdantiq.org';
+      }
+
+      const logs = await col.find(query).sort({ timestamp: -1 }).limit(100).toArray();
       return NextResponse.json({ success: true, activityLogs: logs });
     }
 

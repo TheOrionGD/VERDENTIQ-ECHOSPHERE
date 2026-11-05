@@ -7,35 +7,6 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { FileCheck, CheckCircle2, XCircle, Terminal, Building, Clock, ShieldCheck, Loader2, Cpu } from 'lucide-react';
 
-const INITIAL_SAMPLE_REQUESTS: TenantRequest[] = [
-  {
-    id: 'TR-849201',
-    institutionName: 'Pacific Northwest Environmental Institute',
-    applicantName: 'Dr. Helena Vance',
-    applicantEmail: 'h.vance@pnei.edu',
-    domainRequested: 'pnei.edu',
-    regionDistrict: 'West Coast District Board',
-    estimatedStudents: 14200,
-    accreditationDoc: 'PNEI_Institutional_Accreditation_2026.pdf',
-    status: 'pending',
-    submittedAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    notes: 'BMS protocol: BACnet/IP. Seeking multi-campus regional telemetry integration.',
-  },
-  {
-    id: 'TR-719342',
-    institutionName: 'Bay Area Clean Energy Academy',
-    applicantName: 'Prof. Julian Thorne',
-    applicantEmail: 'j.thorne@bacleanenergy.edu',
-    domainRequested: 'bacleanenergy.edu',
-    regionDistrict: 'District 1: Bay Area North',
-    estimatedStudents: 8500,
-    accreditationDoc: 'BACEA_State_Accreditation_Certificate.pdf',
-    status: 'pending',
-    submittedAt: new Date(Date.now() - 86400000 * 4).toISOString(),
-    notes: 'Rooftop solar and microgrid battery telemetry ready for ingestion.',
-  },
-];
-
 export default function RegionalTenantRequestsPage() {
   const [requests, setRequests] = useState<TenantRequest[]>(() => {
     if (typeof window !== 'undefined') {
@@ -43,7 +14,7 @@ export default function RegionalTenantRequestsPage() {
         const stored = localStorage.getItem('verdantiq_tenant_requests');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
             return parsed;
           }
         }
@@ -51,7 +22,7 @@ export default function RegionalTenantRequestsPage() {
         // Fallback
       }
     }
-    return INITIAL_SAMPLE_REQUESTS;
+    return [];
   });
 
   const [processingId, setProcessingId] = useState<string | null>(null);

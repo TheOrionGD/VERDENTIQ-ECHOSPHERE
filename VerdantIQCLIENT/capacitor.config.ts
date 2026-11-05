@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'VerdantIQ',
   webDir: 'public',
   server: {
-    url: process.env.CAPACITOR_SERVER_URL || 'https://verdantiq-client.onrender.com',
+    url: process.env.CAPACITOR_SERVER_URL || 'http://localhost:3000',
     cleartext: true,
     androidScheme: 'https',
   },

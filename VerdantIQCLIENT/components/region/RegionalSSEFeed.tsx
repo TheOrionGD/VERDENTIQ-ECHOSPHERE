@@ -13,34 +13,37 @@ export const RegionalSSEFeed: React.FC = () => {
   useEffect(() => {
     if (!isLive) return;
 
-    const interval = setInterval(() => {
-      const mockEvents = [
-        {
-          type: 'BENCHMARK_UPDATE' as const,
-          institutionName: 'Pacific State University',
-          message: 'Real-time telemetry pulse received: EUI 112.1 kBtu/sqft.',
-          severity: 'success' as const,
-        },
-        {
-          type: 'FORECAST_DRIFT' as const,
-          institutionName: 'West Coast Institute of Technology',
-          message: 'HVAC load variance detected in Science Wing C (+4.2% error drift).',
-          severity: 'warning' as const,
-        },
-        {
-          type: 'SPRING_PROVISION' as const,
-          institutionName: 'Cascade Maritime University',
-          message: 'Spring Boot database index optimization task executed successfully.',
-          severity: 'info' as const,
-        },
-      ];
+    // Connect to genuine Server-Sent Events stream
+    let eventSource: EventSource | null = null;
+    try {
+      eventSource = new EventSource('/api/notifications/stream');
+      eventSource.onmessage = (event) => {
+        try {
+          const parsed = JSON.parse(event.data);
+          if (parsed && parsed.title) {
+            const mappedEvent: RegionalSSEEvent = {
+              id: parsed.id || Date.now().toString(),
+              timestamp: parsed.timestamp || new Date().toLocaleTimeString(),
+              type: 'BENCHMARK_UPDATE',
+              institutionName: parsed.location || 'Regional Node',
+              message: parsed.description || parsed.title,
+              severity: parsed.severity === 'critical' ? 'critical' : parsed.severity === 'warning' ? 'warning' : 'success',
+            };
+            setEvents((prev) => [mappedEvent, ...prev.slice(0, 19)]);
+          }
+        } catch {
+          // ignore parsing error
+        }
+      };
+    } catch {
+      // EventSource not supported or failed
+    }
 
-      const chosen = mockEvents[Math.floor(Math.random() * mockEvents.length)];
-      const newEv = { ...chosen, id: Date.now().toString(), timestamp: new Date().toISOString() };
-      setEvents((prev) => [newEv, ...prev.slice(0, 19)]);
-    }, 6000);
-
-    return () => clearInterval(interval);
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
   }, [isLive]);
 
   const filteredEvents = severityFilter === 'all'

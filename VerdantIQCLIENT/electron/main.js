@@ -55,7 +55,7 @@ function createWindow() {
     },
   });
 
-  const appUrl = process.env.ELECTRON_START_URL || process.env.APP_URL || 'https://verdantiq-client.onrender.com';
+  const appUrl = process.env.ELECTRON_START_URL || process.env.APP_URL || 'http://localhost:3000';
 
   mainWindow.loadURL(appUrl).catch((err) => {
     console.error('Failed to load initial URL:', err);

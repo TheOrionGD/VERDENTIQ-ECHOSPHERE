@@ -19,48 +19,29 @@ import {
   Globe,
 } from 'lucide-react';
 
+export interface DormLeaderboardRow {
+  rank: number;
+  name: string;
+  members: string;
+  score: number;
+  carbonKg: number;
+  badge: string;
+}
+
+export interface ClubItem {
+  id: string;
+  name: string;
+  department: string;
+  membersCount: number;
+  mentor: string;
+  description: string;
+  joined: boolean;
+}
+
 export default function StudentCommunityPage() {
   const [activeTab, setActiveTab] = useState<'dorm' | 'cohort' | 'department'>('dorm');
-
-  const dormLeaderboard = [
-    { rank: 1, name: 'Founders Hall Room 412', members: 'Marcus C. & Alex K.', score: 94.2, carbonKg: -45.8, badge: 'Gold Microgrid' },
-    { rank: 2, name: 'Science Quad Dorm B', members: 'Elena R. & Priya S.', score: 91.0, carbonKg: -38.2, badge: 'Silver Solar' },
-    { rank: 3, name: 'Founders Hall Room 304 (You)', members: 'Marcus Chen', score: 88.2, carbonKg: -32.5, badge: 'Bronze Vanguard' },
-    { rank: 4, name: 'West Tower Room 108', members: 'David L. & Tom H.', score: 82.5, carbonKg: -28.0, badge: 'Green Node' },
-    { rank: 5, name: 'International House Quad', members: 'Chen W. & Fatima A.', score: 79.1, carbonKg: -24.3, badge: 'Green Node' },
-  ];
-
-  const clubsAndGroups = [
-    {
-      id: 'club_1',
-      name: 'CS Green Compute & AI Optimization Club',
-      department: 'Computer Science',
-      membersCount: 42,
-      mentor: 'Dr. Aris Thorne',
-      description: 'Focusing on energy-efficient neural network inference, GPU power capping, and carbon-aware batch job scheduling.',
-      joined: true,
-    },
-    {
-      id: 'club_2',
-      name: 'Campus Microgrid & Solar Study Group',
-      department: 'Electrical Engineering',
-      membersCount: 28,
-      mentor: 'Prof. Elena Vance',
-      description: 'Hands-on analysis of Founders Hall solar inverter telemetry and battery discharge modeling.',
-      joined: false,
-    },
-    {
-      id: 'club_3',
-      name: 'Inter-Dorm Eco-Ambassadors Quad',
-      department: 'Campus Sustainability',
-      membersCount: 65,
-      mentor: 'Sophia Sterling',
-      description: 'Organizing zero-waste dining drives, inter-dorm cup energy audits, and cafeteria compost tracking.',
-      joined: false,
-    },
-  ];
-
-  const [clubsState, setClubsState] = useState(clubsAndGroups);
+  const [dormLeaderboard, setDormLeaderboard] = useState<DormLeaderboardRow[]>([]);
+  const [clubsState, setClubsState] = useState<ClubItem[]>([]);
 
   const toggleJoinClub = (id: string) => {
     setClubsState((prev) =>
@@ -136,25 +117,33 @@ export default function StudentCommunityPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 font-sans">
-                {dormLeaderboard.map((row) => (
-                  <tr
-                    key={row.rank}
-                    className={`transition-colors ${
-                      row.name.includes('(You)') ? 'bg-emerald-50/80 font-bold text-emerald-950' : 'hover:bg-stone-50'
-                    }`}
-                  >
-                    <td className="p-3 pl-6 font-mono font-bold">
-                      {row.rank === 1 ? '🥇 #1' : row.rank === 2 ? '🥈 #2' : row.rank === 3 ? '🥉 #3' : `#${row.rank}`}
-                    </td>
-                    <td className="p-3">{row.name}</td>
-                    <td className="p-3 text-stone-500 font-mono">{row.members}</td>
-                    <td className="p-3 text-right font-mono font-bold text-emerald-800">{row.score}</td>
-                    <td className="p-3 text-right font-mono text-stone-700">{row.carbonKg} kg</td>
-                    <td className="p-3 pr-6 text-right">
-                      <Badge variant={row.rank <= 3 ? 'emerald' : 'stone'} size="xs">{row.badge}</Badge>
+                {dormLeaderboard.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="p-8 text-center text-stone-500 font-mono text-xs">
+                      No dorm entries active in leaderboard yet. Data synchronizes from verified campus energy telemetry.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  dormLeaderboard.map((row) => (
+                    <tr
+                      key={row.rank}
+                      className={`transition-colors ${
+                        row.name.includes('(You)') ? 'bg-emerald-50/80 font-bold text-emerald-950' : 'hover:bg-stone-50'
+                      }`}
+                    >
+                      <td className="p-3 pl-6 font-mono font-bold">
+                        {row.rank === 1 ? '🥇 #1' : row.rank === 2 ? '🥈 #2' : row.rank === 3 ? '🥉 #3' : `#${row.rank}`}
+                      </td>
+                      <td className="p-3">{row.name}</td>
+                      <td className="p-3 text-stone-500 font-mono">{row.members}</td>
+                      <td className="p-3 text-right font-mono font-bold text-emerald-800">{row.score}</td>
+                      <td className="p-3 text-right font-mono text-stone-700">{row.carbonKg} kg</td>
+                      <td className="p-3 pr-6 text-right">
+                        <Badge variant={row.rank <= 3 ? 'emerald' : 'stone'} size="xs">{row.badge}</Badge>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </CardContent>
@@ -168,42 +157,48 @@ export default function StudentCommunityPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {clubsState.map((club) => (
-              <Card key={club.id} className="border border-stone-200 bg-white/90 shadow-xs flex flex-col justify-between">
-                <CardHeader className="border-b border-stone-100 pb-3">
-                  <Badge variant="stone" size="xs">{club.department}</Badge>
-                  <CardTitle className="text-sm font-bold text-stone-900 mt-1">{club.name}</CardTitle>
-                </CardHeader>
+            {clubsState.length === 0 ? (
+              <div className="col-span-full p-8 text-center text-stone-500 font-mono text-xs border border-dashed border-stone-300 rounded-2xl bg-white/60">
+                No peer study groups or green clubs listed yet. Use the action button above to register an initiative.
+              </div>
+            ) : (
+              clubsState.map((club) => (
+                <Card key={club.id} className="border border-stone-200 bg-white/90 shadow-xs flex flex-col justify-between">
+                  <CardHeader className="border-b border-stone-100 pb-3">
+                    <Badge variant="stone" size="xs">{club.department}</Badge>
+                    <CardTitle className="text-sm font-bold text-stone-900 mt-1">{club.name}</CardTitle>
+                  </CardHeader>
 
-                <CardContent className="pt-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
-                  <p className="text-stone-600 leading-relaxed">{club.description}</p>
+                  <CardContent className="pt-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
+                    <p className="text-stone-600 leading-relaxed">{club.description}</p>
 
-                  <div className="pt-2 border-t border-stone-100 space-y-1 font-mono text-[11px] text-stone-500">
-                    <div>Faculty Mentor: <strong className="text-emerald-900">{club.mentor}</strong></div>
-                    <div>Active Members: <strong className="text-stone-800">{club.membersCount} students</strong></div>
-                  </div>
+                    <div className="pt-2 border-t border-stone-100 space-y-1 font-mono text-[11px] text-stone-500">
+                      <div>Faculty Mentor: <strong className="text-emerald-900">{club.mentor}</strong></div>
+                      <div>Active Members: <strong className="text-stone-800">{club.membersCount} students</strong></div>
+                    </div>
 
-                  <Button
-                    onClick={() => toggleJoinClub(club.id)}
-                    variant={club.joined ? 'outline' : 'primary'}
-                    size="sm"
-                    className="w-full gap-1.5 text-xs cursor-pointer"
-                  >
-                    {club.joined ? (
-                      <>
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Member Enrolled</span>
-                      </>
-                    ) : (
-                      <>
-                        <UserPlus className="h-3.5 w-3.5" />
-                        <span>Join Club / Request Invite</span>
-                      </>
-                    )}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                    <Button
+                      onClick={() => toggleJoinClub(club.id)}
+                      variant={club.joined ? 'outline' : 'primary'}
+                      size="sm"
+                      className="w-full gap-1.5 text-xs cursor-pointer"
+                    >
+                      {club.joined ? (
+                        <>
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                          <span>Member Enrolled</span>
+                        </>
+                      ) : (
+                        <>
+                          <UserPlus className="h-3.5 w-3.5" />
+                          <span>Join Club / Request Invite</span>
+                        </>
+                      )}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </div>

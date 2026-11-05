@@ -647,6 +647,70 @@ const VERIFICATION_ITEMS_DATA = [
     status: 'PENDING',
     reviewedBy: null,
     reviewedAt: null,
+  },
+  {
+    id: 'ver-05',
+    deptId: 'dept-cs-01',
+    tenantId: 'tenant_institution_org',
+    studentEmail: 'student@institution.org',
+    studentName: 'Maya Lin',
+    actionType: 'CAMPUS_SOLAR_BIKE_COMMUTE',
+    description: 'Avoided vehicle transit with 10 round trips on solar-charged campus e-bike',
+    proofImageUri: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?auto=format&fit=crop&w=600&q=80',
+    proofImageHash: 'sha256:f12a8848b9409825b2984576391d8e62d471549429184d0d3cb16281897e93c1',
+    calculatedKwh: 18.2,
+    pointsAwarded: 180,
+    status: 'APPROVED',
+    reviewedBy: 'dept@institution.org',
+    reviewedAt: daysAgo(14),
+  },
+  {
+    id: 'ver-06',
+    deptId: 'dept-cs-01',
+    tenantId: 'tenant_institution_org',
+    studentEmail: 'liam.chen@institution.org',
+    studentName: 'Liam Chen',
+    actionType: 'DORM_ECO_THERMOSTAT_SETBACK',
+    description: 'Maintained 20C nighttime setback across 14-day study period',
+    proofImageUri: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=600&q=80',
+    proofImageHash: 'sha256:88e040efbe7fb62f3ab710a36e9ff00d23862660d0fb92f584483754e6015b3c',
+    calculatedKwh: 24.0,
+    pointsAwarded: 220,
+    status: 'APPROVED',
+    reviewedBy: 'dept@institution.org',
+    reviewedAt: daysAgo(28),
+  },
+  {
+    id: 'ver-07',
+    deptId: 'dept-cs-01',
+    tenantId: 'tenant_institution_org',
+    studentEmail: 'student@institution.org',
+    studentName: 'Maya Lin',
+    actionType: 'LAB_GPU_CLUSTER_SLEEP_SCHEDULE',
+    description: 'Enacted idle GPU sleep schedule saving 68 kWh during midterm break',
+    proofImageUri: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+    proofImageHash: 'sha256:90a36b4e0bf90f1e8e25b0ff124d6d6fb05d9c240974b6f1ea4b20a32e1858a2',
+    calculatedKwh: 68.0,
+    pointsAwarded: 450,
+    status: 'APPROVED',
+    reviewedBy: 'dept@institution.org',
+    reviewedAt: daysAgo(42),
+  },
+  {
+    id: 'ver-08',
+    deptId: 'dept-cs-01',
+    tenantId: 'tenant_institution_org',
+    studentEmail: 'aisha.patel@institution.org',
+    studentName: 'Aisha Patel',
+    actionType: 'CAMPUS_ZERO_WASTE_REUSABLE_CUP',
+    description: 'Completed 60 consecutive days of zero-single-use container dining verification',
+    proofImageUri: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
+    proofImageHash: 'sha256:a18c8d8b4e87ff0a21d1b827dfb38740529d28e7e1744b82d4924c2317be9ef2',
+    calculatedKwh: 15.0,
+    pointsAwarded: 150,
+    status: 'APPROVED',
+    reviewedBy: 'dept@institution.org',
+    reviewedAt: daysAgo(56),
   }
 ];
 
@@ -979,8 +1043,8 @@ const REWARD_ITEMS_DATA = [
    ========================================================================= */
 const ACTIVITY_LOGS_DATA = [];
 
-// Seed 30 days of performed activity logs for Maya Lin (Student)
-for (let i = 30; i >= 1; i--) {
+// Seed 60 days (past 2 months) of performed activity logs for Maya Lin (Student)
+for (let i = 60; i >= 1; i--) {
   const kwh = +(2.0 + Math.random() * 3.5).toFixed(2);
   const carbon = +(kwh * 0.42).toFixed(2);
   const usd = +(kwh * 0.22).toFixed(2);
@@ -990,12 +1054,14 @@ for (let i = 30; i >= 1; i--) {
     'Campus Stairway Commute (Diverted Elevator)',
     'Cold Wash Laundry in Dorm Village',
     'Double-Sided Digital Note Taking',
-    'Solar E-Bike Campus Commute'
+    'Solar E-Bike Campus Commute',
+    'Smart Plug Power Strip Shutdown at Midnight',
+    'Campus Green Coding Optimization Challenge'
   ];
   const chosenAction = actions[i % actions.length];
 
   ACTIVITY_LOGS_DATA.push({
-    id: `act-stu-${31 - i}`,
+    id: `act-stu-${61 - i}`,
     householdId: 'dorm-room-304B',
     tenantId: 'tenant_institution_org',
     userEmail: 'student@institution.org',
@@ -1009,8 +1075,8 @@ for (let i = 30; i >= 1; i--) {
   });
 }
 
-// Seed 30 days of performed activity logs for David & Sarah Chen (Household)
-for (let i = 30; i >= 1; i--) {
+// Seed 60 days (past 2 months) of performed activity logs for David & Sarah Chen (Household)
+for (let i = 60; i >= 1; i--) {
   const kwh = +(6.5 + Math.random() * 8.0).toFixed(2);
   const carbon = +(kwh * 0.42).toFixed(2);
   const usd = +(kwh * 0.24).toFixed(2);
@@ -1020,12 +1086,14 @@ for (let i = 30; i >= 1; i--) {
     'Off-Peak Level 2 EV Overnight Smart Charging (2 AM - 5 AM)',
     'Solar Battery Peak Load Shifting to Grid',
     'Heat Pump Water Heater Eco Mode Schedule',
-    'Phantom Standby Power Purge via Smart Plugs'
+    'Phantom Standby Power Purge via Smart Plugs',
+    'Washing Machine Cold Eco Wash Cycle',
+    'Solar PV Surplus Inverter Export'
   ];
   const chosenAction = actions[i % actions.length];
 
   ACTIVITY_LOGS_DATA.push({
-    id: `act-hh-${31 - i}`,
+    id: `act-hh-${61 - i}`,
     householdId: 'hh-101',
     tenantId: 'tenant_res_user',
     userEmail: 'user@verdantiq.org',

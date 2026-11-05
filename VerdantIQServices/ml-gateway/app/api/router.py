@@ -1,11 +1,14 @@
 from fastapi import APIRouter, Depends
 from app.core.security import verify_internal_service_key
-from app.api.endpoints import health, ocr, forecast, anomaly, optimization, mlops, llm_gateway, institution, audit
+from app.api.endpoints import health, ocr, forecast, anomaly, optimization, mlops, llm_gateway, institution, audit, substation
 
 api_router = APIRouter()
 
 # Health doesn't need auth, but if we want to enforce strictly on EVERYTHING:
 api_router.include_router(health.router, tags=["health"])
+
+# Substation & IoT telemetry endpoint accessible for live polling
+api_router.include_router(substation.router, prefix="/dept", tags=["substation_iot"])
 
 # Group all authenticated routes
 protected_router = APIRouter(dependencies=[Depends(verify_internal_service_key)])

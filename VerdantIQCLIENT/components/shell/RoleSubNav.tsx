@@ -50,6 +50,7 @@ import {
   Settings,
   CheckCircle,
   BarChart3,
+  CloudRain,
 } from 'lucide-react';
 
 export const RoleSubNav: React.FC = () => {
@@ -83,6 +84,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'RBAC Schema', path: '/admin/rbac-schema', icon: KeyRound },
       { label: 'Access Grants', path: '/admin/access-grants', icon: Clock },
       { label: 'Broadcasts', path: '/admin/broadcasts', icon: Radio },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isMlopsRoute) {
     title = 'MLOps Operations';
@@ -98,6 +100,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Canary Rollout', path: '/mlops/canary', icon: Flame },
       { label: 'Fallback Console', path: '/mlops/fallback-console', icon: Radio },
       { label: 'Governance', path: '/mlops/settings', icon: Settings },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isAuditRoute) {
     title = 'Compliance & Research';
@@ -113,6 +116,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Data Lineage Flow', path: '/audit/data-flow', icon: Layers },
       { label: 'Fairness Reports', path: '/audit/fairness-reports', icon: Scale },
       { label: 'Retention Policies', path: '/audit/settings', icon: Settings },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isDeptRoute) {
     title = 'Department Administration';
@@ -127,6 +131,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Analytics & Baselines', path: '/dept/analytics', icon: BarChart3 },
       { label: 'Reports & Export', path: '/dept/reports', icon: FileText },
       { label: 'Settings & Geofence', path: '/dept/settings', icon: Settings },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isInstitutionRoute) {
     title = 'Institution Administration';
@@ -141,6 +146,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Verify', path: '/institution/verify', icon: CheckCircle },
       { label: 'Reports', path: '/institution/reports', icon: FileText },
       { label: 'Settings', path: '/institution/settings', icon: Settings },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isRegionRoute) {
     title = 'Regional District Governance';
@@ -155,6 +161,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Analytics', path: '/region/analytics', icon: BarChart3 },
       { label: 'Settings', path: '/region/settings', icon: Settings },
       { label: 'Students', path: '/region/students', icon: GraduationCap },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else if (isStudentRoute) {
     title = 'Student Campus Portal';
@@ -170,6 +177,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Research Projects', path: '/student/academic-projects', icon: GraduationCap },
       { label: 'Campus Rewards', path: '/student/rewards', icon: Gift },
       { label: 'Activity Log', path: '/student/history', icon: History },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   } else {
     title = 'Household Suite';
@@ -185,6 +193,7 @@ export const RoleSubNav: React.FC = () => {
       { label: 'Devices', path: '/user/devices', icon: Smartphone },
       { label: 'History & CSV', path: '/user/history', icon: History },
       { label: 'Rewards Catalog', path: '/user/rewards', icon: Gift },
+      { label: 'Climate Platform', path: '/climate', icon: CloudRain },
     ];
   }
 

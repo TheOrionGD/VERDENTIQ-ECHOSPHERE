@@ -15,7 +15,7 @@ public class TelemetryAggregatorService {
     @Value("${server.port:8080}")
     private String serverPort;
 
-    @Value("${verdantiq.ml-service-url:https://verdantiq-ml-gateway.onrender.com}")
+    @Value("${verdantiq.ml-service-url:http://localhost:8000}")
     private String mlServiceUrl;
 
     public TelemetryData getTelemetry() {
@@ -27,7 +27,7 @@ public class TelemetryAggregatorService {
         Map<String, Object> gatewayService = new HashMap<>();
         gatewayService.put("name", "Spring Boot Gateway");
         try {
-            String healthUrl = "https://verdantiq-sb-gateway.onrender.com/actuator/health";
+            String healthUrl = "http://localhost:" + serverPort + "/actuator/health";
             Map healthResponse = restTemplate.getForObject(healthUrl, Map.class);
             gatewayService.put("status", healthResponse != null ? healthResponse.get("status") : "UNKNOWN");
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class TelemetryAggregatorService {
 
         // Actuator Metrics via HTTP
         try {
-            String memUrl = "https://verdantiq-sb-gateway.onrender.com/actuator/metrics/jvm.memory.used";
+            String memUrl = "http://localhost:" + serverPort + "/actuator/metrics/jvm.memory.used";
             Map memResponse = restTemplate.getForObject(memUrl, Map.class);
             Map<String, Object> memoryMetric = new HashMap<>();
             memoryMetric.put("name", "jvm.memory.used");
