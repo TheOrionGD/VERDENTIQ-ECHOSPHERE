@@ -21,8 +21,18 @@ export default function Footer() {
               Connect operations, uncover predictive machine learning intelligence, and make mathematically grounded sustainable decisions with VerdantIQ Ecosphere.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="#platform" className="btn-primary" style={{ background: '#FFFFFF', color: '#123D32', borderColor: '#FFFFFF' }}>
-                <span>Explore VerdantIQ</span>
+              <a 
+                href="https://verdantiq-client.onrender.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-primary" 
+                style={{ background: '#FFFFFF', color: '#123D32', borderColor: '#FFFFFF' }}
+              >
+                <span>Launch Live Web Platform</span>
+                <ArrowUpRight size={16} />
+              </a>
+              <a href="#downloads" className="btn-secondary" style={{ color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.4)' }}>
+                <span>Download Desktop & App</span>
                 <ArrowRight size={16} />
               </a>
               <a href="#architecture" className="btn-secondary" style={{ color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.4)' }}>

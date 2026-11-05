@@ -125,16 +125,29 @@ export default function DownloadSection() {
             </div>
           </div>
 
-          <a 
-            href={RELEASE_URL}
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="btn-secondary"
-            style={{ fontSize: '0.88rem', padding: '0.6rem 1.2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-          >
-            <span>View Release on GitHub</span>
-            <ExternalLink size={15} />
-          </a>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <a 
+              href="https://verdantiq-client.onrender.com"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-primary"
+              style={{ fontSize: '0.88rem', padding: '0.6rem 1.2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <span>Launch Live Web Platform</span>
+              <ExternalLink size={15} />
+            </a>
+
+            <a 
+              href={RELEASE_URL}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-secondary"
+              style={{ fontSize: '0.88rem', padding: '0.6rem 1.2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <span>View on GitHub</span>
+              <ExternalLink size={15} />
+            </a>
+          </div>
         </div>
 
         {/* Assets Grid */}
