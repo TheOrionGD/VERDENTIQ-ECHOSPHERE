@@ -1,0 +1,89 @@
+/* Design System Variables for VerdantIQ Ecosphere */
+:root {
+  /* Brand Palette */
+  --color-primary-forest: #123D32;
+  --color-secondary-eco: #267A58;
+  --color-intelligent-lime: #A6D96A;
+  --color-lime-dim: rgba(166, 217, 106, 0.16);
+  --color-lime-glow: rgba(166, 217, 106, 0.35);
+  --color-midnight: #0A1F2C;
+
+  /* Light Theme (Default) */
+  --bg-primary: #F7F8F4;
+  --bg-secondary: #FFFFFF;
+  --bg-elevated: #EFF2EA;
+  --bg-card: #FFFFFF;
+  --bg-terminal: #0B1915;
+  --bg-terminal-bar: #102520;
+  --border-light: #DCE8DF;
+  --border-strong: #BDD3C3;
+  --border-dashed: #CBDDD0;
+
+  --text-primary: #17221E;
+  --text-secondary: #52615C;
+  --text-muted: #7E9088;
+  --text-inverse: #FFFFFF;
+  --text-terminal: #D5E5DE;
+  --text-terminal-muted: #7E9A90;
+
+  --accent-green: #267A58;
+  --accent-lime: #84C043;
+  --accent-lime-bg: #EAF7DC;
+  --tag-bg: #EAF0EC;
+  --tag-border: #D1E1D6;
+
+  --nav-bg: rgba(247, 248, 244, 0.88);
+  --nav-border: rgba(220, 232, 223, 0.9);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(18, 61, 50, 0.05);
+  --shadow-md: 0 4px 14px rgba(18, 61, 50, 0.08);
+  --shadow-lg: 0 12px 32px rgba(18, 61, 50, 0.1);
+  --shadow-terminal: 0 24px 60px rgba(7, 26, 22, 0.45);
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Layout */
+  --container-max: 1320px;
+  --container-narrow: 1040px;
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Theme Overrides */
+[data-theme='dark'] {
+  --bg-primary: #081A17;
+  --bg-secondary: #102923;
+  --bg-elevated: #163B30;
+  --bg-card: #102923;
+  --bg-terminal: #071512;
+  --bg-terminal-bar: #0D221D;
+  --border-light: #1D453B;
+  --border-strong: #2A5A4E;
+  --border-dashed: #204C40;
+
+  --text-primary: #F2F7F4;
+  --text-secondary: #9DB4AB;
+  --text-muted: #6B837A;
+  --text-inverse: #081A17;
+  --text-terminal: #E0EFE8;
+  --text-terminal-muted: #6B8B80;
+
+  --accent-green: #37A277;
+  --accent-lime: #A6D96A;
+  --accent-lime-bg: rgba(166, 217, 106, 0.12);
+  --tag-bg: #14352D;
+  --tag-border: #1F4C40;
+
+  --nav-bg: rgba(8, 26, 23, 0.9);
+  --nav-border: rgba(29, 69, 59, 0.85);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+  --shadow-terminal: 0 24px 70px rgba(0, 0, 0, 0.7);
+}
+

@@ -1,0 +1,372 @@
+/* =========================================================================
+   COMPREHENSIVE CSS ANIMATION & INTERACTION SYSTEM FOR VERDANTIQ ECOSPHERE
+   ========================================================================= */
+
+:root {
+  /* Precision Motion Durations */
+  --motion-instant: 120ms;
+  --motion-fast: 220ms;
+  --motion-normal: 400ms;
+  --motion-editorial: 750ms;
+  --motion-cinematic: 1100ms;
+
+  /* Cubic-Bezier Curves */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);       /* Deceleration overshoot */
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);          /* Layout morph */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);/* Elastic micro-pop */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-sharp: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* GPU Composite Acceleration */
+.gpu-accel {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* =========================================================================
+   1. ADVANCED TYPOGRAPHY: CHARACTER & WORD SCROLL REVEALS
+   ========================================================================= */
+
+/* Character Animation Initial State */
+.anim-char {
+  transform: translateY(120%) rotate(5deg);
+  opacity: 0;
+  filter: blur(8px);
+  transition: transform 0.65s var(--ease-editorial),
+              opacity 0.65s var(--ease-editorial),
+              filter 0.65s var(--ease-editorial);
+  will-change: transform, opacity, filter;
+}
+
+/* Word Animation Initial State */
+.anim-word {
+  transform: translateY(115%);
+  opacity: 0;
+  filter: blur(6px);
+  transition: transform 0.75s var(--ease-editorial),
+              opacity 0.75s var(--ease-editorial),
+              filter 0.75s var(--ease-editorial);
+  will-change: transform, opacity, filter;
+}
+
+/* Revealed State on Scroll Detection */
+.animated-text-container.is-revealed .anim-char {
+  transform: translateY(0%) rotate(0deg);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.animated-text-container.is-revealed .anim-word {
+  transform: translateY(0%);
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* Masked Vertical Slide (Overflow Hidden Parent + Child Span) */
+.text-mask-wrapper {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.text-mask-line {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  transition: transform var(--motion-editorial) var(--ease-editorial),
+              opacity var(--motion-editorial) var(--ease-editorial);
+}
+
+.text-mask-wrapper.is-visible .text-mask-line,
+.is-visible .text-mask-line {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+/* Blur-to-Focus Text Reveal */
+.text-blur-reveal {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(20px);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              filter var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.text-blur-reveal.is-visible,
+.is-visible .text-blur-reveal {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
+}
+
+/* Stagger Delay Matrix */
+.delay-1 { transition-delay: 50ms !important; }
+.delay-2 { transition-delay: 100ms !important; }
+.delay-3 { transition-delay: 150ms !important; }
+.delay-4 { transition-delay: 200ms !important; }
+.delay-5 { transition-delay: 250ms !important; }
+.delay-6 { transition-delay: 300ms !important; }
+.delay-7 { transition-delay: 350ms !important; }
+.delay-8 { transition-delay: 400ms !important; }
+
+/* Interactive Hover Underline */
+.editorial-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.editorial-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-intelligent-lime);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--motion-normal) var(--ease-editorial);
+}
+
+.editorial-underline:hover::after,
+.editorial-underline.active::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Shimmering Text Gradient Animation */
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer-effect {
+  background: linear-gradient(90deg, var(--color-primary-forest) 0%, var(--color-intelligent-lime) 50%, var(--color-primary-forest) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 6s linear infinite;
+}
+
+/* =========================================================================
+   2. SCROLL REVEAL MOTION SUITE (IntersectionObserver Triggered)
+   ========================================================================= */
+
+/* Fade & Slide Up */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale & Fade In (Cards, Badges, Visuals) */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Lateral Slide Reveals */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger Children Container */
+.stagger-container > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--motion-editorial) var(--ease-editorial),
+              transform var(--motion-editorial) var(--ease-editorial);
+}
+
+.stagger-container.is-visible > *:nth-child(1) { transition-delay: 50ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(3) { transition-delay: 150ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(4) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(5) { transition-delay: 250ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(6) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(7) { transition-delay: 350ms; opacity: 1; transform: translateY(0); }
+.stagger-container.is-visible > *:nth-child(8) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+
+/* =========================================================================
+   3. CARD & COMPONENT HOVER MICRO-INTERACTIONS
+   ========================================================================= */
+
+/* 3D Glassmorphic Elevated Card Hover */
+.hover-lift {
+  transition: transform var(--motion-fast) var(--ease-editorial),
+              box-shadow var(--motion-fast) var(--ease-editorial),
+              border-color var(--motion-fast) var(--ease-editorial);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(18, 61, 50, 0.16);
+  border-color: var(--color-secondary-eco);
+}
+
+[data-theme='dark'] .hover-lift:hover {
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.6), 0 0 20px rgba(166, 217, 106, 0.12);
+  border-color: var(--color-intelligent-lime);
+}
+
+/* Card Glow Accent */
+.hover-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(166, 217, 106, 0.12), transparent);
+  transition: left 0.6s var(--ease-editorial);
+}
+
+.hover-glow:hover::before {
+  left: 100%;
+}
+
+/* Interactive Button Arrow Motion */
+.btn-motion {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--motion-fast) var(--ease-editorial),
+              background-color var(--motion-fast) var(--ease-editorial),
+              box-shadow var(--motion-fast) var(--ease-editorial);
+}
+
+.btn-motion:hover {
+  transform: translateY(-2px);
+}
+
+.btn-motion:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.btn-motion .btn-icon {
+  transition: transform var(--motion-fast) var(--ease-editorial);
+}
+
+.btn-motion:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+/* Subtle Icon Rotation */
+.icon-rotate-hover {
+  transition: transform var(--motion-fast) var(--ease-editorial);
+}
+
+.icon-rotate-hover:hover {
+  transform: rotate(45deg);
+}
+
+/* =========================================================================
+   4. PRODUCT-SPECIFIC CONTINUOUS TELEMETRY ANIMATIONS
+   ========================================================================= */
+
+/* Pulsing Status Badges & Active Live Daemons */
+@keyframes status-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(166, 217, 106, 0.75);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 9px rgba(166, 217, 106, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(166, 217, 106, 0);
+  }
+}
+
+.pulse-active {
+  animation: status-pulse 2.2s var(--ease-smooth) infinite;
+}
+
+/* Continuous SVG Stroke Flow */
+@keyframes flow-line {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animated-dash-line {
+  stroke-dasharray: 6 3;
+  animation: flow-line 1.6s linear infinite;
+}
+
+/* Ambient Floating Keyframe */
+@keyframes ambient-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-ambient {
+  animation: ambient-float 4.5s ease-in-out infinite;
+}
+
+/* =========================================================================
+   5. ACCESSIBILITY: REDUCED MOTION SAFEGUARDS
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-up,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right,
+  .text-blur-reveal,
+  .stagger-container > *,
+  .anim-char,
+  .anim-word {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
