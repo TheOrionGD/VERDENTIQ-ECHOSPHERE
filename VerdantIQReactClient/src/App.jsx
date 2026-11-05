@@ -23,6 +23,7 @@ import ArchitectureDiagram from './components/ArchitectureDiagram';
 import IntelligencePipeline from './components/IntelligencePipeline';
 import SecuritySection from './components/SecuritySection';
 import PlatformShowcase from './components/PlatformShowcase';
+import DownloadSection from './components/DownloadSection';
 import WorkflowSection from './components/WorkflowSection';
 import TechStack from './components/TechStack';
 import Roadmap from './components/Roadmap';
@@ -129,6 +130,9 @@ export default function App() {
 
         {/* SECTION 14: Cross-Platform Ecosystem */}
         <PlatformShowcase />
+
+        {/* SECTION 14B: Official Downloads & Release Assets */}
+        <DownloadSection />
 
         {/* SECTION 15: Connected Workflow */}
         <WorkflowSection />

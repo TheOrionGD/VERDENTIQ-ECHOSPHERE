@@ -27,6 +27,7 @@ export default function Navbar({ theme, toggleTheme }) {
         <nav>
           <ul className="nav-links">
             <li><a href="#platform" className="nav-link">Platform</a></li>
+            <li><a href="#downloads" className="nav-link">Downloads</a></li>
             <li><a href="#personas" className="nav-link">Personas</a></li>
             <li><a href="#intelligence" className="nav-link">Intelligence</a></li>
             <li><a href="#morphism" className="nav-link">Morphism</a></li>
@@ -66,6 +67,7 @@ export default function Navbar({ theme, toggleTheme }) {
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <a href="#platform" onClick={() => setMobileMenuOpen(false)} className="nav-link">Platform</a>
+          <a href="#downloads" onClick={() => setMobileMenuOpen(false)} className="nav-link">Downloads</a>
           <a href="#personas" onClick={() => setMobileMenuOpen(false)} className="nav-link">Personas</a>
           <a href="#intelligence" onClick={() => setMobileMenuOpen(false)} className="nav-link">Intelligence</a>
           <a href="#morphism" onClick={() => setMobileMenuOpen(false)} className="nav-link">Morphism Engine</a>
