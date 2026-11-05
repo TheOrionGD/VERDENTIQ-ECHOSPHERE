@@ -144,6 +144,7 @@ This project is designed for developers who care about maintainability, clarity,
 - [28. Roadmap](#roadmap)
 - [29. FAQ](#faq)
 - [30. License](#license)
+- [31. Appendix: System Figures and Architecture Diagrams](#appendix-system-figures-and-architecture-diagrams)
 
 ---
 
@@ -1099,6 +1100,11 @@ The project is built around layered validation to ensure quality from the UI to 
 ### Validation Commands
 
 ```bash
+# Codebase zero-mock / zero-placeholder policy audit
+node script/scan_seed_mock_data.js
+node script/scan_seed_mock_data.js --strict
+
+# Frontend validation
 cd VerdantIQCLIENT
 npx tsc --noEmit
 npm run build
@@ -1455,19 +1461,24 @@ The work currently emphasizes:
 
 ---
 
-## Appendix: Screenshots and Product UI Placeholders
+## Appendix: System Figures and Architecture Diagrams
 
-The following placeholders are reserved for product documentation and demo screenshots.
+The repository includes high-resolution captures of the live production interface, model performance curves, and operational workflows under the [`figures/`](figures/) directory:
 
-```markdown
-![Dashboard Overview](docs/screenshots/dashboard-overview.png)
-![Institution Analytics](docs/screenshots/institution-analytics.png)
-![Admin Security View](docs/screenshots/admin-security-view.png)
-![ML Ops Console](docs/screenshots/mlops-console.png)
-![Notification Center](docs/screenshots/notifications.png)
-```
-
-Add these assets under a `docs/screenshots/` directory to keep product documentation visually rich and release-ready.
+| Capture Ref | Feature / View | Description | File Link |
+| --- | --- | --- | --- |
+| **Figure B.1** | Authentication & Persona Portal | Multi-role gateway with biometric/JWT auth and MongoDB cluster state | [`figures/B.1 Login Page.png`](figures/B.1%20Login%20Page.png) |
+| **Figure B.2** | Spatial Canvas Home | Three.js 3D interactive digital twin campus map & dynamic lighting | [`figures/B.2 Spatial Canvas Home.png`](figures/B.2%20Spatial%20Canvas%20Home.png) |
+| **Figure B.3** | Institutional Executive Suite | EUI benchmarking, carbon intensity, and cross-department telemetry | [`figures/B.3 Institution Executive Dashboard.png`](figures/B.3%20Institution%20Executive%20Dashboard.png) |
+| **Figure B.4** | Department Verification Queue | Multi-sensor IoT telemetry verification and student eco-action approval | [`figures/B.4 Department Verification Queue.png`](figures/B.4%20Department%20Verification%20Queue.png) |
+| **Figure B.5** | Auditor Redacted Ledger | Zero-Knowledge encrypted compliance trail with SHA-256 chain validation | [`figures/B.5 Auditor Redacted Ledger.png`](figures/B.5%20Auditor%20Redacted%20Ledger.png) |
+| **Figure B.6** | MLOps Registry & Pareto Curve | XGBoost inference latency vs accuracy Pareto frontier and drift metrics | [`figures/B.6 MLOps Model Registry and Pareto Curve.png`](figures/B.6%20MLOps%20Model%20Registry%20and%20Pareto%20Curve.png) |
+| **Figure B.7** | Student Digital Twin Dashboard | Lightweight dorm energy modeling, peer leaderboard, and SDG badges | [`figures/B.7 Student Digital Twin Dashboard.png`](figures/B.7%20Student%20Digital%20Twin%20Dashboard.png) |
+| **Figure B.8** | Household Resource Dashboard | Smart meter solar self-consumption, TOU EV charging, and carbon scores | [`figures/B.8 Household Dashboard.png`](figures/B.8%20Household%20Dashboard.png) |
+| **Figure B.9** | Regional Governance & Admin | Inter-institutional EUI compliance choropleth and Spring Boot orchestrator | [`figures/B.9 Admin and Regional Dashboards.png`](figures/B.9%20Admin%20and%20Regional%20Dashboards.png) |
+| **Figure B.10** | Groq & Gemini AI Omnibar | Sub-second LPU reasoning agent and multimodal carbon analysis | [`figures/B.10 Groq AI Omnibar.png`](figures/B.10%20Groq%20AI%20Omnibar.png) |
+| **Figure 9.1** | ML Model Performance Results | MAPE, RMSE, R² comparison across XGBoost, LightGBM, and baseline models | [`figures/9.1 ML Model Performance Results.png`](figures/9.1%20ML%20Model%20Performance%20Results.png) |
+| **Figure 9.2** | Experimental Results of EcoSphere | End-to-end grid peak shaving, telemetry throughput, and latency bounds | [`figures/9.2 Experimental Results of EcoSphere.png`](figures/9.2%20Experimental%20Results%20of%20EcoSphere.png) |
 
 ---
 
@@ -1476,6 +1487,9 @@ Add these assets under a `docs/screenshots/` directory to keep product documenta
 ### Core Commands
 
 ```bash
+# Audit codebase for zero-placeholder compliance
+node script/scan_seed_mock_data.js
+
 # frontend
 cd VerdantIQCLIENT && npm install && npm run dev
 
